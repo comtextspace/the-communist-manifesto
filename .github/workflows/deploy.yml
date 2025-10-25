@@ -30,11 +30,9 @@ jobs:
 
       - name: Install dependencies
         if: steps.yarn-cache.outputs.cache-hit != 'true'
-        working-directory: builder
         run: yarn --frozen-lockfile
 
       - name: Build pages
-        working-directory: builder
         run: node ./index.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
