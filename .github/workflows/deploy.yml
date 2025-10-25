@@ -22,7 +22,7 @@ jobs:
         id: yarn-cache
         with:
           path: |
-            builder/node_modules
+            node_modules
             /home/runner/.cache/yarn/v6
           key: ${{ runner.os }}-yarn-builder-${{ hashFiles('yarn.lock') }}
           restore-keys: |
