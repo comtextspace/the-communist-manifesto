@@ -322,6 +322,7 @@
         /* Мобильная версия с переключением языков для каждого абзаца */
         .mobile-paragraph-group {
             display: none;
+            flex-direction: column;
             background-color: var(--column-bg);
             border-radius: 8px;
             padding: 12px;
@@ -330,6 +331,7 @@
 
         .mobile-paragraph-content {
             display: none;
+            flex-shrink: 0;
         }
 
         .mobile-paragraph-content.active {
@@ -346,6 +348,7 @@
             justify-content: flex-start;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+            flex-shrink: 0;
         }
 
         .mobile-lang-btn {
@@ -380,25 +383,29 @@
         }
 
         .mobile-paragraph-content .paragraph {
-            background-color: transparent;
-            padding: 0;
-            margin: 0;
-            min-height: auto;
-            cursor: default;
+            background-color: transparent !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            min-height: auto !important;
+            cursor: default !important;
+            box-shadow: none !important;
+            height: auto !important;
         }
 
         .mobile-paragraph-content .paragraph:hover {
-            transform: none;
-            box-shadow: none;
+            transform: none !important;
+            box-shadow: none !important;
         }
         
         .mobile-paragraph-content .paragraph-text {
-            padding: 0;
-            margin: 0;
+            padding: 0 !important;
+            margin: 0 !important;
+            flex: none !important;
         }
         
         .mobile-paragraph-content .paragraph-number {
-            margin-bottom: 8px;
+            margin-bottom: 8px !important;
+            opacity: 0.4;
         }
 
         @media (max-width: 768px) {
@@ -409,7 +416,7 @@
 
             /* Показываем мобильную версию */
             .mobile-paragraph-group {
-                display: block;
+                display: flex !important;
             }
             
             .container {
@@ -460,6 +467,19 @@
             .tg-link {
                 padding: 6px 12px;
                 font-size: 13px;
+            }
+            
+            /* Переопределяем стили абзацев для мобильной версии */
+            .mobile-paragraph-group .paragraph {
+                background-color: transparent !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                min-height: 0 !important;
+                height: auto !important;
+            }
+            
+            .mobile-paragraph-group .paragraph-text {
+                min-height: 0 !important;
             }
         }
 
