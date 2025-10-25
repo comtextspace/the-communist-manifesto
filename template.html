@@ -503,19 +503,6 @@
                 height: auto !important;
                 overflow: visible !important;
             }
-            
-            /* Стили для всплывающих подсказок на мобильном */
-            .footnote-popup {
-                position: fixed !important;
-                left: 20px !important;
-                right: 20px !important;
-                bottom: 20px !important;
-                top: auto !important;
-                width: auto !important;
-                max-width: none !important;
-                transform: none !important;
-                z-index: 10000 !important;
-            }
         }
 
         .sync-indicator {
@@ -570,18 +557,15 @@
             border: 2px solid #007bff;
             border-radius: 8px;
             padding: 12px 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            z-index: 10000;
-            min-width: 200px;
-            max-width: calc(100vw - 40px);
-            width: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 100000 !important;
+            min-width: 250px;
+            max-width: 400px;
+            width: 300px;
             font-size: 14px;
             line-height: 1.4;
             color: var(--text-color);
             display: none;
-            left: 20px !important;
-            right: 20px !important;
-            transform: none !important;
         }
 
         /* Стили для Markdown элементов */
@@ -897,16 +881,15 @@
             if (footnote) {
                 popup.textContent = footnote.text;
                 
-                // Добавляем всплывающее окно к body, а не к ссылке
-                document.body.appendChild(popup);
-                
-                // Позиционируем всплывающее окно
                 const link = event.target;
                 const rect = link.getBoundingClientRect();
                 
+                // Всегда добавляем к body с position: fixed для корректного z-index
+                document.body.appendChild(popup);
+                popup.style.position = 'fixed';
+                
                 // На мобильных устройствах показываем по центру внизу
                 if (window.innerWidth <= 768) {
-                    popup.style.position = 'fixed';
                     popup.style.left = '20px';
                     popup.style.right = '20px';
                     popup.style.bottom = '20px';
@@ -915,15 +898,13 @@
                     popup.style.transform = 'none';
                 } else {
                     // На десктопе показываем над ссылкой
-                    popup.style.position = 'fixed';
                     const popupWidth = 300;
                     let left = rect.left + (rect.width / 2) - (popupWidth / 2);
                     
-                    // Проверяем, не выходит ли за правый край
+                    // Проверяем границы экрана
                     if (left + popupWidth > window.innerWidth - 20) {
                         left = window.innerWidth - popupWidth - 20;
                     }
-                    // Проверяем, не выходит ли за левый край
                     if (left < 20) {
                         left = 20;
                     }
