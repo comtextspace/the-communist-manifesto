@@ -43,6 +43,6 @@ jobs:
         with:
           target_branch: gh-pages
           build_dir: dist
-          # fqdn: ${{ inputs.url }}
+          fqdn: the-communist-manifesto.comtext.space
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
