@@ -322,22 +322,65 @@
             }
         }
 
+        /* Мобильная версия с переключением языков для каждого абзаца */
+        .mobile-paragraph-group {
+            display: none;
+            background-color: var(--column-bg);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .mobile-lang-switcher {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .mobile-lang-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mobile-lang-btn.active {
+            background-color: var(--button-bg);
+            color: white;
+            border-color: var(--button-bg);
+        }
+
+        .mobile-lang-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .mobile-paragraph-content {
+            display: none;
+        }
+
+        .mobile-paragraph-content.active {
+            display: block;
+        }
+
         @media (max-width: 768px) {
-            .parallel-text.columns-2,
-            .parallel-text.columns-3,
-            .parallel-text.columns-4,
-            .parallel-text.columns-5 {
-                grid-template-columns: 1fr;
+            /* Скрываем десктопную версию */
+            .parallel-text {
+                display: none !important;
             }
-            
-            .parallel-text.columns-3 .language-column:nth-child(3),
-            .parallel-text.columns-4 .language-column:nth-child(3),
-            .parallel-text.columns-4 .language-column:nth-child(4),
-            .parallel-text.columns-5 .language-column:nth-child(3),
-            .parallel-text.columns-5 .language-column:nth-child(4),
-            .parallel-text.columns-5 .language-column:nth-child(5) {
-                grid-column: 1;
-                margin-top: 0;
+
+            /* Показываем мобильную версию */
+            .mobile-paragraph-group {
+                display: block;
             }
             
             .header-content {
@@ -547,6 +590,11 @@
 
         <div class="parallel-text" id="parallel-text">
             {{LANGUAGE_COLUMNS}}
+        </div>
+
+        <!-- Мобильная версия с переключателями языков -->
+        <div id="mobile-view">
+            {{MOBILE_PARAGRAPHS}}
         </div>
     </div>
 
@@ -843,11 +891,52 @@
             setTimeout(syncParagraphHeights, 100);
         }
 
+        // Функция переключения языка в мобильном виде
+        function switchMobileLang(paragraphNum, lang) {
+            const group = document.querySelector(`.mobile-paragraph-group[data-paragraph="${paragraphNum}"]`);
+            if (!group) return;
+
+            // Убираем active со всех кнопок и контентов в этой группе
+            const buttons = group.querySelectorAll('.mobile-lang-btn');
+            const contents = group.querySelectorAll('.mobile-paragraph-content');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Добавляем active к выбранным
+            const selectedBtn = group.querySelector(`.mobile-lang-btn[data-lang="${lang}"]`);
+            const selectedContent = group.querySelector(`.mobile-paragraph-content[data-lang="${lang}"]`);
+            
+            if (selectedBtn) selectedBtn.classList.add('active');
+            if (selectedContent) selectedContent.classList.add('active');
+
+            // Сохраняем выбор пользователя для этого абзаца
+            const savedChoices = JSON.parse(localStorage.getItem('mobileLangChoices') || '{}');
+            savedChoices[paragraphNum] = lang;
+            localStorage.setItem('mobileLangChoices', JSON.stringify(savedChoices));
+        }
+
+        // Инициализация мобильного вида
+        function initMobileView() {
+            const savedChoices = JSON.parse(localStorage.getItem('mobileLangChoices') || '{}');
+            const allLanguages = {{ALL_LANGUAGES}};
+            const defaultLang = allLanguages[0];
+
+            document.querySelectorAll('.mobile-paragraph-group').forEach(group => {
+                const paragraphNum = group.getAttribute('data-paragraph');
+                const savedLang = savedChoices[paragraphNum] || defaultLang;
+                
+                // Активируем сохраненный или первый язык
+                switchMobileLang(paragraphNum, savedLang);
+            });
+        }
+
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
             loadTheme(); // Загружаем сохраненную тему
             loadColumnState();
             updateColumnVisibility();
+            initMobileView(); // Инициализируем мобильный вид
             
             // Синхронизируем высоты при изменении размера окна
             window.addEventListener('resize', syncParagraphHeights);

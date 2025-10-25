@@ -429,6 +429,63 @@ function generateLanguageColumns(languages) {
 }
 
 /**
+ * Генерирует HTML для мобильной версии с переключателями языков
+ */
+function generateMobileParagraphs(languages) {
+    const langCodes = Object.keys(languages);
+    const maxParagraphs = Math.max(...Object.values(languages).map(lang => lang.paragraphs.length));
+    
+    let html = '';
+    
+    // Для каждого абзаца создаем группу с переключателями
+    for (let i = 0; i < maxParagraphs; i++) {
+        const paragraphNum = i + 1;
+        
+        // Генерируем кнопки переключения языков
+        const languageButtons = langCodes.map(langCode => {
+            const language = languages[langCode];
+            const baseLang = language.baseLang || langCode;
+            const flag = LANGUAGE_FLAGS[baseLang] || '🌐';
+            
+            // Проверяем, есть ли этот абзац в данном языке
+            if (i < language.paragraphs.length) {
+                return `<button class="mobile-lang-btn" data-lang="${langCode}" onclick="switchMobileLang(${paragraphNum}, '${langCode}')">${flag} ${language.name}</button>`;
+            }
+            return '';
+        }).filter(btn => btn).join('\n                ');
+        
+        // Генерируем контент для каждого языка
+        const languageContents = langCodes.map(langCode => {
+            const language = languages[langCode];
+            
+            // Проверяем, есть ли этот абзац в данном языке
+            if (i < language.paragraphs.length) {
+                return `
+                    <div class="mobile-paragraph-content" data-lang="${langCode}">
+                        <div class="paragraph" data-paragraph="${paragraphNum}">
+                            <div class="paragraph-number">${paragraphNum}</div>
+                            <div class="paragraph-text">
+                                ${language.paragraphs[i]}
+                            </div>
+                        </div>
+                    </div>`;
+            }
+            return '';
+        }).filter(content => content).join('\n');
+        
+        html += `
+            <div class="mobile-paragraph-group" data-paragraph="${paragraphNum}">
+                <div class="mobile-lang-switcher">
+                    ${languageButtons}
+                </div>
+                ${languageContents}
+            </div>`;
+    }
+    
+    return html;
+}
+
+/**
  * Генерирует CSS для выравнивания абзацев
  */
 function generateParagraphAlignmentCSS(maxParagraphs) {
@@ -483,6 +540,7 @@ function generateHTML() {
         '{{HEADER_CONTENT}}': config.header,
         '{{COLUMN_CONTROLS}}': generateColumnControls(languages),
         '{{LANGUAGE_COLUMNS}}': generateLanguageColumns(languages),
+        '{{MOBILE_PARAGRAPHS}}': generateMobileParagraphs(languages),
         '{{VISIBLE_COLUMNS}}': JSON.stringify(defaultVisibleColumns),
         '{{ALL_LANGUAGES}}': JSON.stringify(langCodes),
         '{{PARAGRAPH_NUMBERS}}': `[${paragraphNumbers}]`,
