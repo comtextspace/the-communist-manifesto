@@ -435,7 +435,7 @@ function generateLanguageColumns(languages) {
 }
 
 /**
- * Генерирует HTML для мобильной версии с переключателями языков
+ * Генерирует HTML для мобильной версии без кнопок в абзацах
  */
 function generateMobileParagraphs(languages) {
     const langCodes = Object.keys(languages);
@@ -443,25 +443,9 @@ function generateMobileParagraphs(languages) {
     
     let html = '';
     
-    // Для каждого абзаца создаем группу с переключателями
+    // Для каждого абзаца создаем группу контента (без кнопок)
     for (let i = 0; i < maxParagraphs; i++) {
         const paragraphNum = i + 1;
-        
-        // Генерируем кнопки переключения языков
-        const languageButtons = langCodes.map(langCode => {
-            const language = languages[langCode];
-            const baseLang = language.baseLang || langCode;
-            const flag = LANGUAGE_FLAGS[baseLang] || '🌐';
-            
-            // Проверяем, есть ли этот абзац в данном языке
-            if (i < language.paragraphs.length) {
-                // Используем buttonName из файла (после символа #)
-                const buttonText = language.buttonName ? `${flag} ${language.buttonName}` : flag;
-                
-                return `<button class="mobile-lang-btn" data-lang="${langCode}" data-base-lang="${baseLang}" onclick="switchMobileLang(${paragraphNum}, '${langCode}')">${buttonText}</button>`;
-            }
-            return '';
-        }).filter(btn => btn).join('\n                    ');
         
         // Генерируем контент для каждого языка
         const languageContents = langCodes.map(langCode => {
@@ -483,15 +467,30 @@ function generateMobileParagraphs(languages) {
         }).filter(content => content).join('\n');
         
         html += `
-            <div class="mobile-paragraph-group" data-paragraph="${paragraphNum}" data-all-langs='${JSON.stringify(langCodes)}'>
+            <div class="mobile-paragraph-group" data-paragraph="${paragraphNum}">
                 ${languageContents}
-                <div class="mobile-lang-switcher">
-                    ${languageButtons}
-                </div>
             </div>`;
     }
     
     return html;
+}
+
+/**
+ * Генерирует кнопки для фиксированной панели языков на мобильном
+ */
+function generateMobileLangButtons(languages) {
+    const langCodes = Object.keys(languages);
+    
+    return langCodes.map(langCode => {
+        const language = languages[langCode];
+        const baseLang = language.baseLang || langCode;
+        const flag = LANGUAGE_FLAGS[baseLang] || '🌐';
+        
+        // Используем buttonName из файла (после символа #)
+        const buttonText = language.buttonName ? `${flag} ${language.buttonName}` : flag;
+        
+        return `<button class="mobile-lang-btn" data-lang="${langCode}" onclick="switchAllMobileLang('${langCode}')">${buttonText}</button>`;
+    }).join('\n            ');
 }
 
 /**
@@ -550,6 +549,7 @@ function generateHTML() {
         '{{COLUMN_CONTROLS}}': generateColumnControls(languages),
         '{{LANGUAGE_COLUMNS}}': generateLanguageColumns(languages),
         '{{MOBILE_PARAGRAPHS}}': generateMobileParagraphs(languages),
+        '{{MOBILE_LANG_BUTTONS}}': generateMobileLangButtons(languages),
         '{{VISIBLE_COLUMNS}}': JSON.stringify(defaultVisibleColumns),
         '{{ALL_LANGUAGES}}': JSON.stringify(langCodes),
         '{{PARAGRAPH_NUMBERS}}': `[${paragraphNumbers}]`,

@@ -346,51 +346,61 @@
             height: auto;
         }
 
-        .mobile-lang-switcher {
+        /* Фиксированная панель языков внизу экрана на мобильном */
+        .mobile-lang-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--header-bg);
+            border-top: 2px solid var(--border-color);
+            padding: 10px;
+            z-index: 200;
+            box-shadow: 0 -2px 10px var(--shadow);
+        }
+
+        .mobile-lang-bar-inner {
             display: flex;
-            gap: 6px;
-            margin-top: 10px;
-            padding-top: 0;
+            gap: 8px;
+            justify-content: center;
             flex-wrap: wrap;
-            justify-content: flex-start;
-            flex-shrink: 0;
-            clear: both;
-            width: 100%;
-            position: relative;
-            z-index: 1;
+            max-width: 100%;
         }
 
         .mobile-lang-btn {
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
+            padding: 10px 16px;
+            border: 2px solid var(--border-color);
             background-color: var(--bg-color);
             color: var(--text-color);
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
-            transition: all 0.15s ease;
+            font-size: 16px;
+            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            min-width: 44px;
-            min-height: 44px;
+            min-width: 60px;
+            min-height: 50px;
             height: auto;
             white-space: nowrap;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
             user-select: none;
+            font-weight: 500;
         }
 
         .mobile-lang-btn.active {
             background-color: var(--button-bg);
             color: white;
             border-color: var(--button-bg);
-            box-shadow: 0 2px 4px var(--shadow);
+            box-shadow: 0 3px 8px var(--shadow);
+            transform: translateY(-2px);
         }
 
         .mobile-lang-btn:active {
-            transform: scale(0.94);
+            transform: scale(0.96);
         }
 
         .mobile-paragraph-content .paragraph {
@@ -430,8 +440,14 @@
                 display: flex !important;
             }
             
+            /* Показываем панель языков внизу */
+            .mobile-lang-bar {
+                display: block !important;
+            }
+            
             .container {
                 padding: 15px;
+                padding-bottom: 90px; /* Отступ снизу для панели языков */
             }
             
             .book-info {
@@ -714,6 +730,13 @@
 
     <div class="controls">
         <button class="control-btn" onclick="scrollToTop()" title="Наверх">↑</button>
+    </div>
+
+    <!-- Фиксированная панель языков для мобильной версии -->
+    <div class="mobile-lang-bar" id="mobile-lang-bar">
+        <div class="mobile-lang-bar-inner" id="mobile-lang-bar-inner">
+            {{MOBILE_LANG_BUTTONS}}
+        </div>
     </div>
 
     <div class="sync-indicator" id="sync-indicator"></div>
@@ -1038,107 +1061,74 @@
             const visibleCount = visibleColumns.length;
             parallelText.className = `parallel-text columns-${visibleCount}`;
             
-            // Обновляем кнопки в мобильной версии
-            updateMobileButtons();
-            
             // Синхронизируем высоты абзацев после обновления видимости
             setTimeout(syncParagraphHeights, 100);
         }
+
+        // Глобальное переключение языка для всех абзацев на мобильном
+        let currentMobileLang = null;
         
-        // Функция обновления кнопок в мобильной версии
-        function updateMobileButtons() {
-            document.querySelectorAll('.mobile-paragraph-group').forEach(group => {
-                const allButtons = group.querySelectorAll('.mobile-lang-btn');
-                const allContents = group.querySelectorAll('.mobile-paragraph-content');
+        function switchAllMobileLang(lang) {
+            // Сохраняем текущую позицию прокрутки
+            const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Находим ближайший видимый абзац
+            const groups = document.querySelectorAll('.mobile-paragraph-group');
+            let closestGroup = null;
+            let minDistance = Infinity;
+            
+            groups.forEach(group => {
+                const rect = group.getBoundingClientRect();
+                const distance = Math.abs(rect.top);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestGroup = group;
+                }
+            });
+            
+            // Переключаем язык для всех абзацев
+            groups.forEach(group => {
+                const contents = group.querySelectorAll('.mobile-paragraph-content');
+                contents.forEach(content => content.classList.remove('active'));
                 
-                // Показываем/скрываем кнопки и контент в зависимости от visibleColumns
-                allButtons.forEach(btn => {
-                    const lang = btn.getAttribute('data-lang');
-                    if (visibleColumns.includes(lang)) {
-                        btn.style.display = 'flex';
-                    } else {
-                        btn.style.display = 'none';
-                    }
-                });
-                
-                allContents.forEach(content => {
-                    const lang = content.getAttribute('data-lang');
-                    if (!visibleColumns.includes(lang)) {
-                        content.classList.remove('active');
-                    }
-                });
-                
-                // Проверяем, есть ли активный язык среди видимых
-                const activeContent = group.querySelector('.mobile-paragraph-content.active');
-                const activeLang = activeContent ? activeContent.getAttribute('data-lang') : null;
-                
-                if (!activeLang || !visibleColumns.includes(activeLang)) {
-                    // Активируем первый видимый язык
-                    const firstVisibleLang = visibleColumns.find(lang => {
-                        const content = group.querySelector(`.mobile-paragraph-content[data-lang="${lang}"]`);
-                        return content !== null;
+                const selectedContent = group.querySelector(`.mobile-paragraph-content[data-lang="${lang}"]`);
+                if (selectedContent) {
+                    selectedContent.classList.add('active');
+                }
+            });
+            
+            // Обновляем активную кнопку в панели
+            const buttons = document.querySelectorAll('.mobile-lang-bar .mobile-lang-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            const activeBtn = document.querySelector(`.mobile-lang-bar .mobile-lang-btn[data-lang="${lang}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+            
+            // Сохраняем выбранный язык
+            currentMobileLang = lang;
+            localStorage.setItem('currentMobileLang', lang);
+            
+            // Прокручиваем к ближайшему абзацу после переключения
+            requestAnimationFrame(() => {
+                if (closestGroup) {
+                    closestGroup.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
-                    
-                    if (firstVisibleLang) {
-                        const paragraphNum = group.getAttribute('data-paragraph');
-                        switchMobileLang(paragraphNum, firstVisibleLang);
-                    }
                 }
             });
         }
 
-        // Функция переключения языка в мобильном виде
-        function switchMobileLang(paragraphNum, lang) {
-            const group = document.querySelector(`.mobile-paragraph-group[data-paragraph="${paragraphNum}"]`);
-            if (!group) return;
-
-            // Убираем active со всех кнопок и контентов в этой группе
-            const buttons = group.querySelectorAll('.mobile-lang-btn');
-            const contents = group.querySelectorAll('.mobile-paragraph-content');
-            
-            buttons.forEach(btn => btn.classList.remove('active'));
-            contents.forEach(content => content.classList.remove('active'));
-
-            // Добавляем active к выбранным
-            const selectedBtn = group.querySelector(`.mobile-lang-btn[data-lang="${lang}"]`);
-            const selectedContent = group.querySelector(`.mobile-paragraph-content[data-lang="${lang}"]`);
-            
-            if (selectedBtn) selectedBtn.classList.add('active');
-            if (selectedContent) {
-                selectedContent.classList.add('active');
-                
-                // Принудительно пересчитываем высоту контейнера
-                requestAnimationFrame(() => {
-                    group.style.height = 'auto';
-                    const newHeight = group.offsetHeight;
-                    group.style.height = newHeight + 'px';
-                    
-                    // Снова устанавливаем auto после пересчета для адаптивности
-                    setTimeout(() => {
-                        group.style.height = 'auto';
-                    }, 50);
-                });
-            }
-
-            // Сохраняем выбор пользователя для этого абзаца
-            const savedChoices = JSON.parse(localStorage.getItem('mobileLangChoices') || '{}');
-            savedChoices[paragraphNum] = lang;
-            localStorage.setItem('mobileLangChoices', JSON.stringify(savedChoices));
-        }
-
         // Инициализация мобильного вида
         function initMobileView() {
-            const savedChoices = JSON.parse(localStorage.getItem('mobileLangChoices') || '{}');
             const allLanguages = {{ALL_LANGUAGES}};
-            const defaultLang = allLanguages[0];
-
-            document.querySelectorAll('.mobile-paragraph-group').forEach(group => {
-                const paragraphNum = group.getAttribute('data-paragraph');
-                const savedLang = savedChoices[paragraphNum] || defaultLang;
-                
-                // Активируем сохраненный или первый язык
-                switchMobileLang(paragraphNum, savedLang);
-            });
+            const savedLang = localStorage.getItem('currentMobileLang');
+            const defaultLang = savedLang || allLanguages[0];
+            
+            // Активируем сохраненный или первый язык для всех абзацев
+            if (defaultLang) {
+                switchAllMobileLang(defaultLang);
+            }
         }
 
         // Инициализация при загрузке страницы
