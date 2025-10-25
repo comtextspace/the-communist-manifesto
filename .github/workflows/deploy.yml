@@ -1,4 +1,4 @@
-name: ComtextBuilder
+name: Build site
 
 on:
   workflow_call:
