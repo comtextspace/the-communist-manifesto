@@ -327,15 +327,22 @@
             border-radius: 8px;
             padding: 12px;
             margin-bottom: 12px;
+            position: relative;
+            overflow: visible;
+            min-height: fit-content;
+            height: auto;
         }
 
         .mobile-paragraph-content {
             display: none;
             flex-shrink: 0;
+            height: auto;
+            min-height: 0;
         }
 
         .mobile-paragraph-content.active {
             display: block;
+            height: auto;
         }
 
         .mobile-lang-switcher {
@@ -349,6 +356,10 @@
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             flex-shrink: 0;
+            clear: both;
+            width: 100%;
+            position: relative;
+            z-index: 1;
         }
 
         .mobile-lang-btn {
@@ -470,6 +481,12 @@
             }
             
             /* Переопределяем стили абзацев для мобильной версии */
+            .mobile-paragraph-group {
+                height: auto !important;
+                min-height: 0 !important;
+                overflow: visible !important;
+            }
+            
             .mobile-paragraph-group .paragraph {
                 background-color: transparent !important;
                 padding: 0 !important;
@@ -480,6 +497,11 @@
             
             .mobile-paragraph-group .paragraph-text {
                 min-height: 0 !important;
+            }
+            
+            .mobile-paragraph-content {
+                height: auto !important;
+                overflow: visible !important;
             }
         }
 
@@ -1029,7 +1051,21 @@
             const selectedContent = group.querySelector(`.mobile-paragraph-content[data-lang="${lang}"]`);
             
             if (selectedBtn) selectedBtn.classList.add('active');
-            if (selectedContent) selectedContent.classList.add('active');
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+                
+                // Принудительно пересчитываем высоту контейнера
+                requestAnimationFrame(() => {
+                    group.style.height = 'auto';
+                    const newHeight = group.offsetHeight;
+                    group.style.height = newHeight + 'px';
+                    
+                    // Снова устанавливаем auto после пересчета для адаптивности
+                    setTimeout(() => {
+                        group.style.height = 'auto';
+                    }, 50);
+                });
+            }
 
             // Сохраняем выбор пользователя для этого абзаца
             const savedChoices = JSON.parse(localStorage.getItem('mobileLangChoices') || '{}');
