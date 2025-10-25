@@ -1,0 +1,53 @@
+name: ComtextBuilder
+
+on:
+  workflow_call:
+    inputs:
+      url:
+        required: true
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        id: yarn-cache
+        with:
+          path: |
+            builder/node_modules
+            /home/runner/.cache/yarn/v6
+          key: ${{ runner.os }}-yarn-builder-${{ hashFiles('builder/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-builder-
+
+      - name: Install dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        working-directory: builder
+        run: yarn --frozen-lockfile
+
+      - name: Build pages
+        working-directory: builder
+        run: node ./index.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: dist
+          # fqdn: ${{ inputs.url }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
