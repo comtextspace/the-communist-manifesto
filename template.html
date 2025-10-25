@@ -660,6 +660,22 @@
                 transform: scale(1);
             }
         }
+        
+        /* Подсветка мобильной группы абзацев */
+        .mobile-paragraph-group.highlight {
+            animation: highlightMobileParagraph 2s ease;
+        }
+
+        @keyframes highlightMobileParagraph {
+            0% {
+                background-color: rgba(0, 123, 255, 0.2);
+                box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+            }
+            100% {
+                background-color: var(--column-bg);
+                box-shadow: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -845,18 +861,30 @@
         // Прокрутка к абзацу
         function scrollToParagraph(event, paragraphNum) {
             event.preventDefault();
-            const paragraph = document.getElementById(`paragraph-${paragraphNum}`);
-            if (paragraph) {
+            
+            // Проверяем, мобильная или десктопная версия
+            let targetElement = null;
+            
+            // Сначала ищем мобильную версию
+            const mobileGroup = document.querySelector(`.mobile-paragraph-group[data-paragraph="${paragraphNum}"]`);
+            if (mobileGroup && window.getComputedStyle(mobileGroup).display !== 'none') {
+                targetElement = mobileGroup;
+            } else {
+                // Если мобильная версия не найдена или скрыта, ищем десктопную
+                targetElement = document.getElementById(`paragraph-${paragraphNum}`);
+            }
+            
+            if (targetElement) {
                 // Прокручиваем к абзацу
-                paragraph.scrollIntoView({
+                targetElement.scrollIntoView({
                     behavior: 'smooth',
                     block: 'center'
                 });
                 
                 // Добавляем подсветку
-                paragraph.classList.add('highlight');
+                targetElement.classList.add('highlight');
                 setTimeout(() => {
-                    paragraph.classList.remove('highlight');
+                    targetElement.classList.remove('highlight');
                 }, 2000);
             }
         }
