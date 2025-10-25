@@ -452,7 +452,7 @@ function generateMobileParagraphs(languages) {
                 return `<button class="mobile-lang-btn" data-lang="${langCode}" onclick="switchMobileLang(${paragraphNum}, '${langCode}')">${flag} ${language.name}</button>`;
             }
             return '';
-        }).filter(btn => btn).join('\n                ');
+        }).filter(btn => btn).join('\n                    ');
         
         // Генерируем контент для каждого языка
         const languageContents = langCodes.map(langCode => {
@@ -475,10 +475,10 @@ function generateMobileParagraphs(languages) {
         
         html += `
             <div class="mobile-paragraph-group" data-paragraph="${paragraphNum}">
+                ${languageContents}
                 <div class="mobile-lang-switcher">
                     ${languageButtons}
                 </div>
-                ${languageContents}
             </div>`;
     }
     
