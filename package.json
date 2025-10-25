@@ -1,8 +1,22 @@
 {
-  "name": "the-communist-manifesto",
+  "name": "parallel-text-generator",
   "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:comtextspace/the-communist-manifesto.git",
-  "author": "Unknown <test@yandex.ru>",
-  "license": "MIT"
+  "description": "Генератор многоязычных параллельных текстов",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "generate": "node main.js",
+    "build": "node main.js"
+  },
+  "keywords": [
+    "parallel",
+    "text",
+    "multilingual",
+    "generator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "yaml": "^2.8.1"
+  }
 }

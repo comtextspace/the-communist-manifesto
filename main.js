@@ -1,0 +1,523 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import yaml from 'yaml';
+
+// Получаем __dirname для ES модулей
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Конфигурация
+const CONFIG = {
+    dataDir: './data',
+    templateFile: './template.html',
+    outputFile: './dist/index.html',
+    distDir: './dist'
+};
+
+// Флаги языков
+const LANGUAGE_FLAGS = {
+    'ru': '🇷🇺',
+    'en': '🇬🇧',
+    'fr': '🇫🇷',
+    'de': '🇩🇪',
+    'es': '🇪🇸',
+    'it': '🇮🇹',
+    'pt': '🇵🇹',
+    'zh': '🇨🇳',
+    'ja': '🇯🇵',
+    'ko': '🇰🇷',
+    'ar': '🇸🇦',
+    'hi': '🇮🇳'
+};
+
+/**
+ * Читает файл и возвращает его содержимое
+ */
+function readFile(filePath) {
+    try {
+        return fs.readFileSync(filePath, 'utf8');
+    } catch (error) {
+        console.error(`Ошибка чтения файла ${filePath}:`, error.message);
+        return null;
+    }
+}
+
+/**
+ * Парсер inline Markdown для абзацев (заголовки, жирный, курсив, сноски)
+ */
+function parseInlineMarkdown(text, footnotes = []) {
+    let html = text;
+    
+    // Проверяем, является ли строка заголовком
+    const headerMatch = text.match(/^(#{1,3})\s+(.+)$/);
+    if (headerMatch) {
+        const level = headerMatch[1].length;
+        const headerText = headerMatch[2];
+        return `<h${level} class="column-header">${headerText}</h${level}>`;
+    }
+    
+    // Обработка ссылок на сноски [^1] - заменяем на всплывающие ссылки
+    html = html.replace(/\[\^(\d+)\]/g, (match, footnoteId) => {
+        const footnote = footnotes.find(f => f.id === footnoteId);
+        if (footnote) {
+            return `<sup><a href="#" class="footnote-link" data-footnote="${footnoteId}" onclick="showFootnote(event, '${footnoteId}')">i</a></sup>`;
+        }
+        return match;
+    });
+    
+    // Выделение жирным **текст**
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    
+    // Выделение курсивом *текст*
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    
+    return html;
+}
+
+/**
+ * Простой парсер Markdown для header.md
+ */
+function parseMarkdown(markdown) {
+    let html = markdown;
+    let footnotes = [];
+
+    // Сначала находим все определения сносок
+    // Более точный подход - ищем сноски построчно
+    const lines = markdown.split('\n');
+    const processedLines = [];
+    let i = 0;
+    
+    while (i < lines.length) {
+        const line = lines[i];
+        const footnoteMatch = line.match(/^\[\^(\d+)\]:\s*(.*)$/);
+        
+        if (footnoteMatch) {
+            const footnoteId = footnoteMatch[1];
+            let footnoteText = footnoteMatch[2];
+            
+            // Собираем текст сноски до следующего непустого элемента
+            i++;
+            while (i < lines.length) {
+                const nextLine = lines[i];
+                // Если следующая строка - новая сноска, заголовок или пустая строка с заголовком, останавливаемся
+                if (nextLine.match(/^\[\^|\n#|^#/) || (nextLine.trim() === '' && i + 1 < lines.length && lines[i + 1].match(/^#/))) {
+                    break;
+                }
+                // Если строка не пустая, добавляем к тексту сноски
+                if (nextLine.trim() !== '') {
+                    footnoteText += ' ' + nextLine.trim();
+                }
+                i++;
+            }
+            
+            footnotes.push({ id: footnoteId, text: footnoteText.trim() });
+        } else {
+            processedLines.push(line);
+            i++;
+        }
+    }
+    
+    // Используем обработанные строки без сносок
+    html = processedLines.join('\n');
+
+    // Обработка ссылок на сноски [^1] - заменяем на всплывающие ссылки
+    html = html.replace(/\[\^(\d+)\]/g, (match, footnoteId) => {
+        const footnote = footnotes.find(f => f.id === footnoteId);
+        if (footnote) {
+            return `<sup><a href="#" class="footnote-link" data-footnote="${footnoteId}" onclick="showFootnote(event, '${footnoteId}')">i</a></sup>`;
+        }
+        return match;
+    });
+
+    // Заголовки
+    html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+    html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+    html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+    // Выделение жирным **текст**
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    // Выделение курсивом *текст*
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+    // Ссылки [текст]([[N]]) - оглавление со ссылками на абзацы
+    html = html.replace(/\[([^\]]+)\]\(\[\[(\d+)\]\]\)/g, (match, text, paragraphNum) => {
+        return `<a href="#paragraph-${paragraphNum}" class="paragraph-link" onclick="scrollToParagraph(event, ${paragraphNum})">${text}</a>`;
+    });
+
+    // Ссылки на абзацы [[N]] - преобразуем в якоря (для случаев без текста)
+    html = html.replace(/\[\[(\d+)\]\]/g, (match, paragraphNum) => {
+        return `<a href="#paragraph-${paragraphNum}" class="paragraph-link" onclick="scrollToParagraph(event, ${paragraphNum})">${paragraphNum}</a>`;
+    });
+
+    // Ссылки [текст](url) - обычные внешние ссылки
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+    // Списки - обрабатываем перед разбиением на абзацы
+    html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
+    html = html.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
+
+    // Обрабатываем переносы строк
+    // Сначала разбиваем на абзацы по двойным переносам
+    const paragraphs = html.split(/\n\s*\n/);
+    
+    // Обрабатываем каждый абзац
+    html = paragraphs.map(paragraph => {
+        paragraph = paragraph.trim();
+        if (!paragraph) return '';
+        
+        // Если абзац уже содержит HTML теги (заголовки, списки), оставляем как есть
+        if (paragraph.match(/^<[h1-6]|^<ul/)) {
+            return paragraph;
+        }
+        
+        // Иначе обрабатываем переносы строк внутри абзаца
+        paragraph = paragraph.replace(/\n/g, '<br>');
+        return `<p>${paragraph}</p>`;
+    }).filter(p => p).join('\n');
+
+    return { html, footnotes };
+}
+
+/**
+ * Записывает содержимое в файл
+ */
+function writeFile(filePath, content) {
+    try {
+        fs.writeFileSync(filePath, content, 'utf8');
+        console.log(`✅ Файл ${filePath} успешно создан`);
+    } catch (error) {
+        console.error(`Ошибка записи файла ${filePath}:`, error.message);
+    }
+}
+
+/**
+ * Парсит конфигурационный файл языка
+ * Формат: первая строка - название языка, пустая строка, абзацы, опционально сноски
+ */
+function parseLanguageFile(filePath) {
+    const content = readFile(filePath);
+    if (!content) return null;
+
+    const lines = content.trim().split('\n');
+    if (lines.length < 2) {
+        console.error(`Файл ${filePath} должен содержать минимум 2 строки (название языка + хотя бы один абзац)`);
+        return null;
+    }
+
+    const languageName = lines[0].trim();
+    
+    // Парсим сноски и обычный текст
+    const footnotes = [];
+    const processedLines = [];
+    let i = 1; // Пропускаем первую строку (название языка)
+    
+    while (i < lines.length) {
+        const line = lines[i];
+        const footnoteMatch = line.match(/^\[\^(\d+)\]:\s*(.*)$/);
+        
+        if (footnoteMatch) {
+            const footnoteId = footnoteMatch[1];
+            let footnoteText = footnoteMatch[2];
+            
+            // Собираем многострочные сноски
+            i++;
+            while (i < lines.length) {
+                const nextLine = lines[i];
+                if (nextLine.match(/^\[\^|^#/) || nextLine.trim() === '') {
+                    break;
+                }
+                footnoteText += ' ' + nextLine.trim();
+                i++;
+            }
+            
+            footnotes.push({ id: footnoteId, text: footnoteText.trim() });
+        } else if (line.trim().length > 0) {
+            processedLines.push(line);
+            i++;
+        } else {
+            i++;
+        }
+    }
+    
+    // Применяем Markdown к каждому абзацу
+    const paragraphs = processedLines
+        .filter(line => line.trim().length > 0)
+        .map(paragraph => parseInlineMarkdown(paragraph, footnotes));
+
+    return {
+        name: languageName,
+        paragraphs: paragraphs,
+        footnotes: footnotes
+    };
+}
+
+/**
+ * Получает код языка и вариант из имени файла 
+ * Например: text-ru.md -> {lang: 'ru', variant: null}
+ *           text-ru-1.md -> {lang: 'ru', variant: '1'}
+ */
+function getLanguageInfoFromFilename(filename) {
+    const match = filename.match(/text-([a-z]{2})(?:-(\d+))?\.md$/);
+    if (match) {
+        return {
+            lang: match[1],
+            variant: match[2] || null,
+            fullCode: match[2] ? `${match[1]}-${match[2]}` : match[1]
+        };
+    }
+    return null;
+}
+
+/**
+ * Загружает config.yaml
+ */
+function loadYamlConfig() {
+    const configPath = path.join(CONFIG.dataDir, 'config.yaml');
+    try {
+        const fileContent = fs.readFileSync(configPath, 'utf8');
+        const config = yaml.parse(fileContent);
+        console.log('✅ Загружена конфигурация из config.yaml');
+        return config;
+    } catch (error) {
+        console.warn('⚠️  Файл config.yaml не найден, используются значения по умолчанию');
+        return {
+            title: 'параллельный текст - многоязычная книга',
+            siteName: 'параллельный текст',
+            settings: {
+                maxColumns: 4,
+                minColumns: 1,
+                defaultTheme: 'light'
+            }
+        };
+    }
+}
+
+/**
+ * Загружает все конфигурационные файлы
+ */
+function loadConfigFiles() {
+    const dataDir = CONFIG.dataDir;
+    
+    // Проверяем существование папки data
+    if (!fs.existsSync(dataDir)) {
+        console.error(`❌ Папка ${dataDir} не найдена`);
+        return null;
+    }
+
+    const files = fs.readdirSync(dataDir);
+    const config = {
+        header: null,
+        languages: {},
+        yaml: loadYamlConfig()
+    };
+
+    // Загружаем header.md
+    const headerFile = path.join(dataDir, 'header.md');
+    if (fs.existsSync(headerFile)) {
+        const headerContent = readFile(headerFile);
+        if (headerContent) {
+            const parsed = parseMarkdown(headerContent.trim());
+            config.header = parsed.html;
+            config.footnotes = parsed.footnotes;
+        }
+    } else {
+        console.warn(`⚠️  Файл ${headerFile} не найден, используется заглушка`);
+        config.header = '<h2 class="book-title">Многоязычная книга</h2><p class="book-author">Автор</p>';
+        config.footnotes = [];
+    }
+
+    // Загружаем файлы языков
+    const languageFiles = files.filter(file => file.startsWith('text-') && file.endsWith('.md'));
+    
+    if (languageFiles.length === 0) {
+        console.error(`❌ Не найдено ни одного файла языка в формате text-XX.md`);
+        return null;
+    }
+
+    console.log(`📚 Найдено файлов языков: ${languageFiles.length}`);
+
+    // Каждый файл - отдельная колонка
+    for (const file of languageFiles.sort()) {
+        const langInfo = getLanguageInfoFromFilename(file);
+        if (!langInfo) {
+            console.warn(`⚠️  Не удалось определить код языка из файла ${file}`);
+            continue;
+        }
+
+        const filePath = path.join(dataDir, file);
+        const languageData = parseLanguageFile(filePath);
+        
+        if (languageData) {
+            config.languages[langInfo.fullCode] = {
+                name: languageData.name,
+                paragraphs: languageData.paragraphs,
+                baseLang: langInfo.lang,
+                variant: langInfo.variant,
+                footnotes: languageData.footnotes || []
+            };
+            
+            // Объединяем сноски из всех файлов
+            if (languageData.footnotes && languageData.footnotes.length > 0) {
+                config.footnotes = [...config.footnotes, ...languageData.footnotes];
+            }
+            
+            console.log(`✅ Загружен язык: ${langInfo.fullCode} (${languageData.name}) - ${languageData.paragraphs.length} абзацев, ${languageData.footnotes ? languageData.footnotes.length : 0} сносок`);
+        }
+    }
+
+    return config;
+}
+
+/**
+ * Генерирует HTML для контролов колонок
+ */
+function generateColumnControls(languages) {
+    const langCodes = Object.keys(languages);
+    
+    return langCodes.map(langCode => {
+        const language = languages[langCode];
+        // Получаем базовый язык для флага (ru-1 -> ru)
+        const baseLang = language.baseLang || langCode;
+        const flag = LANGUAGE_FLAGS[baseLang] || '🌐';
+        
+        return `
+                    <div class="column-control">
+                        <input type="checkbox" id="lang-${langCode}" class="column-checkbox" checked onchange="toggleColumn('${langCode}')">
+                        <label for="lang-${langCode}" class="column-label">
+                            <span>${flag}</span>
+                            <span>${language.name}</span>
+                        </label>
+                    </div>`;
+    }).join('\n');
+}
+
+/**
+ * Генерирует HTML для колонок языков
+ */
+function generateLanguageColumns(languages) {
+    const langCodes = Object.keys(languages);
+    const maxParagraphs = Math.max(...Object.values(languages).map(lang => lang.paragraphs.length));
+    
+    return langCodes.map(langCode => {
+        const language = languages[langCode];
+        // Получаем базовый язык для флага (ru-1 -> ru)
+        const baseLang = language.baseLang || langCode;
+        const flag = LANGUAGE_FLAGS[baseLang] || '🌐';
+        
+        const paragraphsHtml = language.paragraphs.map((paragraph, index) => {
+            return `
+                <div class="paragraph" data-paragraph="${index + 1}" id="paragraph-${index + 1}">
+                    <div class="paragraph-number">${index + 1}</div>
+                    <div class="paragraph-text">
+                        ${paragraph}
+                    </div>
+                </div>`;
+        }).join('\n');
+
+        return `
+            <!-- ${language.name} -->
+            <div class="language-column" data-lang="${langCode}">
+                <div class="language-header">
+                    <div class="language-flag">${flag}</div>
+                    <div class="language-name">${language.name}</div>
+                </div>
+                ${paragraphsHtml}
+            </div>`;
+    }).join('\n');
+}
+
+/**
+ * Генерирует CSS для выравнивания абзацев
+ */
+function generateParagraphAlignmentCSS(maxParagraphs) {
+    let css = '';
+    for (let i = 1; i <= maxParagraphs; i++) {
+        css += `
+        .paragraph[data-paragraph="${i}"] {
+            margin-top: 0;
+        }`;
+    }
+    return css;
+}
+
+/**
+ * Основная функция генерации
+ */
+function generateHTML() {
+    console.log('🚀 Начинаем генерацию HTML...');
+    
+    // Загружаем конфигурацию
+    const config = loadConfigFiles();
+    if (!config) {
+        console.error('❌ Не удалось загрузить конфигурационные файлы');
+        return;
+    }
+
+    const languages = config.languages;
+    const langCodes = Object.keys(languages);
+    
+    if (langCodes.length === 0) {
+        console.error('❌ Не найдено ни одного языка для генерации');
+        return;
+    }
+
+    // Читаем шаблон
+    const template = readFile(CONFIG.templateFile);
+    if (!template) {
+        console.error('❌ Не удалось прочитать шаблон');
+        return;
+    }
+
+    // Генерируем данные для замены
+    const maxParagraphs = Math.max(...Object.values(languages).map(lang => lang.paragraphs.length));
+    const paragraphNumbers = Array.from({length: maxParagraphs}, (_, i) => `"${i + 1}"`).join(', ');
+    
+    // По умолчанию показываем первые 4 языка
+    const defaultVisibleColumns = langCodes.slice(0, 4);
+    
+    const replacements = {
+        '{{TITLE}}': config.yaml.title || 'параллельный текст - многоязычная книга',
+        '{{SITE_NAME}}': config.yaml.siteName || 'параллельный текст',
+        '{{HEADER_CONTENT}}': config.header,
+        '{{COLUMN_CONTROLS}}': generateColumnControls(languages),
+        '{{LANGUAGE_COLUMNS}}': generateLanguageColumns(languages),
+        '{{VISIBLE_COLUMNS}}': JSON.stringify(defaultVisibleColumns),
+        '{{ALL_LANGUAGES}}': JSON.stringify(langCodes),
+        '{{PARAGRAPH_NUMBERS}}': `[${paragraphNumbers}]`,
+        '{{FOOTNOTES}}': JSON.stringify(config.footnotes || [])
+    };
+
+    // Заменяем плейсхолдеры в шаблоне
+    let html = template;
+    for (const [placeholder, value] of Object.entries(replacements)) {
+        html = html.replace(new RegExp(placeholder.replace(/[{}]/g, '\\$&'), 'g'), value);
+    }
+
+    // Добавляем CSS для выравнивания абзацев
+    const paragraphCSS = generateParagraphAlignmentCSS(maxParagraphs);
+    html = html.replace('</style>', `${paragraphCSS}\n    </style>`);
+
+    // Создаем каталог dist если его нет
+    if (!fs.existsSync(CONFIG.distDir)) {
+        fs.mkdirSync(CONFIG.distDir, { recursive: true });
+        console.log(`📁 Создан каталог ${CONFIG.distDir}`);
+    }
+
+    // Записываем результат
+    writeFile(CONFIG.outputFile, html);
+    
+    console.log('🎉 Генерация завершена успешно!');
+    console.log(`📊 Статистика:`);
+    console.log(`   - Языков: ${langCodes.length}`);
+    console.log(`   - Абзацев: ${maxParagraphs}`);
+    console.log(`   - Выходной файл: ${CONFIG.outputFile}`);
+}
+
+// Запускаем генерацию
+if (import.meta.url === `file://${process.argv[1]}`) {
+    generateHTML();
+}
+
+export { generateHTML, loadConfigFiles, parseLanguageFile };
