@@ -194,7 +194,7 @@ function writeFile(filePath, content) {
 
 /**
  * Парсит конфигурационный файл языка
- * Формат: первая строка - название языка, пустая строка, абзацы, опционально сноски
+ * Формат: первая строка - название языка (до # для меню, после # для кнопок), пустая строка, абзацы, опционально сноски
  */
 function parseLanguageFile(filePath) {
     const content = readFile(filePath);
@@ -206,7 +206,11 @@ function parseLanguageFile(filePath) {
         return null;
     }
 
-    const languageName = lines[0].trim();
+    // Парсим первую строку: "Название для меню # Название для кнопок"
+    const firstLine = lines[0];
+    const parts = firstLine.split('#');
+    const menuName = parts[0].trim(); // До # - для верхнего меню
+    const buttonName = parts.length > 1 ? parts[1].trim() : ''; // После # - для кнопок (может быть пустым)
     
     // Парсим сноски и обычный текст
     const footnotes = [];
@@ -247,7 +251,8 @@ function parseLanguageFile(filePath) {
         .map(paragraph => parseInlineMarkdown(paragraph, footnotes));
 
     return {
-        name: languageName,
+        name: menuName,          // Полное название для меню
+        buttonName: buttonName,  // Короткое название для кнопок (может быть пустым)
         paragraphs: paragraphs,
         footnotes: footnotes
     };
@@ -351,7 +356,8 @@ function loadConfigFiles() {
         
         if (languageData) {
             config.languages[langInfo.fullCode] = {
-                name: languageData.name,
+                name: languageData.name,           // Полное название для меню
+                buttonName: languageData.buttonName, // Короткое название для кнопок
                 paragraphs: languageData.paragraphs,
                 baseLang: langInfo.lang,
                 variant: langInfo.variant,
@@ -435,22 +441,13 @@ function generateMobileParagraphs(languages) {
     const langCodes = Object.keys(languages);
     const maxParagraphs = Math.max(...Object.values(languages).map(lang => lang.paragraphs.length));
     
-    // Проверяем, есть ли дублирующиеся флаги (например ru-1 и ru-2)
-    const flagCounts = {};
-    langCodes.forEach(langCode => {
-        const language = languages[langCode];
-        const baseLang = language.baseLang || langCode;
-        const flag = LANGUAGE_FLAGS[baseLang] || '🌐';
-        flagCounts[flag] = (flagCounts[flag] || 0) + 1;
-    });
-    
     let html = '';
     
     // Для каждого абзаца создаем группу с переключателями
     for (let i = 0; i < maxParagraphs; i++) {
         const paragraphNum = i + 1;
         
-        // Генерируем кнопки переключения языков - только флаги, или флаг + название если дубли
+        // Генерируем кнопки переключения языков
         const languageButtons = langCodes.map(langCode => {
             const language = languages[langCode];
             const baseLang = language.baseLang || langCode;
@@ -458,9 +455,8 @@ function generateMobileParagraphs(languages) {
             
             // Проверяем, есть ли этот абзац в данном языке
             if (i < language.paragraphs.length) {
-                // Если есть дублирующиеся флаги, добавляем название
-                const showName = flagCounts[flag] > 1;
-                const buttonText = showName ? `${flag} ${language.name}` : flag;
+                // Используем buttonName из файла (после символа #)
+                const buttonText = language.buttonName ? `${flag} ${language.buttonName}` : flag;
                 
                 return `<button class="mobile-lang-btn" data-lang="${langCode}" data-base-lang="${baseLang}" onclick="switchMobileLang(${paragraphNum}, '${langCode}')">${buttonText}</button>`;
             }
