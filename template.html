@@ -389,18 +389,24 @@
                 font-size: 20px;
             }
 
+            /* Скрываем панель выбора языков на мобильном */
             .column-controls {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 10px;
-                width: 100%;
-                padding: 15px;
+                display: none !important;
             }
             
-            .column-control {
+            .header-controls {
+                flex-direction: column;
                 width: 100%;
-                justify-content: flex-start;
-                padding: 8px 0;
+            }
+            
+            .theme-switcher, .tg-link {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .theme-toggle {
+                width: 100%;
+                justify-content: center;
             }
         }
 
