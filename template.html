@@ -533,6 +533,19 @@
                 height: auto !important;
                 overflow: visible !important;
             }
+            
+            /* Сноски на мобильном не должны выходить за экран */
+            .footnote-popup {
+                position: fixed !important;
+                left: 20px !important;
+                right: 20px !important;
+                bottom: 20px !important;
+                top: auto !important;
+                width: auto !important;
+                min-width: 0 !important;
+                max-width: none !important;
+                transform: none !important;
+            }
         }
 
         .sync-indicator {
