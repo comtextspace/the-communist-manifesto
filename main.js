@@ -435,13 +435,22 @@ function generateMobileParagraphs(languages) {
     const langCodes = Object.keys(languages);
     const maxParagraphs = Math.max(...Object.values(languages).map(lang => lang.paragraphs.length));
     
+    // Проверяем, есть ли дублирующиеся флаги (например ru-1 и ru-2)
+    const flagCounts = {};
+    langCodes.forEach(langCode => {
+        const language = languages[langCode];
+        const baseLang = language.baseLang || langCode;
+        const flag = LANGUAGE_FLAGS[baseLang] || '🌐';
+        flagCounts[flag] = (flagCounts[flag] || 0) + 1;
+    });
+    
     let html = '';
     
     // Для каждого абзаца создаем группу с переключателями
     for (let i = 0; i < maxParagraphs; i++) {
         const paragraphNum = i + 1;
         
-        // Генерируем кнопки переключения языков
+        // Генерируем кнопки переключения языков - только флаги, или флаг + название если дубли
         const languageButtons = langCodes.map(langCode => {
             const language = languages[langCode];
             const baseLang = language.baseLang || langCode;
@@ -449,7 +458,11 @@ function generateMobileParagraphs(languages) {
             
             // Проверяем, есть ли этот абзац в данном языке
             if (i < language.paragraphs.length) {
-                return `<button class="mobile-lang-btn" data-lang="${langCode}" onclick="switchMobileLang(${paragraphNum}, '${langCode}')">${flag} ${language.name}</button>`;
+                // Если есть дублирующиеся флаги, добавляем название
+                const showName = flagCounts[flag] > 1;
+                const buttonText = showName ? `${flag} ${language.name}` : flag;
+                
+                return `<button class="mobile-lang-btn" data-lang="${langCode}" data-base-lang="${baseLang}" onclick="switchMobileLang(${paragraphNum}, '${langCode}')">${buttonText}</button>`;
             }
             return '';
         }).filter(btn => btn).join('\n                    ');
@@ -474,7 +487,7 @@ function generateMobileParagraphs(languages) {
         }).filter(content => content).join('\n');
         
         html += `
-            <div class="mobile-paragraph-group" data-paragraph="${paragraphNum}">
+            <div class="mobile-paragraph-group" data-paragraph="${paragraphNum}" data-all-langs='${JSON.stringify(langCodes)}'>
                 ${languageContents}
                 <div class="mobile-lang-switcher">
                     ${languageButtons}

@@ -351,32 +351,33 @@
 
         .mobile-lang-switcher {
             display: flex;
-            gap: 6px;
-            margin-top: 15px;
-            padding-top: 15px;
+            gap: 8px;
+            margin-top: 20px;
+            padding-top: 20px;
             border-top: 2px solid var(--border-color);
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .mobile-lang-btn {
-            padding: 10px 14px;
+            padding: 14px 18px;
             border: 2px solid var(--border-color);
             background-color: var(--bg-color);
             color: var(--text-color);
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 20px;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 4px;
-            flex: 1 1 auto;
-            min-width: 90px;
             justify-content: center;
+            gap: 6px;
+            flex: 1 1 auto;
+            min-width: 70px;
             font-weight: 500;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
+            user-select: none;
         }
 
         .mobile-lang-btn.active {
@@ -384,11 +385,20 @@
             color: white;
             border-color: var(--button-bg);
             font-weight: bold;
-            box-shadow: 0 2px 6px var(--shadow);
+            box-shadow: 0 3px 8px var(--shadow);
+            transform: translateY(-2px);
         }
 
         .mobile-lang-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.96);
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-lang-btn {
+                font-size: 24px;
+                padding: 16px 20px;
+                min-width: 80px;
+            }
         }
 
         .mobile-paragraph-content .paragraph {
@@ -396,11 +406,16 @@
             padding: 0;
             margin-bottom: 0;
             min-height: auto;
+            cursor: default;
         }
 
         .mobile-paragraph-content .paragraph:hover {
             transform: none;
             box-shadow: none;
+        }
+        
+        .mobile-paragraph-content .paragraph-text {
+            padding-bottom: 10px;
         }
 
         @media (max-width: 768px) {
@@ -924,8 +939,53 @@
             const visibleCount = visibleColumns.length;
             parallelText.className = `parallel-text columns-${visibleCount}`;
             
+            // Обновляем кнопки в мобильной версии
+            updateMobileButtons();
+            
             // Синхронизируем высоты абзацев после обновления видимости
             setTimeout(syncParagraphHeights, 100);
+        }
+        
+        // Функция обновления кнопок в мобильной версии
+        function updateMobileButtons() {
+            document.querySelectorAll('.mobile-paragraph-group').forEach(group => {
+                const allButtons = group.querySelectorAll('.mobile-lang-btn');
+                const allContents = group.querySelectorAll('.mobile-paragraph-content');
+                
+                // Показываем/скрываем кнопки и контент в зависимости от visibleColumns
+                allButtons.forEach(btn => {
+                    const lang = btn.getAttribute('data-lang');
+                    if (visibleColumns.includes(lang)) {
+                        btn.style.display = 'flex';
+                    } else {
+                        btn.style.display = 'none';
+                    }
+                });
+                
+                allContents.forEach(content => {
+                    const lang = content.getAttribute('data-lang');
+                    if (!visibleColumns.includes(lang)) {
+                        content.classList.remove('active');
+                    }
+                });
+                
+                // Проверяем, есть ли активный язык среди видимых
+                const activeContent = group.querySelector('.mobile-paragraph-content.active');
+                const activeLang = activeContent ? activeContent.getAttribute('data-lang') : null;
+                
+                if (!activeLang || !visibleColumns.includes(activeLang)) {
+                    // Активируем первый видимый язык
+                    const firstVisibleLang = visibleColumns.find(lang => {
+                        const content = group.querySelector(`.mobile-paragraph-content[data-lang="${lang}"]`);
+                        return content !== null;
+                    });
+                    
+                    if (firstVisibleLang) {
+                        const paragraphNum = group.getAttribute('data-paragraph');
+                        switchMobileLang(paragraphNum, firstVisibleLang);
+                    }
+                }
+            });
         }
 
         // Функция переключения языка в мобильном виде
