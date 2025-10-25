@@ -96,18 +96,20 @@ function parseMarkdown(markdown) {
             const footnoteId = footnoteMatch[1];
             let footnoteText = footnoteMatch[2];
             
-            // Собираем текст сноски до следующего непустого элемента
+            // Собираем многострочные сноски
             i++;
             while (i < lines.length) {
                 const nextLine = lines[i];
-                // Если следующая строка - новая сноска, заголовок или пустая строка с заголовком, останавливаемся
-                if (nextLine.match(/^\[\^|\n#|^#/) || (nextLine.trim() === '' && i + 1 < lines.length && lines[i + 1].match(/^#/))) {
+                // Останавливаемся если встретили новую сноску или заголовок
+                if (nextLine.match(/^\[\^(\d+)\]:/) || nextLine.match(/^#{1,3}\s/)) {
                     break;
                 }
-                // Если строка не пустая, добавляем к тексту сноски
-                if (nextLine.trim() !== '') {
-                    footnoteText += ' ' + nextLine.trim();
+                // Если пустая строка, останавливаемся
+                if (nextLine.trim() === '') {
+                    i++; // Пропускаем пустую строку
+                    break;
                 }
+                footnoteText += ' ' + nextLine.trim();
                 i++;
             }
             
@@ -229,7 +231,13 @@ function parseLanguageFile(filePath) {
             i++;
             while (i < lines.length) {
                 const nextLine = lines[i];
-                if (nextLine.match(/^\[\^|^#/) || nextLine.trim() === '') {
+                // Останавливаемся если встретили новую сноску или заголовок
+                if (nextLine.match(/^\[\^(\d+)\]:/) || nextLine.match(/^#{1,3}\s/)) {
+                    break;
+                }
+                // Если пустая строка, останавливаемся
+                if (nextLine.trim() === '') {
+                    i++; // Пропускаем пустую строку
                     break;
                 }
                 footnoteText += ' ' + nextLine.trim();
@@ -241,6 +249,7 @@ function parseLanguageFile(filePath) {
             processedLines.push(line);
             i++;
         } else {
+            // Пустая строка - просто пропускаем
             i++;
         }
     }
