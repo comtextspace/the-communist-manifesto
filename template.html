@@ -14,11 +14,16 @@
             --shadow: rgba(0, 0, 0, 0.1);
             --button-bg: #007bff;
             --button-hover: #0056b3;
+            
+            /* Оптимальные настройки читаемости */
+            --font-size: 18px;
+            --line-height: 1.8;
+            --font-family-text: Georgia, 'Times New Roman', Times, serif;
         }
 
         [data-theme="dark"] {
             --bg-color: #1a1a1a;
-            --text-color: #e0e0e0;
+            --text-color: #f5f5f5;
             --border-color: #333333;
             --header-bg: #2d2d2d;
             --column-bg: #252525;
@@ -181,25 +186,27 @@
         }
 
         .theme-toggle {
-            background-color: var(--button-bg);
-            color: white;
+            background-color: var(--column-bg);
+            color: var(--text-color);
             border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 8px 15px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-            display: flex;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
         }
 
         .theme-toggle:hover {
-            background-color: var(--button-hover);
+            background-color: var(--border-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .theme-icon {
-            font-size: 16px;
+            font-size: 20px;
         }
 
         .container {
@@ -314,9 +321,28 @@
         }
 
         .paragraph-text {
-            font-size: 16px;
-            line-height: 1.7;
+            font-size: var(--font-size);
+            line-height: var(--line-height);
+            font-family: var(--font-family-text);
             flex: 1;
+            max-width: 700px;
+            margin: 0;
+            text-align: left;
+        }
+
+        .paragraph-text * {
+            text-align: left;
+        }
+
+        .paragraph-text p,
+        .paragraph-text h1,
+        .paragraph-text h2,
+        .paragraph-text h3,
+        .paragraph-text h4,
+        .paragraph-text div {
+            margin-left: 0;
+            margin-right: 0;
+            text-align: left;
         }
 
         .text-highlight {
@@ -564,8 +590,8 @@
             .theme-toggle {
                 width: 100%;
                 justify-content: center;
-                padding: 8px 16px;
-                font-size: 13px;
+                padding: 8px 15px;
+                font-size: 18px;
             }
             
             .tg-link {
@@ -704,23 +730,32 @@
             font-size: 32px;
             margin-bottom: 20px;
             margin-top: 30px;
+            text-align: left;
         }
 
         .book-info h2 {
             font-size: 28px;
             margin-bottom: 15px;
             margin-top: 30px;
+            text-align: left;
         }
 
         .book-info h3 {
             font-size: 24px;
             margin-bottom: 12px;
             margin-top: 25px;
+            text-align: left;
         }
         
         .book-info p {
             margin-bottom: 20px;
-            line-height: 1.8;
+            line-height: var(--line-height);
+            font-size: var(--font-size);
+            font-family: var(--font-family-text);
+            max-width: 700px;
+            margin-left: 0;
+            margin-right: 0;
+            text-align: left;
         }
 
         .book-info strong {
@@ -742,9 +777,18 @@
             text-decoration: underline;
         }
 
-        .book-info ul {
+        .book-info ul,
+        .book-info ol,
+        .paragraph-text ul,
+        .paragraph-text ol {
             margin: 20px 0;
             padding-left: 20px;
+            text-align: left;
+        }
+
+        .book-info li,
+        .paragraph-text li {
+            text-align: left;
         }
 
         .book-info li {
@@ -826,9 +870,8 @@
                     обновления в TG
                 </a>
                 <div class="theme-switcher">
-                    <button class="theme-toggle" onclick="toggleTheme()">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Переключить тему">
                         <span class="theme-icon" id="theme-icon">🌙</span>
-                        <span id="theme-text">темная тема</span>
                     </button>
                 </div>
             </div>
@@ -1053,17 +1096,14 @@
             isDarkTheme = !isDarkTheme;
             const body = document.body;
             const themeIcon = document.getElementById('theme-icon');
-            const themeText = document.getElementById('theme-text');
             
             if (isDarkTheme) {
                 body.setAttribute('data-theme', 'dark');
                 themeIcon.textContent = '☀️';
-                themeText.textContent = 'Светлая тема';
                 localStorage.setItem('darkTheme', 'true');
             } else {
                 body.removeAttribute('data-theme');
                 themeIcon.textContent = '🌙';
-                themeText.textContent = 'Темная тема';
                 localStorage.setItem('darkTheme', 'false');
             }
         }
@@ -1075,12 +1115,10 @@
                 isDarkTheme = true;
                 document.body.setAttribute('data-theme', 'dark');
                 document.getElementById('theme-icon').textContent = '☀️';
-                document.getElementById('theme-text').textContent = 'Светлая тема';
             } else {
                 isDarkTheme = false;
                 document.body.removeAttribute('data-theme');
                 document.getElementById('theme-icon').textContent = '🌙';
-                document.getElementById('theme-text').textContent = 'Темная тема';
             }
         }
 
