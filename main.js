@@ -46,22 +46,38 @@ function readFile(filePath) {
 /**
  * Парсер inline Markdown для абзацев (заголовки, жирный, курсив, сноски)
  */
-function parseInlineMarkdown(text, footnotes = []) {
+function parseInlineMarkdown(text, footnotes = [], langCode = '') {
     let html = text;
     
     // Проверяем, является ли строка заголовком
     const headerMatch = text.match(/^(#{1,3})\s+(.+)$/);
     if (headerMatch) {
         const level = headerMatch[1].length;
-        const headerText = headerMatch[2];
+        let headerText = headerMatch[2];
+        
+        // Обрабатываем сноски в заголовках
+        headerText = headerText.replace(/\[\^(\d+)\]/g, (match, footnoteId) => {
+            const footnote = footnotes.find(f => f.id === footnoteId);
+            if (footnote) {
+                const uniqueId = langCode ? `${langCode}-${footnoteId}` : footnoteId;
+                return `<sup><a href="#" class="footnote-link" data-footnote="${uniqueId}" onclick="showFootnote(event, '${uniqueId}')">i</a></sup>`;
+            }
+            return match;
+        });
+        
+        // Обрабатываем форматирование в заголовках
+        headerText = headerText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        headerText = headerText.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        
         return `<h${level} class="column-header">${headerText}</h${level}>`;
     }
     
-    // Обработка ссылок на сноски [^1] - заменяем на всплывающие ссылки
+    // Обработка ссылок на сноски [^1] - заменяем на всплывающие ссылки с уникальным ID
     html = html.replace(/\[\^(\d+)\]/g, (match, footnoteId) => {
         const footnote = footnotes.find(f => f.id === footnoteId);
         if (footnote) {
-            return `<sup><a href="#" class="footnote-link" data-footnote="${footnoteId}" onclick="showFootnote(event, '${footnoteId}')">i</a></sup>`;
+            const uniqueId = langCode ? `${langCode}-${footnoteId}` : footnoteId;
+            return `<sup><a href="#" class="footnote-link" data-footnote="${uniqueId}" onclick="showFootnote(event, '${uniqueId}')">i</a></sup>`;
         }
         return match;
     });
@@ -123,11 +139,12 @@ function parseMarkdown(markdown) {
     // Используем обработанные строки без сносок
     html = processedLines.join('\n');
 
-    // Обработка ссылок на сноски [^1] - заменяем на всплывающие ссылки
+    // Обработка ссылок на сноски [^1] - заменяем на всплывающие ссылки с префиксом "header"
     html = html.replace(/\[\^(\d+)\]/g, (match, footnoteId) => {
         const footnote = footnotes.find(f => f.id === footnoteId);
         if (footnote) {
-            return `<sup><a href="#" class="footnote-link" data-footnote="${footnoteId}" onclick="showFootnote(event, '${footnoteId}')">i</a></sup>`;
+            const uniqueId = `header-${footnoteId}`;
+            return `<sup><a href="#" class="footnote-link" data-footnote="${uniqueId}" onclick="showFootnote(event, '${uniqueId}')">i</a></sup>`;
         }
         return match;
     });
@@ -179,7 +196,13 @@ function parseMarkdown(markdown) {
         return `<p>${paragraph}</p>`;
     }).filter(p => p).join('\n');
 
-    return { html, footnotes };
+    // Добавляем префикс "header" к ID сносок для уникальности
+    const uniqueFootnotes = footnotes.map(f => ({
+        id: `header-${f.id}`,
+        text: f.text
+    }));
+
+    return { html, footnotes: uniqueFootnotes };
 }
 
 /**
@@ -198,7 +221,7 @@ function writeFile(filePath, content) {
  * Парсит конфигурационный файл языка
  * Формат: первая строка - название языка (до # для меню, после # для кнопок), пустая строка, абзацы, опционально сноски
  */
-function parseLanguageFile(filePath) {
+function parseLanguageFile(filePath, langCode = '') {
     const content = readFile(filePath);
     if (!content) return null;
 
@@ -254,16 +277,22 @@ function parseLanguageFile(filePath) {
         }
     }
     
-    // Применяем Markdown к каждому абзацу
+    // Применяем Markdown к каждому абзацу, передавая langCode для уникальных ID сносок
     const paragraphs = processedLines
         .filter(line => line.trim().length > 0)
-        .map(paragraph => parseInlineMarkdown(paragraph, footnotes));
+        .map(paragraph => parseInlineMarkdown(paragraph, footnotes, langCode));
+
+    // Добавляем префикс langCode к ID сносок для уникальности
+    const uniqueFootnotes = footnotes.map(f => ({
+        id: langCode ? `${langCode}-${f.id}` : f.id,
+        text: f.text
+    }));
 
     return {
         name: menuName,          // Полное название для меню
         buttonName: buttonName,  // Короткое название для кнопок (может быть пустым)
         paragraphs: paragraphs,
-        footnotes: footnotes
+        footnotes: uniqueFootnotes
     };
 }
 
@@ -361,7 +390,7 @@ function loadConfigFiles() {
         }
 
         const filePath = path.join(dataDir, file);
-        const languageData = parseLanguageFile(filePath);
+        const languageData = parseLanguageFile(filePath, langInfo.fullCode);
         
         if (languageData) {
             config.languages[langInfo.fullCode] = {
@@ -373,7 +402,7 @@ function loadConfigFiles() {
                 footnotes: languageData.footnotes || []
             };
             
-            // Объединяем сноски из всех файлов
+            // Объединяем сноски из всех файлов (теперь с уникальными ID)
             if (languageData.footnotes && languageData.footnotes.length > 0) {
                 config.footnotes = [...config.footnotes, ...languageData.footnotes];
             }
