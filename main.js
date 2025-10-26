@@ -446,12 +446,16 @@ function generateColumnControls(languages) {
         const flag = LANGUAGE_FLAGS[baseLang] || '🌐';
         
         return `
-                    <div class="column-control">
+                    <div class="column-control" data-lang-code="${langCode}">
                         <input type="checkbox" id="lang-${langCode}" class="column-checkbox" checked onchange="toggleColumn('${langCode}')">
                         <label for="lang-${langCode}" class="column-label">
                             <span>${flag}</span>
                             <span>${language.name}</span>
                         </label>
+                        <div class="order-buttons">
+                            <button class="order-btn" onclick="moveLangUp('${langCode}')" title="Вверх">↑</button>
+                            <button class="order-btn" onclick="moveLangDown('${langCode}')" title="Вниз">↓</button>
+                        </div>
                     </div>`;
     }).join('\n');
 }

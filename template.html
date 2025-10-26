@@ -71,19 +71,72 @@
             flex-wrap: wrap;
         }
 
+        .language-panel {
+            background-color: var(--column-bg);
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
         .column-controls {
             display: flex;
-            align-items: center;
-            gap: 15px;
-            background-color: var(--column-bg);
-            padding: 10px 15px;
-            border-radius: 20px;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
         .column-control {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: var(--bg-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .column-control:hover {
+            background-color: var(--header-bg);
+        }
+
+        .order-buttons {
+            display: flex;
+            gap: 4px;
+            margin-left: auto;
+        }
+
+        .order-btn {
+            background: rgba(0, 0, 0, 0.1);
+            color: var(--text-color);
+            border: none;
+            border-radius: 4px;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            opacity: 0.5;
+        }
+
+        [data-theme="dark"] .order-btn {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .order-btn:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        [data-theme="dark"] .order-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .order-btn:active {
+            transform: scale(0.95);
         }
 
         .column-checkbox {
@@ -491,7 +544,7 @@
             }
 
             /* Скрываем панель выбора языков на мобильном */
-            .column-controls {
+            .language-panel {
                 display: none !important;
             }
             
@@ -759,7 +812,6 @@
         <div class="header-content">
             <h1 class="title">📚 {{SITE_NAME}}</h1>
             <div class="header-controls">
-                {{COLUMN_CONTROLS}}
                 <a href="https://t.me/pensadoj" class="tg-link" target="_blank" rel="noopener noreferrer">
                     обновления в TG
                 </a>
@@ -770,6 +822,12 @@
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="language-panel">
+        <div class="column-controls">
+            {{COLUMN_CONTROLS}}
         </div>
     </div>
 
@@ -804,15 +862,33 @@
     <script>
         let isDarkTheme = false;
         let visibleColumns = {{VISIBLE_COLUMNS}};
+        let languageOrder = {{ALL_LANGUAGES}}; // Порядок языков
 
         // Загрузка состояния колонок из localStorage
         function loadColumnState() {
+            const allLanguages = {{ALL_LANGUAGES}};
+            
+            // Загружаем порядок языков
+            const savedOrder = localStorage.getItem('languageOrder');
+            if (savedOrder) {
+                try {
+                    const parsedOrder = JSON.parse(savedOrder);
+                    // Проверяем, что все языки есть и добавляем новые если нужно
+                    const validOrder = parsedOrder.filter(lang => allLanguages.includes(lang));
+                    const missingLangs = allLanguages.filter(lang => !validOrder.includes(lang));
+                    languageOrder = [...validOrder, ...missingLangs];
+                } catch (e) {
+                    console.error('Ошибка загрузки порядка языков:', e);
+                    languageOrder = allLanguages;
+                }
+            }
+            
+            // Загружаем видимые колонки
             const saved = localStorage.getItem('visibleColumns');
             if (saved) {
                 try {
                     const savedColumns = JSON.parse(saved);
                     // Фильтруем только существующие языки
-                    const allLanguages = {{ALL_LANGUAGES}};
                     visibleColumns = savedColumns.filter(lang => allLanguages.includes(lang));
                     
                     // Проверяем ограничения
@@ -829,11 +905,75 @@
                     console.error('Ошибка загрузки состояния:', e);
                 }
             }
+            
+            // Применяем порядок к DOM элементам
+            applyLanguageOrder();
         }
 
         // Сохранение состояния колонок в localStorage
         function saveColumnState() {
             localStorage.setItem('visibleColumns', JSON.stringify(visibleColumns));
+        }
+
+        // Сохранение порядка языков в localStorage
+        function saveLanguageOrder() {
+            localStorage.setItem('languageOrder', JSON.stringify(languageOrder));
+        }
+
+        // Применение порядка языков к DOM элементам
+        function applyLanguageOrder() {
+            const controlsContainer = document.querySelector('.column-controls');
+            if (!controlsContainer) return;
+            
+            const controls = Array.from(controlsContainer.querySelectorAll('.column-control'));
+            
+            // Сортируем элементы согласно languageOrder
+            const sortedControls = languageOrder
+                .map(langCode => controls.find(el => el.dataset.langCode === langCode))
+                .filter(el => el !== undefined);
+            
+            // Очищаем контейнер и добавляем отсортированные элементы
+            controlsContainer.innerHTML = '';
+            sortedControls.forEach(el => controlsContainer.appendChild(el));
+            
+            // Обновляем видимость колонок в правильном порядке
+            updateColumnVisibility();
+        }
+
+        // Перемещение языка вверх
+        function moveLangUp(langCode) {
+            console.log('moveLangUp called for:', langCode);
+            const currentIndex = languageOrder.indexOf(langCode);
+            console.log('Current index:', currentIndex, 'languageOrder:', languageOrder);
+            if (currentIndex > 0) {
+                // Меняем местами с предыдущим
+                [languageOrder[currentIndex - 1], languageOrder[currentIndex]] = 
+                [languageOrder[currentIndex], languageOrder[currentIndex - 1]];
+                
+                console.log('New languageOrder:', languageOrder);
+                saveLanguageOrder();
+                applyLanguageOrder();
+            } else {
+                console.log('Cannot move up - already at top');
+            }
+        }
+
+        // Перемещение языка вниз
+        function moveLangDown(langCode) {
+            console.log('moveLangDown called for:', langCode);
+            const currentIndex = languageOrder.indexOf(langCode);
+            console.log('Current index:', currentIndex, 'languageOrder:', languageOrder);
+            if (currentIndex < languageOrder.length - 1) {
+                // Меняем местами со следующим
+                [languageOrder[currentIndex], languageOrder[currentIndex + 1]] = 
+                [languageOrder[currentIndex + 1], languageOrder[currentIndex]];
+                
+                console.log('New languageOrder:', languageOrder);
+                saveLanguageOrder();
+                applyLanguageOrder();
+            } else {
+                console.log('Cannot move down - already at bottom');
+            }
         }
 
         // Обновление состояния чекбоксов
@@ -1111,9 +1251,10 @@
 
         // Обновленная функция обновления видимости колонок
         function updateColumnVisibility() {
-            const columns = document.querySelectorAll('.language-column');
+            const columns = Array.from(document.querySelectorAll('.language-column'));
             const parallelText = document.getElementById('parallel-text');
             
+            // Показываем/скрываем колонки
             columns.forEach(column => {
                 const lang = column.getAttribute('data-lang');
                 if (visibleColumns.includes(lang)) {
@@ -1122,6 +1263,15 @@
                     column.classList.add('hidden');
                 }
             });
+
+            // Сортируем колонки согласно languageOrder (только видимые в правильном порядке)
+            const sortedColumns = languageOrder
+                .filter(lang => visibleColumns.includes(lang))
+                .map(lang => columns.find(col => col.getAttribute('data-lang') === lang))
+                .filter(col => col !== undefined);
+            
+            // Перестраиваем DOM в правильном порядке
+            sortedColumns.forEach(column => parallelText.appendChild(column));
 
             // Обновление CSS класса для количества колонок
             const visibleCount = visibleColumns.length;
