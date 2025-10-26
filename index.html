@@ -1,0 +1,3020 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Манифест Коммунистической партии</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --border-color: #e0e0e0;
+            --header-bg: #f8f9fa;
+            --column-bg: #fafafa;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --button-bg: #007bff;
+            --button-hover: #0056b3;
+            
+            /* Оптимальные настройки читаемости */
+            --font-size: 18px;
+            --line-height: 1.8;
+            --font-family-text: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #f5f5f5;
+            --border-color: #333333;
+            --header-bg: #2d2d2d;
+            --column-bg: #252525;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --button-bg: #4a9eff;
+            --button-hover: #357abd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .header {
+            background-color: var(--header-bg);
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .language-panel {
+            background-color: var(--column-bg);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 6px var(--shadow);
+        }
+
+        .column-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .column-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: var(--bg-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .column-control:hover {
+            background-color: var(--header-bg);
+        }
+
+        .order-buttons {
+            display: flex;
+            gap: 4px;
+            margin-left: auto;
+        }
+
+        .order-btn {
+            background: rgba(0, 0, 0, 0.1);
+            color: var(--text-color);
+            border: none;
+            border-radius: 4px;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            opacity: 0.5;
+        }
+
+        [data-theme="dark"] .order-btn {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .order-btn:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        [data-theme="dark"] .order-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .order-btn:active {
+            transform: scale(0.95);
+        }
+
+        .column-checkbox {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--button-bg);
+            cursor: pointer;
+        }
+
+        .column-label {
+            font-size: 14px;
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .theme-switcher {
+            position: relative;
+        }
+
+        .tg-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 15px;
+            border-radius: 6px;
+            background-color: var(--column-bg);
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .tg-link:hover {
+            background-color: #0088cc;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-toggle {
+            background-color: var(--column-bg);
+            color: var(--text-color);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-icon {
+            font-size: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .book-info {
+            text-align: left;
+            margin-bottom: 30px;
+            padding: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .book-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .book-author {
+            font-size: 18px;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .parallel-text {
+            display: grid;
+            gap: 20px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            align-items: start;
+        }
+
+        .parallel-text.columns-1 {
+            grid-template-columns: 1fr;
+        }
+
+        .parallel-text.columns-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .parallel-text.columns-3 {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .parallel-text.columns-4 {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+
+        .parallel-text.columns-5 {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        }
+
+        .parallel-text.columns-6 {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        }
+
+        .parallel-text.columns-7 {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        }
+
+        .language-column {
+            background-color: var(--column-bg);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .language-column.hidden {
+            display: none;
+        }
+
+        .language-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .language-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .language-flag {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .paragraph {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: var(--bg-color);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .paragraph:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .paragraph-text {
+            font-size: var(--font-size);
+            line-height: var(--line-height);
+            font-family: var(--font-family-text);
+            flex: 1;
+            max-width: 700px;
+            margin: 0;
+            text-align: left;
+        }
+
+        .paragraph-text * {
+            text-align: left;
+        }
+
+        .paragraph-text p,
+        .paragraph-text h1,
+        .paragraph-text h2,
+        .paragraph-text h3,
+        .paragraph-text h4,
+        .paragraph-text div {
+            margin-left: 0;
+            margin-right: 0;
+            text-align: left;
+        }
+
+        .text-highlight {
+            color: #d32f2f;
+        }
+
+        [data-theme="dark"] .text-highlight {
+            color: #ff5252;
+        }
+
+        .paragraph-number {
+            font-size: 11px;
+            color: var(--text-color);
+            opacity: 0.4;
+            font-weight: normal;
+            margin-bottom: 5px;
+            text-align: right;
+            font-family: monospace;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .control-btn {
+            background-color: var(--button-bg);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .control-btn:hover {
+            background-color: var(--button-hover);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 1200px) {
+            .parallel-text.columns-4 {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .parallel-text.columns-4 .language-column:nth-child(3),
+            .parallel-text.columns-4 .language-column:nth-child(4) {
+                grid-column: 1 / -1;
+                margin-top: 20px;
+            }
+
+            .parallel-text.columns-5 {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .parallel-text.columns-5 .language-column:nth-child(3),
+            .parallel-text.columns-5 .language-column:nth-child(4),
+            .parallel-text.columns-5 .language-column:nth-child(5) {
+                grid-column: 1 / -1;
+                margin-top: 20px;
+            }
+        }
+
+        /* Мобильная версия с переключением языков для каждого абзаца */
+        .mobile-paragraph-group {
+            display: none;
+            flex-direction: column;
+            background-color: var(--column-bg);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: visible;
+            min-height: fit-content;
+            height: auto;
+        }
+
+        .mobile-paragraph-content {
+            display: none;
+            flex-shrink: 0;
+            height: auto;
+            min-height: 0;
+        }
+
+        .mobile-paragraph-content.active {
+            display: block;
+            height: auto;
+        }
+
+        /* Фиксированная панель языков внизу экрана на мобильном */
+        .mobile-lang-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--header-bg);
+            border-top: 2px solid var(--border-color);
+            padding: 10px;
+            z-index: 200;
+            box-shadow: 0 -2px 10px var(--shadow);
+        }
+
+        .mobile-lang-bar-inner {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 100%;
+        }
+
+        .mobile-lang-btn {
+            padding: 10px 16px;
+            border: 2px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            min-width: 60px;
+            min-height: 50px;
+            height: auto;
+            white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            user-select: none;
+            font-weight: 500;
+        }
+
+        .mobile-lang-btn.active {
+            background-color: var(--button-bg);
+            color: white;
+            border-color: var(--button-bg);
+            box-shadow: 0 3px 8px var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .mobile-lang-btn:active {
+            transform: scale(0.96);
+        }
+
+        .mobile-paragraph-content .paragraph {
+            background-color: transparent !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            min-height: auto !important;
+            cursor: default !important;
+            box-shadow: none !important;
+            height: auto !important;
+        }
+
+        .mobile-paragraph-content .paragraph:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        .mobile-paragraph-content .paragraph-text {
+            padding: 0 !important;
+            margin: 0 !important;
+            flex: none !important;
+        }
+        
+        .mobile-paragraph-content .paragraph-number {
+            margin-bottom: 8px !important;
+            opacity: 0.4;
+        }
+
+        @media (max-width: 768px) {
+            /* Скрываем десктопную версию */
+            .parallel-text {
+                display: none !important;
+            }
+
+            /* Показываем мобильную версию */
+            .mobile-paragraph-group {
+                display: flex !important;
+            }
+            
+            /* Показываем панель языков внизу */
+            .mobile-lang-bar {
+                display: block !important;
+            }
+            
+            .container {
+                padding: 15px;
+                padding-bottom: 90px; /* Отступ снизу для панели языков */
+            }
+            
+            .book-info {
+                padding: 10px;
+                margin-bottom: 20px;
+                max-width: 100%;
+            }
+            
+            .book-info p {
+                margin-bottom: 15px;
+            }
+            
+            .book-info h1,
+            .book-info h2,
+            .book-info h3 {
+                margin-top: 20px;
+            }
+            
+            .header {
+                padding: 15px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .title {
+                font-size: 18px;
+            }
+
+            /* Скрываем панель выбора языков на мобильном */
+            .language-panel {
+                display: none !important;
+            }
+            
+            .header-controls {
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+            }
+            
+            .theme-switcher, .tg-link {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .theme-toggle {
+                width: 100%;
+                justify-content: center;
+                padding: 8px 15px;
+                font-size: 18px;
+            }
+            
+            .tg-link {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+            
+            /* Переопределяем стили абзацев для мобильной версии */
+            .mobile-paragraph-group {
+                height: auto !important;
+                min-height: 0 !important;
+                overflow: visible !important;
+            }
+            
+            .mobile-paragraph-group .paragraph {
+                background-color: transparent !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                min-height: 0 !important;
+                height: auto !important;
+            }
+            
+            .mobile-paragraph-group .paragraph-text {
+                min-height: 0 !important;
+            }
+            
+            .mobile-paragraph-content {
+                height: auto !important;
+                overflow: visible !important;
+            }
+            
+            /* Сноски на мобильном не должны выходить за экран */
+            .footnote-popup {
+                position: fixed !important;
+                left: 20px !important;
+                right: 20px !important;
+                bottom: 20px !important;
+                top: auto !important;
+                width: auto !important;
+                min-width: 0 !important;
+                max-width: none !important;
+                transform: none !important;
+            }
+            
+            /* Кнопка прокрутки вверх должна быть над панелью языков */
+            .controls {
+                bottom: 90px !important;
+                z-index: 300 !important;
+            }
+        }
+
+        .sync-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--button-bg);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sync-indicator.show {
+            opacity: 1;
+        }
+
+        /* Стили для сносок */
+        .footnote-link {
+            color: #ffffff !important;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            line-height: 18px;
+            text-align: center;
+            border-radius: 4px;
+            background-color: #007bff;
+            font-size: 13px;
+            font-style: italic;
+            margin: 0 2px;
+            position: relative;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .footnote-link:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        /* Всплывающее окно для сносок */
+        .footnote-popup {
+            position: absolute;
+            background-color: var(--bg-color);
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            padding: 12px 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 100000 !important;
+            min-width: 400px;
+            max-width: 800px;
+            width: 600px;
+            font-size: 14px;
+            line-height: 1.4;
+            color: var(--text-color);
+            display: none;
+        }
+        
+        /* Форматирование внутри сносок */
+        .footnote-popup strong {
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .footnote-popup strong.text-highlight {
+            color: #d32f2f;
+        }
+
+        [data-theme="dark"] .footnote-popup strong.text-highlight {
+            color: #ff5252;
+        }
+        
+        .footnote-popup em {
+            font-style: italic;
+            color: var(--text-color);
+        }
+
+        /* Стили для Markdown элементов */
+        .book-info h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .book-info h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .book-info h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            margin-top: 25px;
+            text-align: left;
+        }
+        
+        .book-info p {
+            margin-bottom: 20px;
+            line-height: var(--line-height);
+            font-size: var(--font-size);
+            font-family: var(--font-family-text);
+            max-width: 700px;
+            margin-left: 0;
+            margin-right: 0;
+            text-align: left;
+        }
+
+        .book-info strong {
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .book-info em {
+            font-style: italic;
+            color: var(--text-color);
+        }
+
+        .book-info a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .book-info a:hover {
+            text-decoration: underline;
+        }
+
+        .book-info ul,
+        .book-info ol,
+        .paragraph-text ul,
+        .paragraph-text ol {
+            margin: 20px 0;
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        .book-info li,
+        .paragraph-text li {
+            text-align: left;
+        }
+
+        .book-info li {
+            margin: 8px 0;
+            line-height: 1.7;
+        }
+
+        /* Ссылки на абзацы в оглавлении */
+        .paragraph-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .paragraph-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* Заголовки в колонках */
+        .column-header {
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 20px 0 10px 0;
+        }
+
+        .column-header h1 {
+            font-size: 20px;
+        }
+
+        .column-header h2 {
+            font-size: 18px;
+        }
+
+        .column-header h3 {
+            font-size: 16px;
+        }
+
+        /* Подсветка целевого абзаца */
+        .paragraph.highlight {
+            animation: highlightParagraph 2s ease;
+        }
+
+        @keyframes highlightParagraph {
+            0% {
+                background-color: rgba(0, 123, 255, 0.3);
+                transform: scale(1.02);
+            }
+            100% {
+                background-color: transparent;
+                transform: scale(1);
+            }
+        }
+        
+        /* Подсветка мобильной группы абзацев */
+        .mobile-paragraph-group.highlight {
+            animation: highlightMobileParagraph 2s ease;
+        }
+
+        @keyframes highlightMobileParagraph {
+            0% {
+                background-color: rgba(0, 123, 255, 0.2);
+                box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+            }
+            100% {
+                background-color: var(--column-bg);
+                box-shadow: none;
+            }
+        }
+    
+        .paragraph[data-paragraph="1"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="2"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="3"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="4"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="5"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="6"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="7"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="8"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="9"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="10"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="11"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="12"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="13"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="14"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="15"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="16"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="17"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="18"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="19"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="20"] {
+            margin-top: 0;
+        }
+        .paragraph[data-paragraph="21"] {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1 class="title">📚 Манифест Коммунистической партии</h1>
+            <div class="header-controls">
+                <a href="https://t.me/pensadoj" class="tg-link" target="_blank" rel="noopener noreferrer">
+                    обновления в TG
+                </a>
+                <div class="theme-switcher">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Переключить тему">
+                        <span class="theme-icon" id="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="book-info">
+            <h1>Манифест Коммунистической партии</h1>
+<p>Карл Маркс и Фридрих Энгельс</p>
+<p>Перевод и комментарии Шелике В. Ф., Шелике Г. И. 2018.</p>
+<p>Сайт собран <a href="https://vk.com/wall-81495923_14503" target="_blank">из PDF</a> «В. Ф. Шелике и Г. И. Шелике, Новая редакция перевода на русский язык „Манифеста Коммунистической партии“ К. Маркса и Ф. Энгельса и материалы к нему.».</p>
+<h2>Аннотация</h2>
+<p>Данная редакция «Манифеста коммунистической партии» Карла Маркса и Фридриха Энгельса отличается от предшествующих изданий тем, что в нем предлагается новый перевод с немецкого языка на русский язык ряда ведущих понятий. Необходимость нового перевода определена неадекватностью прежнего перевода данных понятий, вызванного, с одной стороны, объективными трудностями перевода, но, с другой стороны, также и воздействием на переводчиков догматического истмата. Аутентичный, еще не познанный Маркс нужен современным марксистам как для понимания законов существования и развития истории человечества, в том числе и современной истории, так и в борьбе с антикоммунистами, а также для развития материалистической теории истории Маркса в соответствии с новыми реалиями ХХI века, в отличие от века Х1Х, в котором жил и творил Маркс.</p>
+<h2>Оглавление</h2>
+<ul><li><a href="#paragraph-1" class="paragraph-link" onclick="scrollToParagraph(event, 1)">Манифест Коммунистической партии</a></li>
+<li><a href="#paragraph-20" class="paragraph-link" onclick="scrollToParagraph(event, 20)">I. Буржуа и пролетарии</a></li></ul>
+<h2>Предисловие</h2>
+<p>Предлагаемый нами вариант перевода работы Карла Маркса и Фридриха Энгельса «Манифест Коммунистической партии» отличается от предшествующих изданий тем, что в русский текст внесен ряд новых редакционных правок, которые мы выделили подчеркиванием. Кроме того, помимо русского текста подчёркиванием выделены не только оба варианта русского текста, но также исходный немецкий и перевод на английский. Помимо исправлений выделены также понятия, перевод которых совпадает или близок к старому переводу на русский язык, но новой редакции избежал.</p>
+<p>При этом читатель получает возможность сравнивать предлагаемый текст с помещенным рядом оригиналом на немецком языке, а также с расположенными тоже рядом английским и привычным вариантом на русском языке. Помимо этого для всех понятий, для которых предлагается новый перевод, и в некоторых других случаях после русского понятия следует в скобках то же понятие на исходном немецком языке. Это утяжеляет чтение, но мы сознательно пошли на это, поскольку данная редакция перевода «Комманифеста» носит скорее научный, чем литературный характер.</p>
+<p>Необходимость нового прочтения ряда ведущих положений «Манифеста Коммунистической партии» вызвана, <strong>во-первых</strong>, объективными сложностями передачи<br>текстов Маркса на другие языки из-за отсутствия в другом языке порой понятия, полностью адекватного мысли Маркса, что уже отмечено рядом российских<br>исследователей Маркса, как в прошлом, так и в настоящем. По этой причине, например, недавно вышел в свет новый вариант перевода первого тома «Капитала»,<br>предпринятого В.Я.Чеховским<sup><a href="#" class="footnote-link" data-footnote="header-1" onclick="showFootnote(event, 'header-1')">i</a></sup>. Очень многое сделано также П.Н. Кондрашовым, в работах которого мы обнаружим немало новых переводов ряда важнейших<br>понятий Маркса, которые сегодня на русском языке обедняют или даже искажают позицию Маркса<sup><a href="#" class="footnote-link" data-footnote="header-2" onclick="showFootnote(event, 'header-2')">i</a></sup>.</p>
+<p><strong>Во-вторых</strong>, любой переводчик Маркса, будучи человеком своего времени, столкнувшись с трудностями адекватного перевода, вольно или невольно выбирает тот вариант перевода, который более всего согласуется с его собственными взглядами или соответствует идеологии его окружения или только историческим запросам своего времени, которые на самом деле могут оказаться кажущимися. В результате Маркс порой предстает в переводе не просто не понятым, а даже искаженным. Эту проблему мы осознаем, но все мы тоже люди своего времени.</p>
+<p>И, наконец, <strong>в-третьих</strong>, любые повороты истории, новые исторические явления, например, такие как перестройка и крах советского строя в СССР, заставляют ученых и «простых людей с улицы» по-иному взглянуть на теоретиков и политиков прошлого, которые, казалось, знали истинный путь в светлое будущее, которое в СССР, однако, светлым вовсе не оказалось, поскольку кроме прекрасной культурной революции характеризовалось еще и отвратительным ГУЛАГ’ом. А поскольку в СССР политика, со всеми ее минусами и плюсами, официально осуществлялась под знаменем марксизма-ленинизма, а советский строй рухнул, то, что удивляться, когда под его обломками валяется и теория Маркса.</p>
+<p>И возникает вопрос, а действительно, нужен ли нам сегодня Маркс?</p>
+<p>Положительный ответ на этот вопрос, вроде бы, дает включение в 2013 году «Манифеста Коммунистической партии» и «Капитала» в реестр «Память мира» (проект ЮНЕСКО)<sup><a href="#" class="footnote-link" data-footnote="header-3" onclick="showFootnote(event, 'header-3')">i</a></sup>, куда помимо этих произведений входят Ригведа, Шахнамэ, Коран, Библия и Волшебник страны Оз.</p>
+<p>А вот отрицательный ответ на этот вопрос дается сегодня многими российскими учеными, некоторые из них даже имя Маркса слышать не хотят, считая Маркса виновником чуть ли не всех бед России. Они имеют на это какое-то право потому, что ХХI век действительно не ХIХ век, и многие выводы, которые Маркс делал относительно исторически конкретных форм деятельности человечества, в том числе и революционной, именно в свое время, сегодня могут оказаться устарелыми. Да и жил и творил Маркс, все-таки, не в России, а потому, мол, Россию доподлинно знать не мог и не знал, хотя ею и интересовался. А у России, как известно, «особенная стать», «умом Россию не понять» и т.д., что тоже, в каком-то смысле, правда.</p>
+<p>В советское время у России был свой собственный горький опыт провозглашения генетики, кибернетики, социологии и некоторых других наук и научных направлений лженауками. С соответствующими оргвыводами по отношению к их сторонникам. Неймется, почему-то, впадать из одной крайности в другую. И современное выкидывание Маркса из иных ВУЗовских программ, все-таки, из этой же области, сегодня, правда, в более мягкой форме, чем в прошлом, но результат будет прежним. Результатом станет неизбежное отставание наук, занятых познанием законов функционирования и развития истории человечества, включая Россию как часть человечества. В лучшем случае все же произойдет открытие велосипедов, т.е. того, что уже в ХIХ веке давным-давно открыл Маркс, но оказалось неизвестным из-за пренебрежения к Марксу.</p>
+<p>Но, чтобы избежать отставания на научной стезе, самим современным сторонникам Маркса сегодня необходимо продолжать освобождение себя самих от многих постулатов того догматического «учения Маркса», «верного и всесильного», которое господствовало в советской идеологии<sup><a href="#" class="footnote-link" data-footnote="header-4" onclick="showFootnote(event, 'header-4')">i</a></sup>. Один из путей такого освобождения это воссоздание целого ряда мыслей Маркса адекватно ему самому<sup><a href="#" class="footnote-link" data-footnote="header-5" onclick="showFootnote(event, 'header-5')">i</a></sup>, не понятых, а порой даже искажающих теорию, в том числе и из-за трудностей переводов. Во многом Маркс оказался все еще не познанным, как по идеологическим причинам, так и из-за неадекватных переводов.</p>
+<p>Воссоздание непознанного Маркса требует времени и усилий многих ученых. Но это позволит, в конце концов, отделить в материалистической теории истории<br>открытые Марксом действительные законы истории человечества, действующие в истории по сей день, включая и Россию, от тех положений Маркса, которые были<br>порождены и ограничены исключительно реалиями ХIХ века, в том числе и состоянием тогдашней науки. Воссозданный Маркс позволит взглянуть на СССР, и на<br>сегодняшнюю Россию в ракурсе материалистической теории истории и кое-что понять из того, что нам пока все еще не понятно.</p>
+<p>Ради посильного участи в решении стоящей задачи мы и предлагаем в качестве одного из шагов данную редакцию «Манифеста коммунистической партии» с рядом<br>новых переводов ряда понятий, в том числе ключевых. При этом надо напомнить, что Энгельс в работе «Как не надо переводить Маркса»<sup><a href="#" class="footnote-link" data-footnote="header-6" onclick="showFootnote(event, 'header-6')">i</a></sup> четко определил правила<br>переводов текстов Маркса на другие языки — на примере перевода на английский<sup><a href="#" class="footnote-link" data-footnote="header-7" onclick="showFootnote(event, 'header-7')">i</a></sup>, а именно:</p>
+<p>— «Выразительный немецкий язык следует передавать выразительным английским языком; нужно использовать лучшие ресурсы языка».<br>— «вновь созданные немецкие термины требуют создания соответствующих новых английских терминов».<br>— «термин должен всегда передаваться одним и тем же равнозначащим выражением».</p>
+<p>Но легко потребовать. И если первая задача переводчиком «Манифеста ...» на русский выполнена блестяще, то со второй и третьей дело обстоит довольно неровно,<br>особенно если в русском языке просто нет адекватного слова для выражения всего богатства содержания марксового понятия.</p>
+<h3>AUFHEBUNG, AUFHEBEN — уничтожение или снятие?</h3>
+<p>Большая проблема, например, возникла при переводе понятия, выраженного через энантиосемичное<sup><a href="#" class="footnote-link" data-footnote="header-8" onclick="showFootnote(event, 'header-8')">i</a></sup> слово <strong>Aufheben</strong>, введенного в круг философских категорий еще Гегелем. Адекватный перевод понятия <strong>Aufheben</strong> в «Манифесте ...» существенен для понимания отношения Маркса и Энгельса к судьбе частной собственности, В немецком языке <strong>Aufhebung (Aufheben)</strong> вбирает в себя такие противоположные действия, как «поднимание», «сохранение» и «устранение»<sup><a href="#" class="footnote-link" data-footnote="header-9" onclick="showFootnote(event, 'header-9')">i</a></sup>. Сегодня в философском<br>языке<sup><a href="#" class="footnote-link" data-footnote="header-9" onclick="showFootnote(event, 'header-9')">i</a></sup> это понятие переводится как «снятие»<sup><a href="#" class="footnote-link" data-footnote="header-11" onclick="showFootnote(event, 'header-11')">i</a></sup>.</p>
+<p>А вот в ИМЭЛовском издании «Манифеста ...» понятие <strong>Aufheben</strong> на русском языке как «снятие» не используется ни разу. В «Манифесте ...»<sup><a href="#" class="footnote-link" data-footnote="header-12" onclick="showFootnote(event, 'header-12')">i</a></sup> <strong>Aufheben</strong> во всех его словоформах используется 27 раз, при этом на русский язык передается 22 раза как «уничтожить» и 5 раз тремя другими словами синонимического ряда «отрицание» («упразднить», «устранить», «прекратить»). Таящаяся при таком в понятии <strong>Aufheben</strong> мысль также еще и о сохранении и о поднятии, в том числе и собственности, начисто исчезает в переводе, остается только уничтожение!</p>
+<p>Это разница? Еще какая!</p>
+<p>А теперь внимание!</p>
+<p>Когда Маркс и Энгельс в «Манифесте ...» определяют отношение коммунистов, то есть свою собственную позицию, по отношению к частной собственности, буржуазным отношениям, семье и противоположности между городом и деревней, то используют понятие <strong>Aufheben</strong>, т.е. «снятие». А <strong>Aufheben</strong> по Марксу и Энгельсу обозначает качественные изменения в самых разных сферах общества (феодального или капиталистического) включая начало этого процесса еще в недрах старого общества, революцию как активное действие по качественному изменению общества и результаты после завершения революции, когда снятие продолжается и завершается. Тут такой глубокий теоретический подход и смысл, поскольку <strong>Aufheben</strong> вбирает в себя и поднятие<sup><a href="#" class="footnote-link" data-footnote="header-13" onclick="showFootnote(event, 'header-13')">i</a></sup> и сохранение и устранение в одном флаконе. Снятие есть длительный процесс по осуществлению диалектического отрицания, в том числе и частной собственности, и буржуазных отношений, и снятия противоречий между городом и деревней и т.д.</p>
+<p>А вот тогда, когда в «Манифесте...» речь заходит об обвинениях коммунистов в том, что они, мол, хотят отменить частную собственность, семью и т.д., звучащие со стороны буржуазных идеологов, тогда Маркс и Энгельс используют в полемике понятия своих противников — от <strong>Abschaffen</strong> («отмена») до <strong>Vernichtung</strong> («уничтожение»). <strong>Vernichten</strong> и <strong>Abschaffen</strong>, а также порой и <strong>Aufheben</strong> используется в «Манифесте...» Марксом и Энгельсом в полемике с противниками коммунистов для доказательства, что буржуазия сама уничтожала, сама отменяла в прошлом в борьбе против феодалов феодальную собственность, феодальные отношения, да и в настоящем во имя господства своей буржуазной частной собственности, своих буржуазных общественных отношений сама лишает пролетариат собственности и т. д. Маркс и Энгельс нередко прибегают к тем понятиям, в которых ведется полемика, и которые тоже относятся к <strong>Aufheben</strong>, но к нему не сводятся.</p>
+<p>Дело в том, что в процессе <strong>Aufheben</strong> не только устраняется прошлое, но и сохраняются из прошлого действительные достижения человечества и условия существования человечества. Так, например, коммунизм устраняет частную собственность, но, как подчеркивают Маркс и Энгельс в полемике, сохраняет собственность на личные вещи, да и на многое другое, в том числе обеспечивает собственность индивида на собственную жизнь (есть у Маркса такое определение про коммунизм, но не в «Манифесте...»).</p>
+<p>Маркс и Энгельс «напоминают» противникам коммунистов, что буржуазия сама уничтожила феодальную собственность, феодальные отношения, да и семью она тоже отменяет через проституцию и т.д. И то, что буржуазия позволила себе самой делать в борьбе против феодалов, она теперь не позволяет сделать пролетариату в борьбе против буржуазии. Но пролетариат, подчеркивают Маркс и Энгельс, тоже имеет историческое право на снятие частной, буржуазной собственности, не отменяя при этом собственность личную и т.д.</p>
+<p>Вот это различие подхода Маркса и Энгельса в «Манифесте...» в переводе на русский язык отсутствует<sup><a href="#" class="footnote-link" data-footnote="header-14" onclick="showFootnote(event, 'header-14')">i</a></sup>. Переводчики оказались в плену идеи об уничтожении частной собственности одним махом, что было распространено и в массовом сознании революционеров ХХ века, «не заметив» глубины значения снятия частой собственности как длительного процесса, по Марксу и Энгельсу.</p>
+<p>Напомним, что и многие рядовые участники Октябрьской революции 1917 года считали именно уничтожение частной собственности главной задачей революции, что, однако, одним махом сделать не удалось, хотя в период военного коммунизма и в первые годы советской власти и сверху и снизу многое успели сделать через разные конфискации. Переход к НЭПу означал осуществление процесса <strong>Aufhebung</strong> («снятия») частной собственности. Частная собственность ведущих отраслей производства была <strong>поднята</strong> на государственный уровень, став государственной. Индивидуальная и групповая частная собственность была <strong>сохранена</strong> в других отраслях производства и в привлеченном иностранном капитале. Целью было дальнейшее постепенное <strong>устранение</strong> частной собственности в будущем, в том числе и в мелком производстве. Сталин прервал НЭП <strong>уничтожением</strong> частной собственности одним махом. Но удалось ли это осуществить целиком и полностью? Разве не существовал в СССР еще и подпольный теневой сектор с фактической частной собственностью? И не была ли государственная собственность в СССР всего лишь государственной частной собственностью, в достаточно своеобразной форме?</p>
+<p>Восстановление частной собственности (в том числе передача части государственной собственности в руки индивидуальных и групповых собственников) стало одной из главных задач перестройки в России, И оказалось, что людей готовых стать частными собственниками в России вовсе не так уж мало, а даже много в партийном и государственном аппарате, в криминальной среде и еще среди вожаков комсомола. И никакого сопротивления со стороны рабочего класса, крестьянства и трудовой интеллигенции восстановление частной собственности не вызвало. Почему-то.</p>
+<p>Так что за трудностями адекватного перевода отношения Маркса и Энгельса к судьбе частной собственности через <strong>Aufheben</strong> кроется немало проблем действительной истории СССР и России ХХ века.</p>
+<p>Вплотную к проблеме перевода <strong>Aufheben</strong> примыкает и перевод, в разных контекстах, других понятий, синонимичных или близких по значению к «отрицанию», начиная от наиболее мягкого <strong>Abschaffen</strong> («отменить») до максимально экспрессивных <strong>Vernichten</strong> («уничтожить») или Umsturz («ниспровержение»), для которых в старом переводе был также сделан крен в пользу наиболее жестких русских синонимов<sup><a href="#" class="footnote-link" data-footnote="header-15" onclick="showFootnote(event, 'header-15')">i</a></sup>.</p>
+<p>В предлагаемой редакции «Манифеста ...» мы выделили все понятия синонимических рядов близких к «отрицанию» (с одновременным приведением их перевода к единообразию) и заменили все варианты перевода <strong>Aufheben</strong> на «снятие». Но при этой замене мы столкнулись с несколькими проблемами, разрешить которые нам не удалось:</p>
+<p>«Манифест ...» помимо прочего — выдающееся литературное произведение и, если для академических работ слово «снятие» вполне пригодно, то в контексте произведений, предназначенных для массовой аудитории, в том числе для «Манифеста ...» оно местами смотрится чужеродно. Например, говоря об отношении коммунистов к семье Маркс и Энгельс используют то же энантиосемичное <strong>Aufheben</strong>. Русское «снятие» (впрочем как и «уничтожение») рядом с семьей смотрится не совсем понятно и стилистически просто странно, в то время как по-немецки это великолепная игра слов на многозначности <strong>Aufheben</strong><sup><a href="#" class="footnote-link" data-footnote="header-16" onclick="showFootnote(event, 'header-16')">i</a></sup>.</p>
+<p>Мы так подробно остановились в Предисловии на новой редакции перевода одного из ключевых понятий марксизма с тем, чтобы показать значение восстановления адекватного Маркса для понимания нашего прошлого в СССР и настоящего, и чтобы проиллюстрировать и те литературные проблемы, которые возникают при этом восстановлении. Остальные комментарии мы помещаем ниже, а также в сносках по тексту.</p>
+<h3>VEHRKEHR — обмен, общение, коммуникация, обращение?</h3>
+<p>В «Манифесте коммунистической партии», также как и в «Немецкой идеологии», Маркс и Энгельс выявляют законы истории человечества, выражая их через целую совокупность категориальных рядов, в том числе и через триаду понятий «<strong>Produktion</strong>, <strong>Verkehr</strong>, <strong>Gesellschaft</strong>». В ракурсе взаимодействия производства в виде промышленности и <strong>Verkehr</strong>’а в виде торговли Маркс и Энгельс в «Манифесте ...» характеризуют процесс возникновения в недрах феодального общества класса буржуазии, а также дают определения коммунистической революции как такой революции, в которой «низвергается власть прежнего способа производства и [способа] (В.Ш) общения (Verkehrsweise), а также прежней структуры общества<sup><a href="#" class="footnote-link" data-footnote="header-17" onclick="showFootnote(event, 'header-17')">i</a></sup>...».</p>
+<p>Но, что такое <strong>Verkehr</strong><sup><a href="#" class="footnote-link" data-footnote="header-18" onclick="showFootnote(event, 'header-18')">i</a></sup>?</p>
+<p>В немецком варианте «Манифеста ...» <strong>Verkehr</strong> (в том числе в многокорневых словах) встречается 8 раз и переведен как «обмен» (7 раз) или «связь» (1 раз), а в<br>«Немецкой идеологии» он же переведен как «общение». И это не случайно.</p>
+<p>Дело в том, что понятие <strong>Verkehr</strong> относится, как и <strong>Aufhebung</strong>, к тем понятиям, для которых в русском языке нет эквивалента, который мог бы выразить все семантическое и теоретическое богатство <strong>Verkehr</strong>’a, включающего и обмен и общение, но им не ограниченного. По Марксу и Энгельсу <strong>Verkehr</strong> есть, конечно, и общение людей, в том числе и акт продолжения человеческого рода тоже есть <strong>Verkehr</strong>, но не только; <strong>Verkehr</strong> включает и обмен — обмен и вещами, и людьми — рабами и крепостными, но не только; <strong>Verkehr</strong> вбирает еще и движение людей, в том числе и переселение и выселения народов, но не только; <strong>Verkehr</strong> обозначает еще и движение транспорта, товаров, циркуляцию капиталов и др. Формой <strong>Verkehr</strong>’a является и гражданское общество, а также рынок.</p>
+<p>Но это еще не все! Существительное <strong>Verkehr</strong>, образованное от глагола <strong>verkehren</strong>, обозначает еще <strong>искажать и искажение</strong>. Люди через <strong>Verkehr</strong> сами искажают мир и сами создают искаженный мир (<strong>verkehrte Welt</strong>). Дело в том, что в истории человечества люди не только продолжают род человеческий, производят, вступая в общение, на свет детей, но люди еще и убивают людей в нескончаемых войнах, искажая человека (человечество) и мир человека. А война, согласно Марксу и Энгельсу, тоже вид <strong>Verkehr</strong>’а. Люди на рынке не только торгуют продуктами, произведенным в процессе производства, но еще и воруют, берут взятки в местах торговли, грабят ни в чем не повинных людей не только на дорогах, но и на рынке. А рынок, согласно Марксу и Энгельсу, как уже сказано, тоже форма <strong>Verkehr</strong>’а, своей властью над людьми искажающий человека (человечество) и мир человека (человечества).</p>
+<p>Можно заметить, что в понятии <strong>Verkehr</strong> Марксом и Энгельсом объединено многообразие тех созидательных и разрушительных форм деятельности людей, посредством которых люди осуществляют не само производство, а только <strong>движение-передвижение</strong> всего, что создано людьми в процессе производства, материального и духовного. Формы движения продуктов производства через <strong>Verkehr</strong> исторически различны, одни способствуют развитию человека (человечества) и мира, другие искажают человека (человечество) и создают искаженный мир (<strong>verkehrte Welt</strong>). Способ производства (что и как произведено) определяет формы <strong>Verkehr</strong>’а (что и как движется), но и формы <strong>Verkehr</strong>’а обратно воздействует на способ производства, способствуя или препятствуя его изменениям в сторону развития или в сторону торможения. Противоречивое взаимодействие способа производства и форм <strong>Verkehr</strong>’a ускоряют или сдерживают образование нового класса, преобразовывающего структуру общества по своему образу и подобию, что Маркс и Энгельс и обозначили в «Манифесте ...» на страницах, посвященных истории возникновения буржуазии в недрах феодального общества.</p>
+<p>Производство (<strong>Produktion</strong>) и <strong>Verkehr</strong> предстают в материалистической теории истории Маркса как парные категории<sup><a href="#" class="footnote-link" data-footnote="header-19" onclick="showFootnote(event, 'header-19')">i</a></sup>.</p>
+<p>К сожалению, в советском истмате не нашлось места для <strong>Verkehr</strong>’a, казалось, что все и вся в обществе определяется исключительно производством. Да и в докладах на очередном партийном съезде КПСС торжественно звучали цифры о росте производства, понимаемого как хозяйствование в промышленности и в сельском хозяйстве, а <strong>Verkehr</strong>, казалось, не существует в виде специфического рода деятельности людей, осуществляемого ими наряду с производством и отличного от производства, и специального внимания со стороны докладчиков он не заслуживал. Хотя о торговле и ценах на продукты торжественно докладывали, тем не менее, не ведали, что говоря о торговле на самом деле характеризуют состояние одного из видов <strong>Verkehr</strong>’а. «Дураки и дороги», извечная проблема России, вообще-то, тоже определяется <strong>Verkehr</strong>’ом.</p>
+<p>В заключении надо сказать, что мы так и не нашли понятия, полностью адекватного <strong>Verkehr</strong>’у для русского текста «Манифеста ...»<sup><a href="#" class="footnote-link" data-footnote="header-20" onclick="showFootnote(event, 'header-20')">i</a></sup>.</p>
+<p>Один из нас считает, что <strong>Verkehr</strong> надо переводить как «обращение» и следует придать новые смыслы этому русскому понятию, (как это было сделано в свое время со «снятием» для <strong>Aufheben</strong>), но вряд ли это будет сразу понято и принято без возражений<sup><a href="#" class="footnote-link" data-footnote="header-21" onclick="showFootnote(event, 'header-21')">i</a></sup>. Важно заметить, что понятие «обращение», в отличие от других существующих переводов <strong>Verkehr</strong>’а, несет также оттенок понятия «искажение». В то же время аргументом против такого варианта перевода <strong>Verkehr</strong>’а может служить то, что понятие «обращение» уже используется в русских переводах Маркса, в частности для перевода понятий <strong>Zirkulation</strong> и <strong>Kreislauf</strong><sup><a href="#" class="footnote-link" data-footnote="header-22" onclick="showFootnote(event, 'header-22')">i</a></sup> [капитала] во втором томе «Капитала». Впрочем, в рамках «Экономических рукописей 1857-1858 года»<sup><a href="#" class="footnote-link" data-footnote="header-23" onclick="showFootnote(event, 'header-23')">i</a></sup> <strong>Zirkulation</strong> и <strong>Kreislauf</strong> часто переводятся как кругооборот [капитала] <sup><a href="#" class="footnote-link" data-footnote="header-24" onclick="showFootnote(event, 'header-24')">i</a></sup>, что может позволить снять этот аргумент в рамках новой редакции перевода соответствующих работ.</p>
+<p>Другой автор<sup><a href="#" class="footnote-link" data-footnote="header-25" onclick="showFootnote(event, 'header-25')">i</a></sup> этого издания «Манифеста ...» предлагает переводить <strong>Verkehr</strong> понятием «общение-передвижение», которое чисто семантически ближе к немецкому <strong>Verkehr</strong>, чем используемые в сегодняшних переводах работы Маркса и Энгельса «Немецкая идеология» только понятие «общение», но и это вряд ли будет принято с восторгом. Проще всего последовать за рекомендацией Энгельса и просто ввести в русский вариант перевода материалистической теории истории Маркса новое понятие «феркер». Но, если мы введем такое понятие в предлагаемый текст, то современный читатель вообще ничего не поймет. Единственное, что явно не годится — переводить единое понятие <strong>Verkehr</strong> целым сонмом различных понятий, подгоняя их под контекст.</p>
+<p>Учитывая все эти сложности, мы предлагаем в данной редакции «Манифеста...» перевод <strong>Verkehr</strong>’a как «общение-передвижение». Этот выбор обусловлен тем, что первая часть — «общение», привычна и вошла в марксоведческую литературу, что видно и в прилагаемых ссылках на литературу, а потому будет близка читателю, она не искажает Маркса и Энгельса, но обедняет содержание их понятия. А вторая часть — передвижение» — передаст то общее, что присуще всем видам <strong>Verkehr</strong>’a, которые Маркс и Энгельс объединили в данном понятии. Нам важно, чтобы читатель увидел этот аспект. Кто захочет, может при чтении «Манифеста ...» держать в уме понимание <strong>Verkehr</strong>’а как «обращение» или «феркер». И, может быть, читатель предложит затем лучший вариант ...</p>
+<p>Заметим также, что в тексте «Манифеста ...», наряду с <strong>Verkehr</strong>’ом, используются также немецкие понятия, выражающие разные виды <strong>Verkehr</strong>’а и переводы которых на русский пересекаются с «контекстными переводами» <strong>Verkehr</strong>’а, например, <strong>Austausch</strong> (обмен), <strong>Kommunikation</strong> (коммуникация) и т.п. Эти понятия также выделены нами в тексте настоящего издания.</p>
+<h3>PRODUKTIVKRÄFTE и PRODUKTIONSKRÄFTE — Производительные (или продуктивные) и производственные силы</h3>
+<p>В советском истмате, <strong>во-первых</strong>, отсутствует понятие «производственные силы», есть только понятие «производительные силы». Соответственно в тех случаях, когда Маркс и Энгельс недвусмысленно ведут речь именно о производственных силах (<strong>Produktionskräfte</strong>), переводчик переводит их на знакомые ему производительные силы, правда, порой, почему-то, иногда оставляя в тексте и понятие «производственные силы». Но в результате из материалистической теории истории «исчезает» еще одно важное понятие, посредством которого Маркс и Энгельс выявляют истоки развития истории человечества, в том числе определяют и необходимость коммунистической революции, обусловленной, по Марксу и Энгельсу, также и наличием противоречий между производительными силами (<strong>Produktivkräfte</strong>) и производственными силами (<strong>Produktionskräfte</strong>). Это не синонимы<sup><a href="#" class="footnote-link" data-footnote="header-26" onclick="showFootnote(event, 'header-26')">i</a></sup>.</p>
+<p>В тексте «Манифеста ...» <strong>Produktionskräfte</strong> встречается 3 раза, а <strong>Produktivkräfte</strong> 6 раз и для обоих понятий в старом переводе используются «производительные силы». В предлагаемой нами редакции немецкое <strong>Produktionskräfte</strong> переводится как «производственные силы».</p>
+<p>Одновременно, <strong>во-вторых</strong>, обратим внимание и на то, что Марксово понятие <strong>Produktivkräfte</strong>, дословный перевод которых «продуктивные силы», в русских текстах традиционно переводится как «производительные силы». Русское прилагательное «производительные» созвучно с глаголом «производить» (<strong>produzieren</strong>), и с существительным «производство» (<strong>Produktion</strong>), что в принципе правомерно, но обедняет содержание «продуктивных сил», ибо в таком переводе <strong>Produktievkräfte</strong> человека (человечества) исходно предстают как силы, определяющие способности человека (человечества) производить, что, мол, и реализуется человеком (человечеством) только в сфере производства. При этом само производство нередко понимается только как сфера хозяйствования (<strong>Wirtschaft</strong>). В результате сфера приложения человеком (человечеством) своих <strong>Produktivkräfte</strong> как продуктивных сил сужается, и возникает один из истоков грубого экономического детерминизма, от которого отрекались Маркс и Энгельс.</p>
+<p>Но если понятие <strong>Produktievkräfte</strong> переводить и понимать как «продуктивные силы», где прилагательное «продуктивно» (<strong>produktiv</strong>) связано с существительным «продуктивность» (<strong>Produktivitaet</strong>), то понятию <strong>Produktievkräfte</strong> будет придано новое звучание, исходно преодолевающее ограниченность его понимания как сил, якобы, присущих человеку и проявляемых человеком только в процессе производства. Продуктивные силы исходно предстанут как силы продуктивной жизни (<strong>produktive Leben</strong>) человека, поскольку в действительности продуктивно жить и продуктивно действовать человек (человечество) способны не только в производстве, а во всех других сферах жизни человека (человечества) — и в экономической, и в социальной, и в политической, и в духовной. Кстати, марксово понятие «продуктивная жизнь» (<strong>produktive Leben</strong>) в «Экономическо-философских рукописях 1844 года» переведено как «производственная жизнь»<sup><a href="#" class="footnote-link" data-footnote="header-27" onclick="showFootnote(event, 'header-27')">i</a></sup>, что радикально искажает мысль Маркса, как верно заметил П.Н. Кондрашов<sup><a href="#" class="footnote-link" data-footnote="header-28" onclick="showFootnote(event, 'header-28')">i</a></sup>. Человек (человечество) применяет (частично или полностью) свои продуктивные силы не только в производстве, но также и в <strong>Verkehr</strong>’е, а формы последнего могут соответствовать или не соответствовать возросшим продуктивным силам человека (человечества). Да и структура общества может способствовать или препятствовать наличным продуктивным силам человека (человечества), что мы наблюдаем и в наше время. В «Немецкой идеологии» Маркс и Энгельс выводят из противоречий между продуктивными силами и способом производства, между продуктивными силами и формами общения-передвижения (<strong>Verkehrsform</strong>), а также между продуктивными силами и структурой общества все коллизии в истории человечества, в том числе и революции.</p>
+<p>В каждой сфере жизни человека (человечества) продуктивные силы исторически могут предстать и как разрушительные силы человека (человечества). Диалектическое единство и противоречивость продуктивных сил и разрушительных сил человека (человечества) мы наглядно ощущаем сегодня в таком новшестве, как интернет, предстающим как новая продуктивная сила человека (человечества), и многое изменяющая, но не только продуктивно, но и разрушительно в действительных индивидах, а также и в самых разных сферах жизни людей.</p>
+<p>Мы также решились заменить в «Манифесте...» перевод <strong>Produktivkräfte</strong> с «производительных сил» на «продуктивные силы». Надеемся, что читателя это не испугает.</p>
+<h3>Другие исправления. Wert, Maschinerie и пр.</h3>
+<p>Мы достаточно подробно остановились на трёх принципиальных редакционных правках «Манифеста ...» (причём особо стоит выделить <strong>Aufheben</strong>). Но стоит сказать несколько слов и об остальных исправлениях, которые, может быть, и несут принципиальный характер, но в контексте Манифеста не столь существенны. Например, для единственный раз встречающегося <strong>Wert</strong>, мы, вслед за В.Я. Чеховским, использовали «ценность» вместо «стоимость», для <strong>Entäußerung</strong> перевод изменен с «отчуждения», чему в немецком соответствует <strong>Endfremdung</strong>, на «овнешнение». В старом переводе <strong>Mashinerie</strong> и <strong>Maschinen</strong> переводились одинаково, как «машины», в то время как <strong>Mashinerie</strong> это система машин, а не просто их сумма. В нашей редакции для <strong>Mashinerie</strong> поставлено «машинерия». Кое-где изменены переводы для понятий, однокоренных с немецкими <strong>wirken</strong> и <strong>erzeugen</strong> — хотя основные проблемы с этими понятиями возникают в других текстах Маркса и Энгельса.</p>
+<p>Не поленитесь, посмотрите новшества. Они выделены подчеркиванием. И подумайте. Пожалуйста.</p>
+<p>Тем более подумайте еще и потому, что мы не первые вносим новые варианты в перевод «Манифеста<sup><a href="#" class="footnote-link" data-footnote="header-29" onclick="showFootnote(event, 'header-29')">i</a></sup>...». Но на то, на что обратили внимания именно мы, никто из предшественников новых переводов «Манифеста...» пристальное внимания еще не обращал<sup><a href="#" class="footnote-link" data-footnote="header-30" onclick="showFootnote(event, 'header-30')">i</a></sup>. Именно современные проблемы истории человечества обусловили наш<br>новый ракурс в понимании Маркса.</p>
+<p>Шелике В. Ф., к. ист.н., доцент</p>
+<p>Шелике Г. И., директор переводческого бюро</p>
+<p>В новый русский текст внесен ряд редакционных правок. Все правки выделены жирным шрифтом. Жирным шрифтом выделены не только оба русских текста, но также исходный немецкий и перевод на английский.</p>
+<p>Помимо исправлений выделены также понятия, перевод которых совпадает или близок к старому переводу на русский язык, но новой редакции избежал.</p>
+        </div>
+
+        <div class="language-panel">
+            <div class="column-controls">
+                
+                    <div class="column-control" data-lang-code="de">
+                        <input type="checkbox" id="lang-de" class="column-checkbox" checked onchange="toggleColumn('de')">
+                        <label for="lang-de" class="column-label">
+                            <span>🇩🇪</span>
+                            <span>Deutsch</span>
+                        </label>
+                        <div class="order-buttons">
+                            <button class="order-btn" onclick="moveLangUp('de')" title="Вверх">↑</button>
+                            <button class="order-btn" onclick="moveLangDown('de')" title="Вниз">↓</button>
+                        </div>
+                    </div>
+
+                    <div class="column-control" data-lang-code="en">
+                        <input type="checkbox" id="lang-en" class="column-checkbox" checked onchange="toggleColumn('en')">
+                        <label for="lang-en" class="column-label">
+                            <span>🇬🇧</span>
+                            <span>English</span>
+                        </label>
+                        <div class="order-buttons">
+                            <button class="order-btn" onclick="moveLangUp('en')" title="Вверх">↑</button>
+                            <button class="order-btn" onclick="moveLangDown('en')" title="Вниз">↓</button>
+                        </div>
+                    </div>
+
+                    <div class="column-control" data-lang-code="ru-1">
+                        <input type="checkbox" id="lang-ru-1" class="column-checkbox" checked onchange="toggleColumn('ru-1')">
+                        <label for="lang-ru-1" class="column-label">
+                            <span>🇷🇺</span>
+                            <span>Русский</span>
+                        </label>
+                        <div class="order-buttons">
+                            <button class="order-btn" onclick="moveLangUp('ru-1')" title="Вверх">↑</button>
+                            <button class="order-btn" onclick="moveLangDown('ru-1')" title="Вниз">↓</button>
+                        </div>
+                    </div>
+
+                    <div class="column-control" data-lang-code="ru-2">
+                        <input type="checkbox" id="lang-ru-2" class="column-checkbox" checked onchange="toggleColumn('ru-2')">
+                        <label for="lang-ru-2" class="column-label">
+                            <span>🇷🇺</span>
+                            <span>Русский (новый)</span>
+                        </label>
+                        <div class="order-buttons">
+                            <button class="order-btn" onclick="moveLangUp('ru-2')" title="Вверх">↑</button>
+                            <button class="order-btn" onclick="moveLangDown('ru-2')" title="Вниз">↓</button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <div class="parallel-text" id="parallel-text">
+            
+            <!-- Deutsch -->
+            <div class="language-column" data-lang="de">
+                <div class="language-header">
+                    <div class="language-flag">🇩🇪</div>
+                    <div class="language-name">Deutsch</div>
+                </div>
+                
+                <div class="paragraph" data-paragraph="1" data-lang="de" id="paragraph-de-1">
+                    <div class="paragraph-number">1</div>
+                    <div class="paragraph-text">
+                        <h1 class="column-header">Manifest der Kommunistischen Partei</h1>
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="2" data-lang="de" id="paragraph-de-2">
+                    <div class="paragraph-number">2</div>
+                    <div class="paragraph-text">
+                        Karl Marx/Friedrich Engels
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="3" data-lang="de" id="paragraph-de-3">
+                    <div class="paragraph-number">3</div>
+                    <div class="paragraph-text">
+                        Inhalt:
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="4" data-lang="de" id="paragraph-de-4">
+                    <div class="paragraph-number">4</div>
+                    <div class="paragraph-text">
+                        I Bourgeois und Proletarier
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="5" data-lang="de" id="paragraph-de-5">
+                    <div class="paragraph-number">5</div>
+                    <div class="paragraph-text">
+                        II Proletarier und Kommunisten
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="6" data-lang="de" id="paragraph-de-6">
+                    <div class="paragraph-number">6</div>
+                    <div class="paragraph-text">
+                        III Sozialistische und kommunistische Literatur
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="7" data-lang="de" id="paragraph-de-7">
+                    <div class="paragraph-number">7</div>
+                    <div class="paragraph-text">
+                        1. Der reaktionäre Sozialismus
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="8" data-lang="de" id="paragraph-de-8">
+                    <div class="paragraph-number">8</div>
+                    <div class="paragraph-text">
+                        a) Der feudale Sozialismus
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="9" data-lang="de" id="paragraph-de-9">
+                    <div class="paragraph-number">9</div>
+                    <div class="paragraph-text">
+                        b) Kleinbürgerlicher Sozialismus
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="10" data-lang="de" id="paragraph-de-10">
+                    <div class="paragraph-number">10</div>
+                    <div class="paragraph-text">
+                        c) Der deutsche oder "wahre" Sozialismus
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="11" data-lang="de" id="paragraph-de-11">
+                    <div class="paragraph-number">11</div>
+                    <div class="paragraph-text">
+                        2. Der konservative oder Bourgeoissozialismus
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="12" data-lang="de" id="paragraph-de-12">
+                    <div class="paragraph-number">12</div>
+                    <div class="paragraph-text">
+                        3. Der kritisch-utopistische Sozialismus <strong class="text-highlight">oder</strong> Kommunismus
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="13" data-lang="de" id="paragraph-de-13">
+                    <div class="paragraph-number">13</div>
+                    <div class="paragraph-text">
+                        IV Stellung der Kommunisten zu den verschiedenen oppositionellen Parteien
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="14" data-lang="de" id="paragraph-de-14">
+                    <div class="paragraph-number">14</div>
+                    <div class="paragraph-text">
+                        Ein Gespenst geht um in Europa – das Gespenst des Kommunismus. Alle Mächte des alten Europa haben sich zu einer heiligen Hetzjagd gegen dies Gespenst verbündet, der Papst und der Zar, Metternich und Guizot, französische Radikale und deutsche Polizisten.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="15" data-lang="de" id="paragraph-de-15">
+                    <div class="paragraph-number">15</div>
+                    <div class="paragraph-text">
+                        Wo ist die Oppositionspartei, die nicht von ihren regierenden Gegnern als kommunistisch verschrien worden wäre, wo die Oppositionspartei, die den fortgeschritteneren Oppositionsleuten sowohl wie ihren reaktionären Gegnern den brandmarkenden Vorwurf des Kommunismus nicht zurückgeschleudert hätte?
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="16" data-lang="de" id="paragraph-de-16">
+                    <div class="paragraph-number">16</div>
+                    <div class="paragraph-text">
+                        Zweierlei geht aus dieser Tatsache hervor.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="17" data-lang="de" id="paragraph-de-17">
+                    <div class="paragraph-number">17</div>
+                    <div class="paragraph-text">
+                        Der Kommunismus wird bereits von allen europäischen Mächten als eine Macht anerkannt.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="18" data-lang="de" id="paragraph-de-18">
+                    <div class="paragraph-number">18</div>
+                    <div class="paragraph-text">
+                        Es ist hohe Zeit, daß die Kommunisten ihre Anschauungsweise, ihre Zwecke, ihre Tendenzen vor der ganzen Welt offen darlegen und dem Märchen vom Gespenst des Kommunismus ein Manifest der Partei selbst entgegenstellen.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="19" data-lang="de" id="paragraph-de-19">
+                    <div class="paragraph-number">19</div>
+                    <div class="paragraph-text">
+                        Zu diesem Zweck haben sich Kommunisten der verschiedensten Nationalität in London versammelt und das folgende Manifest entworfen, das in englischer, französischer, deutscher, italienischer, flämischer und dänischer Sprache veröffentlicht wird.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="20" data-lang="de" id="paragraph-de-20">
+                    <div class="paragraph-number">20</div>
+                    <div class="paragraph-text">
+                        <h2 class="column-header">I Bourgeois und Proletarier<sup><a href="#" class="footnote-link" data-footnote="de-1" onclick="showFootnote(event, 'de-1')">i</a></sup></h2>
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="21" data-lang="de" id="paragraph-de-21">
+                    <div class="paragraph-number">21</div>
+                    <div class="paragraph-text">
+                        Die Geschichte aller bisherigen Gesellschaft<sup><a href="#" class="footnote-link" data-footnote="de-2" onclick="showFootnote(event, 'de-2')">i</a></sup> ist die Geschichte von Klassenkämpfen.
+                    </div>
+                </div>
+            </div>
+
+            <!-- English -->
+            <div class="language-column" data-lang="en">
+                <div class="language-header">
+                    <div class="language-flag">🇬🇧</div>
+                    <div class="language-name">English</div>
+                </div>
+                
+                <div class="paragraph" data-paragraph="1" data-lang="en" id="paragraph-en-1">
+                    <div class="paragraph-number">1</div>
+                    <div class="paragraph-text">
+                        <h1 class="column-header">Manifesto of the Communist Party</h1>
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="2" data-lang="en" id="paragraph-en-2">
+                    <div class="paragraph-number">2</div>
+                    <div class="paragraph-text">
+                        Karl Marx and Frederick Engels
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="3" data-lang="en" id="paragraph-en-3">
+                    <div class="paragraph-number">3</div>
+                    <div class="paragraph-text">
+                        Table of Contents
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="4" data-lang="en" id="paragraph-en-4">
+                    <div class="paragraph-number">4</div>
+                    <div class="paragraph-text">
+                        I. Bourgeois and Proletarians
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="5" data-lang="en" id="paragraph-en-5">
+                    <div class="paragraph-number">5</div>
+                    <div class="paragraph-text">
+                        II. Proletarians and Communists
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="6" data-lang="en" id="paragraph-en-6">
+                    <div class="paragraph-number">6</div>
+                    <div class="paragraph-text">
+                        III. Socialist and Communist Literature
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="7" data-lang="en" id="paragraph-en-7">
+                    <div class="paragraph-number">7</div>
+                    <div class="paragraph-text">
+                        1. Reactionary Socialism
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="8" data-lang="en" id="paragraph-en-8">
+                    <div class="paragraph-number">8</div>
+                    <div class="paragraph-text">
+                        A. Feudal Socialism
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="9" data-lang="en" id="paragraph-en-9">
+                    <div class="paragraph-number">9</div>
+                    <div class="paragraph-text">
+                        B. Petty-Bourgeois Socialism 
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="10" data-lang="en" id="paragraph-en-10">
+                    <div class="paragraph-number">10</div>
+                    <div class="paragraph-text">
+                        C. German or “True” Socialism
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="11" data-lang="en" id="paragraph-en-11">
+                    <div class="paragraph-number">11</div>
+                    <div class="paragraph-text">
+                        2. Conservative or Bourgeois Socialism
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="12" data-lang="en" id="paragraph-en-12">
+                    <div class="paragraph-number">12</div>
+                    <div class="paragraph-text">
+                        3. Critical-Utopian Socialism <strong class="text-highlight">and</strong> Communism
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="13" data-lang="en" id="paragraph-en-13">
+                    <div class="paragraph-number">13</div>
+                    <div class="paragraph-text">
+                        IV. Position of the Communists in Relation to the Various Existing Opposition Parties
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="14" data-lang="en" id="paragraph-en-14">
+                    <div class="paragraph-number">14</div>
+                    <div class="paragraph-text">
+                        A spectre is haunting Europe – the spectre of communism. All the powers of old Europe have entered into a holy alliance to exorcise this spectre: Pope and Tsar, Metternich and Guizot, French Radicals and German police-spies.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="15" data-lang="en" id="paragraph-en-15">
+                    <div class="paragraph-number">15</div>
+                    <div class="paragraph-text">
+                        Where is the party in opposition that has not been decried as communistic by its opponents in power? Where is the opposition that has not hurled back the branding reproach of communism, against the more advanced opposition parties, as well as against its reactionary adversaries?
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="16" data-lang="en" id="paragraph-en-16">
+                    <div class="paragraph-number">16</div>
+                    <div class="paragraph-text">
+                        Two things result from this fact:
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="17" data-lang="en" id="paragraph-en-17">
+                    <div class="paragraph-number">17</div>
+                    <div class="paragraph-text">
+                        I. Communism is already acknowledged by all European powers to be itself a power.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="18" data-lang="en" id="paragraph-en-18">
+                    <div class="paragraph-number">18</div>
+                    <div class="paragraph-text">
+                        II. It is high time that Communists should openly, in the face of the whole world, publish their views, their aims, their tendencies, and meet this nursery tale of the Spectre of Communism with a manifesto of the party itself.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="19" data-lang="en" id="paragraph-en-19">
+                    <div class="paragraph-number">19</div>
+                    <div class="paragraph-text">
+                        To this end, Communists of various nationalities have assembled in London and sketched the following manifesto, to be published in the English, French, German, Italian, Flemish and Danish languages.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="20" data-lang="en" id="paragraph-en-20">
+                    <div class="paragraph-number">20</div>
+                    <div class="paragraph-text">
+                        <h2 class="column-header">I. Bourgeois and Proletarians<sup><a href="#" class="footnote-link" data-footnote="en-1" onclick="showFootnote(event, 'en-1')">i</a></sup></h2>
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="21" data-lang="en" id="paragraph-en-21">
+                    <div class="paragraph-number">21</div>
+                    <div class="paragraph-text">
+                        The history of all hitherto existing society<sup><a href="#" class="footnote-link" data-footnote="en-2" onclick="showFootnote(event, 'en-2')">i</a></sup> is the history of class struggles.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Русский -->
+            <div class="language-column" data-lang="ru-1">
+                <div class="language-header">
+                    <div class="language-flag">🇷🇺</div>
+                    <div class="language-name">Русский</div>
+                </div>
+                
+                <div class="paragraph" data-paragraph="1" data-lang="ru-1" id="paragraph-ru-1-1">
+                    <div class="paragraph-number">1</div>
+                    <div class="paragraph-text">
+                        <h1 class="column-header">Манифест Коммунистической партии</h1>
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="2" data-lang="ru-1" id="paragraph-ru-1-2">
+                    <div class="paragraph-number">2</div>
+                    <div class="paragraph-text">
+                        Карл Маркс и Фридрих Энгельс
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="3" data-lang="ru-1" id="paragraph-ru-1-3">
+                    <div class="paragraph-number">3</div>
+                    <div class="paragraph-text">
+                        Оглавление
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="4" data-lang="ru-1" id="paragraph-ru-1-4">
+                    <div class="paragraph-number">4</div>
+                    <div class="paragraph-text">
+                        I. Буржуа и пролетарии
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="5" data-lang="ru-1" id="paragraph-ru-1-5">
+                    <div class="paragraph-number">5</div>
+                    <div class="paragraph-text">
+                        II. Пролетарии и коммунисты
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="6" data-lang="ru-1" id="paragraph-ru-1-6">
+                    <div class="paragraph-number">6</div>
+                    <div class="paragraph-text">
+                        III. Социалистическая и коммунистическая литература
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="7" data-lang="ru-1" id="paragraph-ru-1-7">
+                    <div class="paragraph-number">7</div>
+                    <div class="paragraph-text">
+                        1. Реакционный социализм
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="8" data-lang="ru-1" id="paragraph-ru-1-8">
+                    <div class="paragraph-number">8</div>
+                    <div class="paragraph-text">
+                        а) Феодальный социализм
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="9" data-lang="ru-1" id="paragraph-ru-1-9">
+                    <div class="paragraph-number">9</div>
+                    <div class="paragraph-text">
+                        b) Мелкобуржуазный социализм
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="10" data-lang="ru-1" id="paragraph-ru-1-10">
+                    <div class="paragraph-number">10</div>
+                    <div class="paragraph-text">
+                        с) Немецкий, или «истинный», социализм
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="11" data-lang="ru-1" id="paragraph-ru-1-11">
+                    <div class="paragraph-number">11</div>
+                    <div class="paragraph-text">
+                        2. Консервативный, или буржуазный, социализм
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="12" data-lang="ru-1" id="paragraph-ru-1-12">
+                    <div class="paragraph-number">12</div>
+                    <div class="paragraph-text">
+                        3. Критически-утопический социализм <strong class="text-highlight">и</strong> коммунизм
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="13" data-lang="ru-1" id="paragraph-ru-1-13">
+                    <div class="paragraph-number">13</div>
+                    <div class="paragraph-text">
+                        IV. Отношение коммунистов к различным оппозиционным партиям
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="14" data-lang="ru-1" id="paragraph-ru-1-14">
+                    <div class="paragraph-number">14</div>
+                    <div class="paragraph-text">
+                        Призрак бродит по Европе — призрак коммунизма. Все силы старой Европы объединились для священной травли этого призрака: папа и царь, Меттерних и Гизо, французские радикалы и немецкие полицейские.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="15" data-lang="ru-1" id="paragraph-ru-1-15">
+                    <div class="paragraph-number">15</div>
+                    <div class="paragraph-text">
+                        Где та оппозиционная партия, которую ее противники, стоящие у власти, не ославили бы коммунистической? Где та оппозиционная партия, которая в свою очередь не бросала бы клеймящего обвинения в коммунизме как более передовым представителям оппозиции, так и своим реакционным противникам?
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="16" data-lang="ru-1" id="paragraph-ru-1-16">
+                    <div class="paragraph-number">16</div>
+                    <div class="paragraph-text">
+                        Два вывода вытекают из этого факта.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="17" data-lang="ru-1" id="paragraph-ru-1-17">
+                    <div class="paragraph-number">17</div>
+                    <div class="paragraph-text">
+                        Коммунизм признается уже силой всеми европейскими силами.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="18" data-lang="ru-1" id="paragraph-ru-1-18">
+                    <div class="paragraph-number">18</div>
+                    <div class="paragraph-text">
+                        Пора уже коммунистам перед всем миром открыто изложить свои взгляды, свои цели, свои стремления и сказкам о призраке коммунизма противопоставить манифест самой партии.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="19" data-lang="ru-1" id="paragraph-ru-1-19">
+                    <div class="paragraph-number">19</div>
+                    <div class="paragraph-text">
+                        С этой целью в Лондоне собрались коммунисты самых различных национальностей и составили следующий «Манифест», который публикуется на английском, французском, немецком, итальянском, фламандском и датском языках.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="20" data-lang="ru-1" id="paragraph-ru-1-20">
+                    <div class="paragraph-number">20</div>
+                    <div class="paragraph-text">
+                        <h2 class="column-header">I. Буржуа и пролетарии<sup><a href="#" class="footnote-link" data-footnote="ru-1-1" onclick="showFootnote(event, 'ru-1-1')">i</a></sup></h2>
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="21" data-lang="ru-1" id="paragraph-ru-1-21">
+                    <div class="paragraph-number">21</div>
+                    <div class="paragraph-text">
+                        История всех до сих пор существовавших обществ<sup><a href="#" class="footnote-link" data-footnote="ru-1-2" onclick="showFootnote(event, 'ru-1-2')">i</a></sup> была историей борьбы классов.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Русский (новый) -->
+            <div class="language-column" data-lang="ru-2">
+                <div class="language-header">
+                    <div class="language-flag">🇷🇺</div>
+                    <div class="language-name">Русский (новый)</div>
+                </div>
+                
+                <div class="paragraph" data-paragraph="1" data-lang="ru-2" id="paragraph-ru-2-1">
+                    <div class="paragraph-number">1</div>
+                    <div class="paragraph-text">
+                        <h1 class="column-header">Манифест Коммунистической партии</h1>
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="2" data-lang="ru-2" id="paragraph-ru-2-2">
+                    <div class="paragraph-number">2</div>
+                    <div class="paragraph-text">
+                        Карл Маркс и Фридрих Энгельс
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="3" data-lang="ru-2" id="paragraph-ru-2-3">
+                    <div class="paragraph-number">3</div>
+                    <div class="paragraph-text">
+                        Оглавление
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="4" data-lang="ru-2" id="paragraph-ru-2-4">
+                    <div class="paragraph-number">4</div>
+                    <div class="paragraph-text">
+                        I. Буржуа и пролетарии
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="5" data-lang="ru-2" id="paragraph-ru-2-5">
+                    <div class="paragraph-number">5</div>
+                    <div class="paragraph-text">
+                        II. Пролетарии и коммунисты
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="6" data-lang="ru-2" id="paragraph-ru-2-6">
+                    <div class="paragraph-number">6</div>
+                    <div class="paragraph-text">
+                        III. Социалистическая и коммунистическая литература
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="7" data-lang="ru-2" id="paragraph-ru-2-7">
+                    <div class="paragraph-number">7</div>
+                    <div class="paragraph-text">
+                        1. Реакционный социализм
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="8" data-lang="ru-2" id="paragraph-ru-2-8">
+                    <div class="paragraph-number">8</div>
+                    <div class="paragraph-text">
+                        а) Феодальный социализм
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="9" data-lang="ru-2" id="paragraph-ru-2-9">
+                    <div class="paragraph-number">9</div>
+                    <div class="paragraph-text">
+                        b) Мелкобуржуазный социализм
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="10" data-lang="ru-2" id="paragraph-ru-2-10">
+                    <div class="paragraph-number">10</div>
+                    <div class="paragraph-text">
+                        с) Немецкий, или «истинный», социализм
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="11" data-lang="ru-2" id="paragraph-ru-2-11">
+                    <div class="paragraph-number">11</div>
+                    <div class="paragraph-text">
+                        2. Консервативный, или буржуазный, социализм
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="12" data-lang="ru-2" id="paragraph-ru-2-12">
+                    <div class="paragraph-number">12</div>
+                    <div class="paragraph-text">
+                        3. Критически-утопический социализм <strong class="text-highlight">или</strong> коммунизм
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="13" data-lang="ru-2" id="paragraph-ru-2-13">
+                    <div class="paragraph-number">13</div>
+                    <div class="paragraph-text">
+                        IV. Отношение коммунистов к различным оппозиционным партиям
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="14" data-lang="ru-2" id="paragraph-ru-2-14">
+                    <div class="paragraph-number">14</div>
+                    <div class="paragraph-text">
+                        Призрак бродит по Европе — призрак коммунизма. Все силы старой Европы объединились для священной травли этого призрака: папа и царь, Меттерних и Гизо, французские радикалы и немецкие полицейские.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="15" data-lang="ru-2" id="paragraph-ru-2-15">
+                    <div class="paragraph-number">15</div>
+                    <div class="paragraph-text">
+                        Где та оппозиционная партия, которую ее противники, стоящие у власти, не ославили бы коммунистической? Где та оппозиционная партия, которая в свою очередь не бросала бы клеймящего обвинения в коммунизме как более передовым представителям оппозиции, так и своим реакционным противникам?
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="16" data-lang="ru-2" id="paragraph-ru-2-16">
+                    <div class="paragraph-number">16</div>
+                    <div class="paragraph-text">
+                        Два вывода вытекают из этого факта.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="17" data-lang="ru-2" id="paragraph-ru-2-17">
+                    <div class="paragraph-number">17</div>
+                    <div class="paragraph-text">
+                        Коммунизм признается уже силой всеми европейскими силами.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="18" data-lang="ru-2" id="paragraph-ru-2-18">
+                    <div class="paragraph-number">18</div>
+                    <div class="paragraph-text">
+                        Пора уже коммунистам перед всем миром открыто изложить свои взгляды, свои цели, свои стремления и сказкам о призраке коммунизма противопоставить манифест самой партии.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="19" data-lang="ru-2" id="paragraph-ru-2-19">
+                    <div class="paragraph-number">19</div>
+                    <div class="paragraph-text">
+                        С этой целью в Лондоне собрались коммунисты самых различных национальностей и составили следующий «Манифест», который публикуется на английском, французском, немецком, итальянском, фламандском и датском языках.
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="20" data-lang="ru-2" id="paragraph-ru-2-20">
+                    <div class="paragraph-number">20</div>
+                    <div class="paragraph-text">
+                        <h2 class="column-header">I. Буржуа и пролетарии<sup><a href="#" class="footnote-link" data-footnote="ru-2-1" onclick="showFootnote(event, 'ru-2-1')">i</a></sup></h2>
+                    </div>
+                </div>
+
+                <div class="paragraph" data-paragraph="21" data-lang="ru-2" id="paragraph-ru-2-21">
+                    <div class="paragraph-number">21</div>
+                    <div class="paragraph-text">
+                        История всех до сих пор существовавших обществ<sup><a href="#" class="footnote-link" data-footnote="ru-2-2" onclick="showFootnote(event, 'ru-2-2')">i</a></sup> была историей борьбы классов.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Мобильная версия с переключателями языков -->
+        <div id="mobile-view">
+            
+            <div class="mobile-paragraph-group" data-paragraph="1">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="1">
+                            <div class="paragraph-number">1</div>
+                            <div class="paragraph-text">
+                                <h1 class="column-header">Manifest der Kommunistischen Partei</h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="1">
+                            <div class="paragraph-number">1</div>
+                            <div class="paragraph-text">
+                                <h1 class="column-header">Manifesto of the Communist Party</h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="1">
+                            <div class="paragraph-number">1</div>
+                            <div class="paragraph-text">
+                                <h1 class="column-header">Манифест Коммунистической партии</h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="1">
+                            <div class="paragraph-number">1</div>
+                            <div class="paragraph-text">
+                                <h1 class="column-header">Манифест Коммунистической партии</h1>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="2">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="2">
+                            <div class="paragraph-number">2</div>
+                            <div class="paragraph-text">
+                                Karl Marx/Friedrich Engels
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="2">
+                            <div class="paragraph-number">2</div>
+                            <div class="paragraph-text">
+                                Karl Marx and Frederick Engels
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="2">
+                            <div class="paragraph-number">2</div>
+                            <div class="paragraph-text">
+                                Карл Маркс и Фридрих Энгельс
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="2">
+                            <div class="paragraph-number">2</div>
+                            <div class="paragraph-text">
+                                Карл Маркс и Фридрих Энгельс
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="3">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="3">
+                            <div class="paragraph-number">3</div>
+                            <div class="paragraph-text">
+                                Inhalt:
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="3">
+                            <div class="paragraph-number">3</div>
+                            <div class="paragraph-text">
+                                Table of Contents
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="3">
+                            <div class="paragraph-number">3</div>
+                            <div class="paragraph-text">
+                                Оглавление
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="3">
+                            <div class="paragraph-number">3</div>
+                            <div class="paragraph-text">
+                                Оглавление
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="4">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="4">
+                            <div class="paragraph-number">4</div>
+                            <div class="paragraph-text">
+                                I Bourgeois und Proletarier
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="4">
+                            <div class="paragraph-number">4</div>
+                            <div class="paragraph-text">
+                                I. Bourgeois and Proletarians
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="4">
+                            <div class="paragraph-number">4</div>
+                            <div class="paragraph-text">
+                                I. Буржуа и пролетарии
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="4">
+                            <div class="paragraph-number">4</div>
+                            <div class="paragraph-text">
+                                I. Буржуа и пролетарии
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="5">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="5">
+                            <div class="paragraph-number">5</div>
+                            <div class="paragraph-text">
+                                II Proletarier und Kommunisten
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="5">
+                            <div class="paragraph-number">5</div>
+                            <div class="paragraph-text">
+                                II. Proletarians and Communists
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="5">
+                            <div class="paragraph-number">5</div>
+                            <div class="paragraph-text">
+                                II. Пролетарии и коммунисты
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="5">
+                            <div class="paragraph-number">5</div>
+                            <div class="paragraph-text">
+                                II. Пролетарии и коммунисты
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="6">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="6">
+                            <div class="paragraph-number">6</div>
+                            <div class="paragraph-text">
+                                III Sozialistische und kommunistische Literatur
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="6">
+                            <div class="paragraph-number">6</div>
+                            <div class="paragraph-text">
+                                III. Socialist and Communist Literature
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="6">
+                            <div class="paragraph-number">6</div>
+                            <div class="paragraph-text">
+                                III. Социалистическая и коммунистическая литература
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="6">
+                            <div class="paragraph-number">6</div>
+                            <div class="paragraph-text">
+                                III. Социалистическая и коммунистическая литература
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="7">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="7">
+                            <div class="paragraph-number">7</div>
+                            <div class="paragraph-text">
+                                1. Der reaktionäre Sozialismus
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="7">
+                            <div class="paragraph-number">7</div>
+                            <div class="paragraph-text">
+                                1. Reactionary Socialism
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="7">
+                            <div class="paragraph-number">7</div>
+                            <div class="paragraph-text">
+                                1. Реакционный социализм
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="7">
+                            <div class="paragraph-number">7</div>
+                            <div class="paragraph-text">
+                                1. Реакционный социализм
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="8">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="8">
+                            <div class="paragraph-number">8</div>
+                            <div class="paragraph-text">
+                                a) Der feudale Sozialismus
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="8">
+                            <div class="paragraph-number">8</div>
+                            <div class="paragraph-text">
+                                A. Feudal Socialism
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="8">
+                            <div class="paragraph-number">8</div>
+                            <div class="paragraph-text">
+                                а) Феодальный социализм
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="8">
+                            <div class="paragraph-number">8</div>
+                            <div class="paragraph-text">
+                                а) Феодальный социализм
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="9">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="9">
+                            <div class="paragraph-number">9</div>
+                            <div class="paragraph-text">
+                                b) Kleinbürgerlicher Sozialismus
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="9">
+                            <div class="paragraph-number">9</div>
+                            <div class="paragraph-text">
+                                B. Petty-Bourgeois Socialism 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="9">
+                            <div class="paragraph-number">9</div>
+                            <div class="paragraph-text">
+                                b) Мелкобуржуазный социализм
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="9">
+                            <div class="paragraph-number">9</div>
+                            <div class="paragraph-text">
+                                b) Мелкобуржуазный социализм
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="10">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="10">
+                            <div class="paragraph-number">10</div>
+                            <div class="paragraph-text">
+                                c) Der deutsche oder "wahre" Sozialismus
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="10">
+                            <div class="paragraph-number">10</div>
+                            <div class="paragraph-text">
+                                C. German or “True” Socialism
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="10">
+                            <div class="paragraph-number">10</div>
+                            <div class="paragraph-text">
+                                с) Немецкий, или «истинный», социализм
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="10">
+                            <div class="paragraph-number">10</div>
+                            <div class="paragraph-text">
+                                с) Немецкий, или «истинный», социализм
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="11">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="11">
+                            <div class="paragraph-number">11</div>
+                            <div class="paragraph-text">
+                                2. Der konservative oder Bourgeoissozialismus
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="11">
+                            <div class="paragraph-number">11</div>
+                            <div class="paragraph-text">
+                                2. Conservative or Bourgeois Socialism
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="11">
+                            <div class="paragraph-number">11</div>
+                            <div class="paragraph-text">
+                                2. Консервативный, или буржуазный, социализм
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="11">
+                            <div class="paragraph-number">11</div>
+                            <div class="paragraph-text">
+                                2. Консервативный, или буржуазный, социализм
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="12">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="12">
+                            <div class="paragraph-number">12</div>
+                            <div class="paragraph-text">
+                                3. Der kritisch-utopistische Sozialismus <strong class="text-highlight">oder</strong> Kommunismus
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="12">
+                            <div class="paragraph-number">12</div>
+                            <div class="paragraph-text">
+                                3. Critical-Utopian Socialism <strong class="text-highlight">and</strong> Communism
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="12">
+                            <div class="paragraph-number">12</div>
+                            <div class="paragraph-text">
+                                3. Критически-утопический социализм <strong class="text-highlight">и</strong> коммунизм
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="12">
+                            <div class="paragraph-number">12</div>
+                            <div class="paragraph-text">
+                                3. Критически-утопический социализм <strong class="text-highlight">или</strong> коммунизм
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="13">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="13">
+                            <div class="paragraph-number">13</div>
+                            <div class="paragraph-text">
+                                IV Stellung der Kommunisten zu den verschiedenen oppositionellen Parteien
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="13">
+                            <div class="paragraph-number">13</div>
+                            <div class="paragraph-text">
+                                IV. Position of the Communists in Relation to the Various Existing Opposition Parties
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="13">
+                            <div class="paragraph-number">13</div>
+                            <div class="paragraph-text">
+                                IV. Отношение коммунистов к различным оппозиционным партиям
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="13">
+                            <div class="paragraph-number">13</div>
+                            <div class="paragraph-text">
+                                IV. Отношение коммунистов к различным оппозиционным партиям
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="14">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="14">
+                            <div class="paragraph-number">14</div>
+                            <div class="paragraph-text">
+                                Ein Gespenst geht um in Europa – das Gespenst des Kommunismus. Alle Mächte des alten Europa haben sich zu einer heiligen Hetzjagd gegen dies Gespenst verbündet, der Papst und der Zar, Metternich und Guizot, französische Radikale und deutsche Polizisten.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="14">
+                            <div class="paragraph-number">14</div>
+                            <div class="paragraph-text">
+                                A spectre is haunting Europe – the spectre of communism. All the powers of old Europe have entered into a holy alliance to exorcise this spectre: Pope and Tsar, Metternich and Guizot, French Radicals and German police-spies.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="14">
+                            <div class="paragraph-number">14</div>
+                            <div class="paragraph-text">
+                                Призрак бродит по Европе — призрак коммунизма. Все силы старой Европы объединились для священной травли этого призрака: папа и царь, Меттерних и Гизо, французские радикалы и немецкие полицейские.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="14">
+                            <div class="paragraph-number">14</div>
+                            <div class="paragraph-text">
+                                Призрак бродит по Европе — призрак коммунизма. Все силы старой Европы объединились для священной травли этого призрака: папа и царь, Меттерних и Гизо, французские радикалы и немецкие полицейские.
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="15">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="15">
+                            <div class="paragraph-number">15</div>
+                            <div class="paragraph-text">
+                                Wo ist die Oppositionspartei, die nicht von ihren regierenden Gegnern als kommunistisch verschrien worden wäre, wo die Oppositionspartei, die den fortgeschritteneren Oppositionsleuten sowohl wie ihren reaktionären Gegnern den brandmarkenden Vorwurf des Kommunismus nicht zurückgeschleudert hätte?
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="15">
+                            <div class="paragraph-number">15</div>
+                            <div class="paragraph-text">
+                                Where is the party in opposition that has not been decried as communistic by its opponents in power? Where is the opposition that has not hurled back the branding reproach of communism, against the more advanced opposition parties, as well as against its reactionary adversaries?
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="15">
+                            <div class="paragraph-number">15</div>
+                            <div class="paragraph-text">
+                                Где та оппозиционная партия, которую ее противники, стоящие у власти, не ославили бы коммунистической? Где та оппозиционная партия, которая в свою очередь не бросала бы клеймящего обвинения в коммунизме как более передовым представителям оппозиции, так и своим реакционным противникам?
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="15">
+                            <div class="paragraph-number">15</div>
+                            <div class="paragraph-text">
+                                Где та оппозиционная партия, которую ее противники, стоящие у власти, не ославили бы коммунистической? Где та оппозиционная партия, которая в свою очередь не бросала бы клеймящего обвинения в коммунизме как более передовым представителям оппозиции, так и своим реакционным противникам?
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="16">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="16">
+                            <div class="paragraph-number">16</div>
+                            <div class="paragraph-text">
+                                Zweierlei geht aus dieser Tatsache hervor.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="16">
+                            <div class="paragraph-number">16</div>
+                            <div class="paragraph-text">
+                                Two things result from this fact:
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="16">
+                            <div class="paragraph-number">16</div>
+                            <div class="paragraph-text">
+                                Два вывода вытекают из этого факта.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="16">
+                            <div class="paragraph-number">16</div>
+                            <div class="paragraph-text">
+                                Два вывода вытекают из этого факта.
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="17">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="17">
+                            <div class="paragraph-number">17</div>
+                            <div class="paragraph-text">
+                                Der Kommunismus wird bereits von allen europäischen Mächten als eine Macht anerkannt.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="17">
+                            <div class="paragraph-number">17</div>
+                            <div class="paragraph-text">
+                                I. Communism is already acknowledged by all European powers to be itself a power.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="17">
+                            <div class="paragraph-number">17</div>
+                            <div class="paragraph-text">
+                                Коммунизм признается уже силой всеми европейскими силами.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="17">
+                            <div class="paragraph-number">17</div>
+                            <div class="paragraph-text">
+                                Коммунизм признается уже силой всеми европейскими силами.
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="18">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="18">
+                            <div class="paragraph-number">18</div>
+                            <div class="paragraph-text">
+                                Es ist hohe Zeit, daß die Kommunisten ihre Anschauungsweise, ihre Zwecke, ihre Tendenzen vor der ganzen Welt offen darlegen und dem Märchen vom Gespenst des Kommunismus ein Manifest der Partei selbst entgegenstellen.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="18">
+                            <div class="paragraph-number">18</div>
+                            <div class="paragraph-text">
+                                II. It is high time that Communists should openly, in the face of the whole world, publish their views, their aims, their tendencies, and meet this nursery tale of the Spectre of Communism with a manifesto of the party itself.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="18">
+                            <div class="paragraph-number">18</div>
+                            <div class="paragraph-text">
+                                Пора уже коммунистам перед всем миром открыто изложить свои взгляды, свои цели, свои стремления и сказкам о призраке коммунизма противопоставить манифест самой партии.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="18">
+                            <div class="paragraph-number">18</div>
+                            <div class="paragraph-text">
+                                Пора уже коммунистам перед всем миром открыто изложить свои взгляды, свои цели, свои стремления и сказкам о призраке коммунизма противопоставить манифест самой партии.
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="19">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="19">
+                            <div class="paragraph-number">19</div>
+                            <div class="paragraph-text">
+                                Zu diesem Zweck haben sich Kommunisten der verschiedensten Nationalität in London versammelt und das folgende Manifest entworfen, das in englischer, französischer, deutscher, italienischer, flämischer und dänischer Sprache veröffentlicht wird.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="19">
+                            <div class="paragraph-number">19</div>
+                            <div class="paragraph-text">
+                                To this end, Communists of various nationalities have assembled in London and sketched the following manifesto, to be published in the English, French, German, Italian, Flemish and Danish languages.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="19">
+                            <div class="paragraph-number">19</div>
+                            <div class="paragraph-text">
+                                С этой целью в Лондоне собрались коммунисты самых различных национальностей и составили следующий «Манифест», который публикуется на английском, французском, немецком, итальянском, фламандском и датском языках.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="19">
+                            <div class="paragraph-number">19</div>
+                            <div class="paragraph-text">
+                                С этой целью в Лондоне собрались коммунисты самых различных национальностей и составили следующий «Манифест», который публикуется на английском, французском, немецком, итальянском, фламандском и датском языках.
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="20">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="20">
+                            <div class="paragraph-number">20</div>
+                            <div class="paragraph-text">
+                                <h2 class="column-header">I Bourgeois und Proletarier<sup><a href="#" class="footnote-link" data-footnote="de-1" onclick="showFootnote(event, 'de-1')">i</a></sup></h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="20">
+                            <div class="paragraph-number">20</div>
+                            <div class="paragraph-text">
+                                <h2 class="column-header">I. Bourgeois and Proletarians<sup><a href="#" class="footnote-link" data-footnote="en-1" onclick="showFootnote(event, 'en-1')">i</a></sup></h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="20">
+                            <div class="paragraph-number">20</div>
+                            <div class="paragraph-text">
+                                <h2 class="column-header">I. Буржуа и пролетарии<sup><a href="#" class="footnote-link" data-footnote="ru-1-1" onclick="showFootnote(event, 'ru-1-1')">i</a></sup></h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="20">
+                            <div class="paragraph-number">20</div>
+                            <div class="paragraph-text">
+                                <h2 class="column-header">I. Буржуа и пролетарии<sup><a href="#" class="footnote-link" data-footnote="ru-2-1" onclick="showFootnote(event, 'ru-2-1')">i</a></sup></h2>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="mobile-paragraph-group" data-paragraph="21">
+                
+                    <div class="mobile-paragraph-content" data-lang="de">
+                        <div class="paragraph" data-paragraph="21">
+                            <div class="paragraph-number">21</div>
+                            <div class="paragraph-text">
+                                Die Geschichte aller bisherigen Gesellschaft<sup><a href="#" class="footnote-link" data-footnote="de-2" onclick="showFootnote(event, 'de-2')">i</a></sup> ist die Geschichte von Klassenkämpfen.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="en">
+                        <div class="paragraph" data-paragraph="21">
+                            <div class="paragraph-number">21</div>
+                            <div class="paragraph-text">
+                                The history of all hitherto existing society<sup><a href="#" class="footnote-link" data-footnote="en-2" onclick="showFootnote(event, 'en-2')">i</a></sup> is the history of class struggles.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-1">
+                        <div class="paragraph" data-paragraph="21">
+                            <div class="paragraph-number">21</div>
+                            <div class="paragraph-text">
+                                История всех до сих пор существовавших обществ<sup><a href="#" class="footnote-link" data-footnote="ru-1-2" onclick="showFootnote(event, 'ru-1-2')">i</a></sup> была историей борьбы классов.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobile-paragraph-content" data-lang="ru-2">
+                        <div class="paragraph" data-paragraph="21">
+                            <div class="paragraph-number">21</div>
+                            <div class="paragraph-text">
+                                История всех до сих пор существовавших обществ<sup><a href="#" class="footnote-link" data-footnote="ru-2-2" onclick="showFootnote(event, 'ru-2-2')">i</a></sup> была историей борьбы классов.
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="control-btn" onclick="scrollToTop()" title="Наверх">↑</button>
+    </div>
+
+    <!-- Фиксированная панель языков для мобильной версии -->
+    <div class="mobile-lang-bar" id="mobile-lang-bar">
+        <div class="mobile-lang-bar-inner" id="mobile-lang-bar-inner">
+            <button class="mobile-lang-btn" data-lang="de" onclick="switchAllMobileLang('de')">🇩🇪</button>
+            <button class="mobile-lang-btn" data-lang="en" onclick="switchAllMobileLang('en')">🇬🇧</button>
+            <button class="mobile-lang-btn" data-lang="ru-1" onclick="switchAllMobileLang('ru-1')">🇷🇺</button>
+            <button class="mobile-lang-btn" data-lang="ru-2" onclick="switchAllMobileLang('ru-2')">🇷🇺 (новый)</button>
+        </div>
+    </div>
+
+    <div class="sync-indicator" id="sync-indicator"></div>
+
+    <script>
+        let isDarkTheme = false;
+        let visibleColumns = ["de","en","ru-1","ru-2"];
+        let languageOrder = ["de","en","ru-1","ru-2"]; // Порядок языков
+
+        // Загрузка состояния колонок из localStorage
+        function loadColumnState() {
+            const allLanguages = ["de","en","ru-1","ru-2"];
+            
+            // Загружаем порядок языков
+            const savedOrder = localStorage.getItem('languageOrder');
+            if (savedOrder) {
+                try {
+                    const parsedOrder = JSON.parse(savedOrder);
+                    // Проверяем, что все языки есть и добавляем новые если нужно
+                    const validOrder = parsedOrder.filter(lang => allLanguages.includes(lang));
+                    const missingLangs = allLanguages.filter(lang => !validOrder.includes(lang));
+                    languageOrder = [...validOrder, ...missingLangs];
+                } catch (e) {
+                    console.error('Ошибка загрузки порядка языков:', e);
+                    languageOrder = allLanguages;
+                }
+            }
+            
+            // Загружаем видимые колонки
+            const saved = localStorage.getItem('visibleColumns');
+            if (saved) {
+                try {
+                    const savedColumns = JSON.parse(saved);
+                    // Фильтруем только существующие языки
+                    visibleColumns = savedColumns.filter(lang => allLanguages.includes(lang));
+                    
+                    // Проверяем ограничения
+                    if (visibleColumns.length === 0) {
+                        visibleColumns = [allLanguages[0]]; // Минимум 1
+                    } else if (visibleColumns.length > 4) {
+                        visibleColumns = visibleColumns.slice(0, 4); // Максимум 4
+                    }
+                    
+                    console.log('Загружено состояние из localStorage:', visibleColumns);
+                    updateColumnVisibility();
+                    updateColumnCheckboxes();
+                } catch (e) {
+                    console.error('Ошибка загрузки состояния:', e);
+                }
+            }
+            
+            // Применяем порядок к DOM элементам
+            applyLanguageOrder();
+        }
+
+        // Сохранение состояния колонок в localStorage
+        function saveColumnState() {
+            localStorage.setItem('visibleColumns', JSON.stringify(visibleColumns));
+        }
+
+        // Сохранение порядка языков в localStorage
+        function saveLanguageOrder() {
+            localStorage.setItem('languageOrder', JSON.stringify(languageOrder));
+        }
+
+        // Применение порядка языков к DOM элементам
+        function applyLanguageOrder() {
+            const controlsContainer = document.querySelector('.column-controls');
+            if (!controlsContainer) return;
+            
+            const controls = Array.from(controlsContainer.querySelectorAll('.column-control'));
+            
+            // Сортируем элементы согласно languageOrder
+            const sortedControls = languageOrder
+                .map(langCode => controls.find(el => el.dataset.langCode === langCode))
+                .filter(el => el !== undefined);
+            
+            // Очищаем контейнер и добавляем отсортированные элементы
+            controlsContainer.innerHTML = '';
+            sortedControls.forEach(el => controlsContainer.appendChild(el));
+            
+            // Обновляем видимость колонок в правильном порядке
+            updateColumnVisibility();
+        }
+
+        // Перемещение языка вверх
+        function moveLangUp(langCode) {
+            console.log('moveLangUp called for:', langCode);
+            const currentIndex = languageOrder.indexOf(langCode);
+            console.log('Current index:', currentIndex, 'languageOrder:', languageOrder);
+            if (currentIndex > 0) {
+                // Меняем местами с предыдущим
+                [languageOrder[currentIndex - 1], languageOrder[currentIndex]] = 
+                [languageOrder[currentIndex], languageOrder[currentIndex - 1]];
+                
+                console.log('New languageOrder:', languageOrder);
+                saveLanguageOrder();
+                applyLanguageOrder();
+            } else {
+                console.log('Cannot move up - already at top');
+            }
+        }
+
+        // Перемещение языка вниз
+        function moveLangDown(langCode) {
+            console.log('moveLangDown called for:', langCode);
+            const currentIndex = languageOrder.indexOf(langCode);
+            console.log('Current index:', currentIndex, 'languageOrder:', languageOrder);
+            if (currentIndex < languageOrder.length - 1) {
+                // Меняем местами со следующим
+                [languageOrder[currentIndex], languageOrder[currentIndex + 1]] = 
+                [languageOrder[currentIndex + 1], languageOrder[currentIndex]];
+                
+                console.log('New languageOrder:', languageOrder);
+                saveLanguageOrder();
+                applyLanguageOrder();
+            } else {
+                console.log('Cannot move down - already at bottom');
+            }
+        }
+
+        // Обновление состояния чекбоксов
+        function updateColumnCheckboxes() {
+            visibleColumns.forEach(lang => {
+                const checkbox = document.getElementById(`lang-${lang}`);
+                if (checkbox) {
+                    checkbox.checked = true;
+                }
+            });
+            
+            ["de","en","ru-1","ru-2"].forEach(lang => {
+                if (!visibleColumns.includes(lang)) {
+                    const checkbox = document.getElementById(`lang-${lang}`);
+                    if (checkbox) {
+                        checkbox.checked = false;
+                    }
+                }
+            });
+        }
+
+        // Переключение колонки
+        function toggleColumn(lang) {
+            const checkbox = document.getElementById(`lang-${lang}`);
+            const isCurrentlyVisible = visibleColumns.includes(lang);
+            
+            if (checkbox.checked) {
+                // Проверяем максимум 4 колонки (только если добавляем новый язык)
+                if (!isCurrentlyVisible) {
+                    if (visibleColumns.length >= 4) {
+                        checkbox.checked = false;
+                        showNotification('Максимум 4 колонки одновременно');
+                        console.log('Попытка добавить больше 4 колонок. Текущее количество:', visibleColumns.length);
+                        return;
+                    }
+                    visibleColumns.push(lang);
+                    console.log('Добавлен язык:', lang, 'Всего видимых:', visibleColumns.length);
+                }
+            } else {
+                // Не позволяем скрыть последнюю колонку (минимум 1)
+                if (isCurrentlyVisible) {
+                    if (visibleColumns.length === 1) {
+                        checkbox.checked = true;
+                        showNotification('Должна быть видна хотя бы одна колонка');
+                        return;
+                    }
+                    visibleColumns = visibleColumns.filter(l => l !== lang);
+                    console.log('Удален язык:', lang, 'Всего видимых:', visibleColumns.length);
+                }
+            }
+            
+            updateColumnVisibility();
+            saveColumnState();
+        }
+
+        // Показать уведомление
+        function showNotification(message) {
+            const indicator = document.getElementById('sync-indicator');
+            indicator.textContent = message;
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
+        function toggleTheme() {
+            isDarkTheme = !isDarkTheme;
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (isDarkTheme) {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('darkTheme', 'true');
+            } else {
+                body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('darkTheme', 'false');
+            }
+        }
+
+        // Загрузка темы из localStorage
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('darkTheme');
+            if (savedTheme === 'true') {
+                isDarkTheme = true;
+                document.body.setAttribute('data-theme', 'dark');
+                document.getElementById('theme-icon').textContent = '☀️';
+            } else {
+                isDarkTheme = false;
+                document.body.removeAttribute('data-theme');
+                document.getElementById('theme-icon').textContent = '🌙';
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Прокрутка к абзацу
+        function scrollToParagraph(event, paragraphNum) {
+            event.preventDefault();
+            
+            // Проверяем, мобильная или десктопная версия
+            let targetElement = null;
+            
+            // Сначала ищем мобильную версию
+            const mobileGroup = document.querySelector(`.mobile-paragraph-group[data-paragraph="${paragraphNum}"]`);
+            if (mobileGroup && window.getComputedStyle(mobileGroup).display !== 'none') {
+                targetElement = mobileGroup;
+            } else {
+                // Если мобильная версия не найдена или скрыта, ищем десктопную
+                // Находим все параграфы с нужным номером
+                const allParagraphs = document.querySelectorAll(`.paragraph[data-paragraph="${paragraphNum}"]`);
+                
+                // Берем первый видимый параграф (первая видимая колонка)
+                for (const paragraph of allParagraphs) {
+                    const column = paragraph.closest('.language-column');
+                    if (column && window.getComputedStyle(column).display !== 'none') {
+                        targetElement = paragraph;
+                        break;
+                    }
+                }
+            }
+            
+            if (targetElement) {
+                // Прокручиваем к абзацу
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                
+                // Добавляем подсветку
+                targetElement.classList.add('highlight');
+                setTimeout(() => {
+                    targetElement.classList.remove('highlight');
+                }, 2000);
+            }
+        }
+
+        // Функция для показа всплывающей сноски
+        function showFootnote(event, footnoteId) {
+            event.preventDefault();
+            
+            // Закрываем все открытые всплывающие окна
+            const existingPopups = document.querySelectorAll('.footnote-popup');
+            existingPopups.forEach(popup => popup.remove());
+            
+            // Создаем новое всплывающее окно
+            const popup = document.createElement('div');
+            popup.className = 'footnote-popup';
+            popup.id = `popup-${footnoteId}`;
+            
+            // Получаем текст сноски из данных
+            const footnotes = [{"id":"header-1","text":"Маркс К., Капитал. Критика политической экономии. Т. 1. Кн. 1. Процесс производства капитала. Новая редакция перевода. Под ред. В. Я. Чеховского, М. РОССПЭН, 2015."},{"id":"header-2","text":"Кондрашов П.Н., Какого же Маркса мы читаем? Часть 1, Дискурс-Пи. Выпуск № 3–4, 2016, С. 37–47. и Кондрашов П. Н. Какого же Маркса мы читаем? Часть 2, Дискурс-Пи. Выпуск № 3-4, 2016, С. 238-245."},{"id":"header-3","text":"https://www.unesco.org/en/memory-world/manifest-der-kommunistischen-partei-draft-manuscript-page-and-das-kapital-erster-band-karl-marxs"},{"id":"header-4","text":"Так, например, в своей статье «Критические историко-философские заметки. Часть 2. С. 140-146 «К вопросу о смысле знаменитого тезиса Канта: «Ich musste also das Wissen aufheben, um zum Glauben Platz zu bekommen»» Т.И. Ойзерман честно показывает, как внутренние идеологические установки мешали ему самому адекватно переводить этот тезис Канта на русский язык и «почему мы, марксисты-ленинцы, придерживались ошибочного перевода положения Канта, несмотря на то, что нам, конечно, были известны другие, как впоследствии стало ясно, более правильные переводы этого положения в английском и французском изданиях «Критики чистого разума». См. Ойзерман Т.И., Критические историко-философские заметки, «Вопросы философии», 2012, № 11, С.140). Цитируется по сборнику Теодор Ильич Ойзерман «Вопросы философии» (№ 3 1953 — № 5 2014), https://royallib.com/read/oyzerman_teodor/voprosi_filosofii__3_1953___5_2014.html#7488664."},{"id":"header-5","text":"Примером излишне осовремененного перевода Маркса на русский язык может служить перевод в «Манифесте ...» фрагмента «... sie hat auch die Männer gezeugt, die diese Waffen führen werden» («она породила и людей, которые направят против нее это оружие») [Маркс К. Энгельс Ф. Соч., Изд. 2, Т. 4, С. 431], в котором вместо «мужчин» (Männer) появилось политкорректное «людей». Маркс и Энгельс — дети XIX века и поэтому в тексте 1848 года вполне понятен выбор Männer (мужчины), а не Menschen (люди), возможно это оговорка, но оговорка по Фрейду. С сегодняшней точки зрения «людей» в данном контексте лучше, чем «мужчин», но переводчик не вправе подобным образом «исправлять» оригинал."},{"id":"header-6","text":"Маркс К. Энгельс Ф. Соч., Изд. 2, Т. 21, С. 237-245."},{"id":"header-7","text":"«Выразительный немецкий язык следует передавать выразительным английским языком; нужно использовать лучшие ресурсы языка; вновь созданные немецкие термины требуют создания соответствующих новых английских терминов. Но как только г-н Бродхаус оказывается перед такими проблемами, у него недостает не только ресурсов, но и храбрости. Малейшее расширение его ограниченного запаса избитых выражений, малейшее новшество, выходящее за пределы обычного английского языка повседневной литературы, его пугает, и вместо того, чтобы рискнуть на такую ересь, он передает трудное немецкое слово более или менее неопределенным термином, который не режет его слуха, но затемняет мысль автора; или, что еще хуже, он переводит его, если оно повторяется, целым рядом различных терминов, забывая, что технический термин должен всегда передаваться одним и тем же равнозначащим выражением.» / Маркс К. Энгельс Ф. Соч., Изд. 2, Т. 21, C. 238."},{"id":"header-8","text":"Энантиосемичными в лингвистике называют понятия, объединяющие явления или действия противоположного характера. Например в русском языке таким понятием является «одолжить», которое может означать как «дать в долг», так и «взять в долг». Энантиосемичным по большому счету можно считать глагол «двигаться», особенно на фоне того, что в некоторых языках существуют только отдельные понятия типа «подниматься», «опускаться», «идти вперед/назад», «летать», «плыть» и т.п., что кстати, может сильно затруднять (или делать невозможным) понимание носителями этих языков классической механики Ньютона."},{"id":"header-9","text":"На это обращает, в частности, внимание Маркс в «Экономическо-философских рукописях 1844 года»: «Eine eigentümliche Rolle spielt daher das Aufheben, worin die Verneinung und die Aufbewahrung, die Bejahung verknüpft sind.» (Поэтому своеобразную роль играет у него снятие, в котором соединены как отрицание, так и сохранение, утверждение.). Маркс К. Энгельс Ф. Соч., Изд. 2, Т. 47, С. 167; https://www.marxists.org/russkij/marx/1844/manuscr/11.htm"},{"id":"header-10","text":"Некоторые проблемы перевода <strong>Aufhebung (Aufheben)</strong> в работах Гегеля описаны в предисловии к русскому переводу «Науки логики». См. Гегель Г., Сочинения в 14 томах, Москва: Соцэкгиз, 1937, Т. 5, 814 с., перевод Б. Г. Столпнера; https://kartaslov.ru/книги/Георг_Гегель_Наука_логики_2"},{"id":"header-11","text":"Важно заметить, однако, что «снятие» в русском языке вбирает в себя помимо «сохранения» и «устранения» также и «опускание», в отличие от <strong>Aufheben</strong>, вбирающего «поднимание»."},{"id":"header-12","text":"Анализ перевода <strong>Aufheben</strong> в других прозведениях Маркса и Энгельса — это отдельная самостоятельная работа, однако заметим, что как «снятие» это понятие переводится крайне редко. Одна из немногих работ (если не единственная), в которой <strong>Aufheben</strong> переводится как «снятие», это переведённая на русский язык одной из последних (1956 г.) работа Маркса «Экономическо-философские рукописи 1844 года». Однако сделано это весьма неравномерно."},{"id":"header-13","text":"И.И. Прейс в статье, посвящённой 100-летию издания «Манифеста ...» (Прейс И. И., «Манифест Коммунистической партии в русских переводах». — «Вестник Академии наук СССР», Т. 2, 1948. С. 60) пишет: «В издании Адоратского был использован ленинский термин для перевода одного из важнейших понятий в «Манифесте...»: «Erhebung des Proletariats zur herrschenden Klasse» — «превращение пролетариата в господствующий класс» (Ленин В.И., Соч., Т. XXI, С. 384.). На наш взгляд, в принятом ИМЭЛом, согласно предложению Ленина и Адоратского, переводе <strong>Erhebung</strong> как «превращение» теряется одна из сторон <strong>Aufhebung</strong>, а именно «поднятие». Мы предлагаем вернуться к варианту Воровского «возвышение пролетариата до положения господствующего класса», как более адекватно отражающему позицию авторов «Манифеста ...»."},{"id":"header-14","text":"Возможно, одна из причин такого однобокого перевода <strong>Aufheben</strong> на русский — это использование в английском переводе Манифеста (который, несомненно, внимательно читал, если не Маркс, то Энгельс) английских понятий <strong>abolish</strong> и <strong>abolition</strong> (означающих «отменить», «упразднить» и «уничтожить») вместо более адекватных для перевода <strong>Aufheben sublate</strong> и <strong>sublation</strong>, используемых сегодня при переводе на аглийский работ Гегеля. Впрочем первый перевод «Науки логики» Гегеля на английский был сделан только в 1929 году, так что затруднения при переводе <strong>Aufheben</strong> в «Манифесте ...» на английский (даже при жизни авторов «Манифеста ...») вполне понятны. Вместе с тем этот факт может служить примером того, что и в переводе «Манифеста ...» на английский не все благополучно, несмотря даже на то, что это один из немногих переводов, который претендует на то, чтобы называться авторизованным."},{"id":"header-15","text":"Так из 110 случаев словоупотребления синонимов «отрицания» наиболее жесткие, от <strong>Vernichtung</strong> («уничтожение») до Umsturz («ниспровержение»), в немецком оригинале использовались 32 раза, а в ИМЭЛовском русском переводе — 65, в основном за счет некорректного перевода понятий <strong>Aufheben</strong> и <strong>Abschaffen</strong>."},{"id":"header-16","text":"При переводе на английский эту игру слов тоже передать не удалось. Так в аглийском тексте «Манифеста ...» <strong>Aufhebung</strong> во фразе «Aufhebung der Familie!» переводится двуязычно: «Abolition [<em>Aufhebung</em>] of the family!», видимо, чтобы подчеркнуть не «уничтожение» (фигурирующее как в русском, так и в английском переводе), а «снятие» семьи."},{"id":"header-17","text":"Маркс К. Энгельс Ф. Соч., Изд. 2, Т. 3. С. 70."},{"id":"header-18","text":"См. на эту тему, например, Шелике В. Ф., Объем и содержание понятия «общение» (Verkehr) в работе К. Маркса и Ф. Энгельса «Немецкая идеология», Философско-методологические проблемы теории общения. Сборник научных трудов. КГУ. Фрунзе, 1982, C. 19-29; и Шелике В.Ф., Непознанный Маркс и некоторые проблемы современности. Производство, общение (Verkehr), общество. Часть 3, «Философские науки» № 5, 2013, С. 120–130."},{"id":"header-19","text":"См., например, Шелике В. Ф., К. Маркс и Ф. Энгельс о взаимодействии производства и общения в историческом процессе, Методологические вопросы материалистического понимания истории в трудах К.Маркса и Ф.Энгельса. Сборник научных трудов. Фрунзе, КГУ, 1986, С. 31-50."},{"id":"header-20","text":"В отличие от перевода художественных произведений, правила перевода научных и технических текстов (а также требования Энгельса) предполагают только два решения этой проблемы: либо 1) взять уже существующее русское слово (или комбинацию русских слов), максимально близкое к искомому понятию, и придать ему тем самым новый смысл, либо 2) ввести в русский язык новое слово с русским или инозычным корнем (корнями)."},{"id":"header-21","text":"Кстати, В.И. Ленин в своей работе «Развитие капитализма в России» нередко использует пару «производство и обращение» (см., например, название раздела V первой главы этого произведения: «V. Взгляды А. Смита на производство и обращение всего общественного продукта в капиталистическом обществе и критика этих взглядов у Маркса»). См. Ленин В. И., Развитие капитализма в России. ПСС, 1971, Т. 3, С. 10."},{"id":"header-22","text":"Оба понятия, очевидно, являются частными значениями <strong>Verkehr</strong>’а."},{"id":"header-23","text":"Маркс К. Энгельс Ф. Соч., Изд. 2, Т. 46, Часть 2, C. 8."},{"id":"header-24","text":"Это еще одна иллюстрация того, что переводчики не соблюдали требования Энгельса к единообразию перевода терминов."},{"id":"header-25","text":"Ранее в своих, цитируемых здесь, работах использовавший для перевода <strong>Verkehr</strong>’а понятие «общение»."},{"id":"header-26","text":"Признание их синонимами выглядит примерно так же, как если бы при переводе на русский язык работ Исаака Ньютона такие ключевые понятия, как кинетическая и потенциальная энергия переводились бы исключительно как «потенциальная энергия». Физики нас поймут ..."},{"id":"header-27","text":"Маркс К., Энгельс Ф. Соч., Изд. 2, Т. 42, С. 92."},{"id":"header-28","text":"«Только на этом примере мы видим, как всего лишь одно неверно переведённое слово радикально изменяет всю философию Маркса на противоположное учение.» См. Кондрашов П.Н. «Часть 1» С. 41"},{"id":"header-29","text":"Довольно подробный разбор проблем, с которыми сталкивались переводчики «Манифеста ...» дан в вышеупомянутой статье И.И. Прейса 1948 года."},{"id":"header-30","text":"Следует отметить, что недопустимость избытка «уничтожения» в переводе <strong>Abschaffen</strong> и <strong>Aufheben</strong> в рамках «Манифеста ...» отмечена А.Фроловым, политическим обозревателем газеты «Советская Россия» в его ответе на письмо одного из читателей (см. «Целый том искажений», «Правда России», вкладыш в «Советскую Россию», 05.08.1993 г., перепечатано в ж-ле «Коммунист» № 5, 2008, С. 26-30, http://comrf.narod.ru/K805.pdf)."},{"id":"de-1","text":"Unter Bourgeoisie wird die Klasse der modernen Kapitalisten verstanden, die Besitzer der gesellschaftlichen Produktionsmittel sind und Lohnarbeit ausnutzen. Unter Proletariat die Klasse der modernen Lohnarbeiter, die, da sie keine eigenen Produktionsmittel besitzen, darauf angewiesen sind, ihre Arbeitskraft zu verkaufen, um leben zu können. <em>[Anmerkung von Engels zur englischen Ausgabe von 1888.]</em>"},{"id":"de-2","text":"Das heißt, genau gesprochen, die schriftlich überlieferte Geschichte. 1847 war die Vorgeschichte der Gesellschaft, die gesellschaftliche Organisation, die aller niedergeschriebenen Geschichte vorausging, noch so gut wie unbekannt. Seitdem hat Haxthausen das Gemeineigentum am Boden in Rußland entdeckt, Maurer hat es nachgewiesen als die gesellschaftliche Grundlage, wovon alle deutschen Stämme geschichtlich ausgingen, und allmählich fand man, daß Dorfgemeinden mit gemeinsamem Bodenbesitz die Urform der Gesellschaft waren von Indien bis Irland. Schließlich wurde die innere Organisation dieser urwüchsigen kommunistischen Gesellschaft in ihrer typischen Form bloßgelegt durch Morgans krönende Entdeckung der wahren Natur der Gens und ihrer Stellung im Stamm. Mit der <strong class=\"text-highlight\">Auflösung</strong> dieser ursprünglichen Gemeinwesen beginnt die Spaltung der Gesellschaft in besondre und schließlich einander entgegengesetzte Klassen. Ich habe versucht, diesen <strong class=\"text-highlight\">Auflösung</strong>sprozeß in \"Der Ursprung der Familie, des Privateigenthums und des Staates\" zu verfolgen; 2. Auflage, Stuttgart 1886. <em>[Anmerkung von Engels zur englischen Ausgabe von 1888.]</em>"},{"id":"en-1","text":"By bourgeoisie is meant the class of modern capitalists, owners of the means-production and employers of wage labour. By proletariat, the class of modern wage-labou who, having no means of production of their own, are reduced to selling their labour-power in order to live. <em>[Engels, 1888 English edition]</em>"},{"id":"en-2","text":"That is, all written history. In 1847, the pre-history of society, the social organisation existing previous to recorded history, all but unknown. Since then, August von Haxthausen (1792-1866) discovered common ownership of land in Russia, Georg Ludwig von Maurer proved it to be the social foundation from which all Teutonic races started in history, and, by and by, village communities were found to be, or to have been, the primitive form of society everywhere from India to Ireland. The inner organisation of this primitive communistic society was laid bare, in its typical form, by Lewis Henry Morgan's (1818-1881) crowning discovery of the true nature of the gens and its relation to the tribe. With the dissolution of the primeval communities, society begins to be differentiated into separate and finally antagonistic classes. I have attempted to retrace this dissolution in The Origin of the Family, Private Property, and the State, second edition, Stuttgart, 1886. [Engels, 1888 English Edition and 1890 German Edition (with the last sentence omitted)]"},{"id":"ru-1-1","text":"Под буржуазией понимается класс современных капиталистов, собственников средств общественного производства, применяющих наемный труд. Под пролетариатом понимается класс современных наемных рабочих, которые, будучи лишены своих собственных средств производства, вынуждены, для того чтобы жить, продавать свою рабочую силу. <em>(Примечание Энгельса к английскому изданию 1888 г.)</em>"},{"id":"ru-1-2","text":"То есть вся история, дошедшая до нас в письменных источниках. В 1847 г. предыстория общества, общественная организация, предшествовавшая всей писаной истории, почти совсем еще не была известна. За истекшее с тех пор время Гакстгаузен открыл общинную собственность на землю в России, Маурер доказал, что она была общественной основой, послужившей исходным пунктом исторического развития всех германских племен, и постепенно выяснилось, что сельская община с общим владением землей является или являлась в прошлом повсюду первобытной формой общества, от Индии до Ирландии. Внутренняя организация этого первобытного коммунистического общества, в ее типической форме, была выяснена Морганом, увенчавшим дело своим открытием истинной сущности рода и его положения в племени. С <strong class=\"text-highlight\">разложением (Auflösung)</strong> этой первобытной общины начинается расслоение общества на особые и в конце концов антагонистические классы. Я попытался проследить этот процесс <strong class=\"text-highlight\">разложения (Auflösung)</strong> в работе \"Der Ursprung der Familie, des Privateigentums und des Staats\", 2. Aufl., Stuttgart, 1886 [\"Происхождение семьи, частной собственности и государства\", 2-е изд., Штутгарт, 1886]. <em>(Примечание Энгельса к английскому изданию 1888 г.)</em> Энгельс включил это примечание также в немецкое издание \"Манифеста Коммунистической партии\" 1890 г., опустив лишь последнюю фразу."},{"id":"ru-2-1","text":"Под буржуазией понимается класс современных капиталистов, собственников средств общественного производства, применяющих наемный труд. Под пролетариатом понимается класс современных наемных рабочих, которые, будучи лишены своих собственных средств производства, вынуждены, для того чтобы жить, продавать свою рабочую силу. <em>(Примечание Энгельса к английскому изданию 1888 г.)</em>"},{"id":"ru-2-2","text":"То есть вся история, дошедшая до нас в письменных источниках. В 1847 г. предыстория общества, общественная организация, предшествовавшая всей писаной истории, почти совсем еще не была известна. За истекшее с тех пор время Гакстгаузен открыл общинную собственность на землю в России, Маурер доказал, что она была общественной основой, послужившей исходным пунктом исторического развития всех германских племен, и постепенно выяснилось, что сельская община с общим владением землей является или являлась в прошлом повсюду первобытной формой общества, от Индии до Ирландии. Внутренняя организация этого первобытного коммунистического общества, в ее типической форме, была выяснена Морганом, увенчавшим дело своим открытием истинной сущности рода и его положения в племени. С <strong class=\"text-highlight\">разложением (Auflösung)</strong> этой первобытной общины начинается расслоение общества на особые и в конце концов антагонистические классы. Я попытался проследить этот процесс <strong class=\"text-highlight\">разложения (Auflösung)</strong> в работе «Der Ursprung der Familie, des Privateigentums und des Staats», 2. Aufl., Stuttgart, 1886 [«Происхождение семьи, частной собственности и государства», 2-е изд., Штутгарт, 1886]. <em>(Примечание Энгельса к английскому изданию 1888 г.)</em> Энгельс включил это примечание также в немецкое издание «Манифеста Коммунистической партии» 1890 г., опустив лишь последнюю фразу."}];
+            const footnote = footnotes.find(f => f.id === footnoteId);
+            
+            if (footnote) {
+                popup.innerHTML = footnote.text;
+                
+                const link = event.target;
+                const rect = link.getBoundingClientRect();
+                
+                // На мобильных устройствах показываем по центру внизу
+                if (window.innerWidth <= 768) {
+                    // Для мобильного - добавляем к body с position: fixed
+                    document.body.appendChild(popup);
+                    popup.style.position = 'fixed';
+                    popup.style.left = '20px';
+                    popup.style.right = '20px';
+                    popup.style.bottom = '20px';
+                    popup.style.top = 'auto';
+                    popup.style.width = 'auto';
+                    popup.style.transform = 'none';
+                } else {
+                    // На десктопе показываем над ссылкой с position: absolute
+                    document.body.appendChild(popup);
+                    popup.style.position = 'absolute';
+                    
+                    const popupWidth = 600;
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+                    
+                    let left = rect.left + scrollLeft + (rect.width / 2) - (popupWidth / 2);
+                    const top = rect.top + scrollTop - 10;
+                    
+                    // Проверяем границы экрана
+                    if (left + popupWidth > window.innerWidth + scrollLeft - 20) {
+                        left = window.innerWidth + scrollLeft - popupWidth - 20;
+                    }
+                    if (left < scrollLeft + 20) {
+                        left = scrollLeft + 20;
+                    }
+                    
+                    popup.style.left = left + 'px';
+                    popup.style.top = top + 'px';
+                    popup.style.transform = 'translateY(-100%)';
+                    popup.style.width = popupWidth + 'px';
+                }
+                
+                popup.style.display = 'block';
+                
+                // Закрываем при клике вне всплывающего окна
+                setTimeout(() => {
+                    document.addEventListener('click', function closePopup(e) {
+                        if (!popup.contains(e.target) && e.target !== link) {
+                            popup.remove();
+                            document.removeEventListener('click', closePopup);
+                        }
+                    });
+                }, 100);
+            }
+        }
+
+        // Плавная прокрутка к абзацам при клике
+        document.querySelectorAll('.paragraph').forEach(paragraph => {
+            paragraph.addEventListener('click', function() {
+                const paragraphNumber = this.getAttribute('data-paragraph');
+                const allParagraphs = document.querySelectorAll(`[data-paragraph="${paragraphNumber}"]:not(.hidden)`);
+                
+                allParagraphs.forEach(p => {
+                    p.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                });
+            });
+        });
+
+        // Анимация появления абзацев при прокрутке
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.paragraph').forEach(paragraph => {
+            paragraph.style.opacity = '0';
+            paragraph.style.transform = 'translateY(20px)';
+            paragraph.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(paragraph);
+        });
+
+        // Синхронизация высоты абзацев
+        function syncParagraphHeights() {
+            const paragraphNumbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"];
+            
+            paragraphNumbers.forEach(paragraphNumber => {
+                const paragraphs = document.querySelectorAll(`[data-paragraph="${paragraphNumber}"]:not(.hidden)`);
+                if (paragraphs.length > 1) {
+                    let maxHeight = 0;
+                    
+                    // Находим максимальную высоту среди видимых абзацев
+                    paragraphs.forEach(paragraph => {
+                        paragraph.style.height = 'auto';
+                        const height = paragraph.offsetHeight;
+                        if (height > maxHeight) {
+                            maxHeight = height;
+                        }
+                    });
+                    
+                    // Устанавливаем одинаковую высоту для всех абзацев с этим номером
+                    paragraphs.forEach(paragraph => {
+                        paragraph.style.height = maxHeight + 'px';
+                    });
+                }
+            });
+        }
+
+        // Обновленная функция обновления видимости колонок
+        function updateColumnVisibility() {
+            const columns = Array.from(document.querySelectorAll('.language-column'));
+            const parallelText = document.getElementById('parallel-text');
+            
+            // Показываем/скрываем колонки
+            columns.forEach(column => {
+                const lang = column.getAttribute('data-lang');
+                if (visibleColumns.includes(lang)) {
+                    column.classList.remove('hidden');
+                } else {
+                    column.classList.add('hidden');
+                }
+            });
+
+            // Сортируем колонки согласно languageOrder (только видимые в правильном порядке)
+            const sortedColumns = languageOrder
+                .filter(lang => visibleColumns.includes(lang))
+                .map(lang => columns.find(col => col.getAttribute('data-lang') === lang))
+                .filter(col => col !== undefined);
+            
+            // Перестраиваем DOM в правильном порядке
+            sortedColumns.forEach(column => parallelText.appendChild(column));
+
+            // Обновление CSS класса для количества колонок
+            const visibleCount = visibleColumns.length;
+            parallelText.className = `parallel-text columns-${visibleCount}`;
+            
+            // Синхронизируем высоты абзацев после обновления видимости
+            setTimeout(syncParagraphHeights, 100);
+        }
+
+        // Глобальное переключение языка для всех абзацев на мобильном
+        let currentMobileLang = null;
+        
+        function switchAllMobileLang(lang) {
+            // Сохраняем текущую позицию прокрутки
+            const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Находим ближайший видимый абзац
+            const groups = document.querySelectorAll('.mobile-paragraph-group');
+            let closestGroup = null;
+            let minDistance = Infinity;
+            
+            groups.forEach(group => {
+                const rect = group.getBoundingClientRect();
+                const distance = Math.abs(rect.top);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestGroup = group;
+                }
+            });
+            
+            // Переключаем язык для всех абзацев
+            groups.forEach(group => {
+                const contents = group.querySelectorAll('.mobile-paragraph-content');
+                contents.forEach(content => content.classList.remove('active'));
+                
+                const selectedContent = group.querySelector(`.mobile-paragraph-content[data-lang="${lang}"]`);
+                if (selectedContent) {
+                    selectedContent.classList.add('active');
+                }
+            });
+            
+            // Обновляем активную кнопку в панели
+            const buttons = document.querySelectorAll('.mobile-lang-bar .mobile-lang-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            const activeBtn = document.querySelector(`.mobile-lang-bar .mobile-lang-btn[data-lang="${lang}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+            
+            // Сохраняем выбранный язык
+            currentMobileLang = lang;
+            localStorage.setItem('currentMobileLang', lang);
+            
+            // Прокручиваем к ближайшему абзацу после переключения
+            requestAnimationFrame(() => {
+                if (closestGroup) {
+                    closestGroup.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        }
+
+        // Инициализация мобильного вида
+        function initMobileView() {
+            const allLanguages = ["de","en","ru-1","ru-2"];
+            const savedLang = localStorage.getItem('currentMobileLang');
+            const defaultLang = savedLang || allLanguages[0];
+            
+            // Активируем сохраненный или первый язык для всех абзацев
+            if (defaultLang) {
+                switchAllMobileLang(defaultLang);
+            }
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTheme(); // Загружаем сохраненную тему
+            loadColumnState();
+            updateColumnVisibility();
+            initMobileView(); // Инициализируем мобильный вид
+            
+            // Синхронизируем высоты при изменении размера окна
+            window.addEventListener('resize', syncParagraphHeights);
+        });
+    </script>
+</body>
+</html>
