@@ -46,7 +46,7 @@ function readFile(filePath) {
 /**
  * Парсер inline Markdown для абзацев (заголовки, жирный, курсив, сноски)
  */
-function parseInlineMarkdown(text, footnotes = [], langCode = '') {
+function parseInlineMarkdown(text, footnotes = [], langCode = '', addColorToBold = false) {
     let html = text;
     
     // Проверяем, является ли строка заголовком
@@ -82,8 +82,12 @@ function parseInlineMarkdown(text, footnotes = [], langCode = '') {
         return match;
     });
     
-    // Выделение жирным **текст**
-    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Выделение жирным **текст** - с красным цветом или без
+    if (addColorToBold) {
+        html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="text-highlight">$1</strong>');
+    } else {
+        html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    }
     
     // Выделение курсивом *текст*
     html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
@@ -129,7 +133,14 @@ function parseMarkdown(markdown) {
                 i++;
             }
             
-            footnotes.push({ id: footnoteId, text: footnoteText.trim() });
+            // Обрабатываем форматирование в тексте сноски
+            let formattedText = footnoteText.trim();
+            // Сначала обрабатываем жирный (две звездочки) - используем негативный lookahead/lookbehind
+            formattedText = formattedText.replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>');
+            // Потом курсив (одна звездочка) - но не те, что часть **
+            formattedText = formattedText.replace(/(?<!\*)\*([^*]+?)\*(?!\*)/g, '<em>$1</em>');
+            
+            footnotes.push({ id: footnoteId, text: formattedText });
         } else {
             processedLines.push(line);
             i++;
@@ -267,7 +278,14 @@ function parseLanguageFile(filePath, langCode = '') {
                 i++;
             }
             
-            footnotes.push({ id: footnoteId, text: footnoteText.trim() });
+            // Обрабатываем форматирование в тексте сноски
+            let formattedText = footnoteText.trim();
+            // Сначала обрабатываем жирный (две звездочки) - с красным цветом для языковых файлов
+            formattedText = formattedText.replace(/\*\*([^*]+?)\*\*/g, '<strong class="text-highlight">$1</strong>');
+            // Потом курсив (одна звездочка) - но не те, что часть **
+            formattedText = formattedText.replace(/(?<!\*)\*([^*]+?)\*(?!\*)/g, '<em>$1</em>');
+            
+            footnotes.push({ id: footnoteId, text: formattedText });
         } else if (line.trim().length > 0) {
             processedLines.push(line);
             i++;
@@ -278,9 +296,10 @@ function parseLanguageFile(filePath, langCode = '') {
     }
     
     // Применяем Markdown к каждому абзацу, передавая langCode для уникальных ID сносок
+    // Для языковых файлов добавляем красный цвет к жирному тексту
     const paragraphs = processedLines
         .filter(line => line.trim().length > 0)
-        .map(paragraph => parseInlineMarkdown(paragraph, footnotes, langCode));
+        .map(paragraph => parseInlineMarkdown(paragraph, footnotes, langCode, true));
 
     // Добавляем префикс langCode к ID сносок для уникальности
     const uniqueFootnotes = footnotes.map(f => ({

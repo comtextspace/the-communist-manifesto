@@ -264,6 +264,14 @@
             flex: 1;
         }
 
+        .text-highlight {
+            color: #d32f2f;
+        }
+
+        [data-theme="dark"] .text-highlight {
+            color: #ff5252;
+        }
+
         .paragraph-number {
             font-size: 11px;
             color: var(--text-color);
@@ -615,6 +623,17 @@
             line-height: 1.4;
             color: var(--text-color);
             display: none;
+        }
+        
+        /* Форматирование внутри сносок */
+        .footnote-popup strong {
+            font-weight: bold;
+            color: var(--text-color);
+        }
+        
+        .footnote-popup em {
+            font-style: italic;
+            color: var(--text-color);
         }
 
         /* Стили для Markdown элементов */
@@ -971,7 +990,7 @@
             const footnote = footnotes.find(f => f.id === footnoteId);
             
             if (footnote) {
-                popup.textContent = footnote.text;
+                popup.innerHTML = footnote.text;
                 
                 const link = event.target;
                 const rect = link.getBoundingClientRect();
