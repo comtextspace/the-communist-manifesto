@@ -475,7 +475,7 @@ function generateLanguageColumns(languages) {
         
         const paragraphsHtml = language.paragraphs.map((paragraph, index) => {
             return `
-                <div class="paragraph" data-paragraph="${index + 1}" id="paragraph-${index + 1}">
+                <div class="paragraph" data-paragraph="${index + 1}" data-lang="${langCode}" id="paragraph-${langCode}-${index + 1}">
                     <div class="paragraph-number">${index + 1}</div>
                     <div class="paragraph-text">
                         ${paragraph}

@@ -1104,7 +1104,17 @@
                 targetElement = mobileGroup;
             } else {
                 // Если мобильная версия не найдена или скрыта, ищем десктопную
-                targetElement = document.getElementById(`paragraph-${paragraphNum}`);
+                // Находим все параграфы с нужным номером
+                const allParagraphs = document.querySelectorAll(`.paragraph[data-paragraph="${paragraphNum}"]`);
+                
+                // Берем первый видимый параграф (первая видимая колонка)
+                for (const paragraph of allParagraphs) {
+                    const column = paragraph.closest('.language-column');
+                    if (column && window.getComputedStyle(column).display !== 'none') {
+                        targetElement = paragraph;
+                        break;
+                    }
+                }
             }
             
             if (targetElement) {
