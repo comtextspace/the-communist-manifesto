@@ -31,7 +31,7 @@ To this end, Communists of various nationalities have assembled in London and sk
 
 ## I. Bourgeois and Proletarians[^1]
 
-[^1]: By bourgeoisie is meant the class of modern capitalists, owners of the means-production and employers of wage labour. By proletariat, the class of modern wage-labou who, having no means of production of their own, are reduced to selling their labour-power in order to live. [*Engels, 1888 English edition*]
+[^1]: By bourgeoisie is meant the class of modern capitalists, owners of the means-production and employers of wage labour. By proletariat, the class of modern wage-labou who, having no means of production of their own, are reduced to selling their labour-power in order to live. *[Engels, 1888 English edition]*
 
 The history of all hitherto existing society[^2] is the history of class struggles.
 
