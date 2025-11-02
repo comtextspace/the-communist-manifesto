@@ -261,7 +261,7 @@ Our bourgeois, not content with having wives and daughters of their proletarians
 
 Bourgeois marriage is, **in reality**, a system of wives in common and thus, at the most, what the Communists might possibly be reproached with is that they desire to introduce, in substitution for a hypocritically concealed, an openly legalised community of women. For the rest, it is self-evident that the **abolition** of the present system of production must bring with it the **abolition** of the community of women springing from that system, i.e., of prostitution both public and private.
 
-The Communists are further reproached with desiring **to abolish** countries and nationality. The working men have no country. We cannot take from them what they have not got. Since the proletariat must first of all acquire political supremacy, must rise to be the leading class of the nation, must constitute itself the nation, it is so far, itself national, though not in the bourgeois sense of the word.
+The Communists are further reproached with desiring **to abolish** countries and nationality. The working men have no country. We cannot take from them what they have not got. Since the proletariat must first of all acquire political supremacy, must rise to be the leading class of the nation, must constitute itself *the* nation, it is so far, itself national, though not in the bourgeois sense of the word.
 
 National differences and antagonism between peoples are daily more and more **vanishing**, owing to the development of the bourgeoisie, to freedom of commerce, to the world market, to uniformity in the mode of production and in the conditions of life corresponding thereto.
 
@@ -480,4 +480,3 @@ The Communists disdain to conceal their views and aims. They openly declare that
 Working Men of All Countries, Unite![^10]
 
 [^10]: The famous final phrase of the Manifesto, “Working Men of All Countries, Unite!”, in the original German is: “Proletarier aller Länder, vereinigt euch!” Thus, a more correct translation would be “Proletarians of all countries, Unite!”. “Workers of the World, Unite. You have nothing to lose but your chains!” is a popularisation of the last three sentences, and is not found in any official translation. Since this English translation was approved by Engels, we have kept the original intact.
-
