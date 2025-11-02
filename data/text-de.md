@@ -6,7 +6,16 @@ Karl Marx/Friedrich Engels
 
 Inhalt:
 
-I Bourgeois und Proletarier II Proletarier und Kommunisten III Sozialistische und kommunistische Literatur 1. Der reaktionäre Sozialismus a) Der feudale Sozialismus b) Kleinbürgerlicher Sozialismus c) Der deutsche oder "wahre" Sozialismus 2. Der konservative oder Bourgeoissozialismus 3. Der kritisch-utopistische Sozialismus **oder** Kommunismus IV Stellung der Kommunisten zu den verschiedenen oppositionellen Parteien
+I Bourgeois und Proletarier
+II Proletarier und Kommunisten
+III Sozialistische und kommunistische Literatur
+1. Der reaktionäre Sozialismus
+a) Der feudale Sozialismus
+b) Kleinbürgerlicher Sozialismus
+c) Der deutsche oder "wahre" Sozialismus
+2. Der konservative oder Bourgeoissozialismus
+3. Der kritisch-utopistische Sozialismus **oder** Kommunismus
+IV Stellung der Kommunisten zu den verschiedenen oppositionellen Parteien
 
 Ein Gespenst geht um in Europa – das Gespenst des Kommunismus. Alle Mächte des alten Europa haben sich zu einer heiligen Hetzjagd gegen dies Gespenst verbündet, der Papst und der Zar, Metternich und Guizot, französische Radikale und deutsche Polizisten.
 
