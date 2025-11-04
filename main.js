@@ -50,7 +50,7 @@ function parseInlineMarkdown(text, footnotes = [], langCode = '', addColorToBold
     let html = text;
     
     // Проверяем, является ли строка заголовком
-    const headerMatch = text.match(/^(#{1,3})\s+(.+)$/);
+    const headerMatch = text.match(/^(#{1,6})\s+(.+)$/);
     if (headerMatch) {
         const level = headerMatch[1].length;
         let headerText = headerMatch[2];
@@ -121,7 +121,7 @@ function parseMarkdown(markdown) {
             while (i < lines.length) {
                 const nextLine = lines[i];
                 // Останавливаемся если встретили новую сноску или заголовок
-                if (nextLine.match(/^\[\^(\d+)\]:/) || nextLine.match(/^#{1,3}\s/)) {
+                if (nextLine.match(/^\[\^(\d+)\]:/) || nextLine.match(/^#{1,6}\s/)) {
                     break;
                 }
                 // Если пустая строка, останавливаемся
@@ -160,7 +160,10 @@ function parseMarkdown(markdown) {
         return match;
     });
 
-    // Заголовки
+    // Заголовки (до 6 уровня)
+    html = html.replace(/^###### (.*$)/gim, '<h6>$1</h6>');
+    html = html.replace(/^##### (.*$)/gim, '<h5>$1</h5>');
+    html = html.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
     html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
     html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
     html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
@@ -266,7 +269,7 @@ function parseLanguageFile(filePath, langCode = '') {
             while (i < lines.length) {
                 const nextLine = lines[i];
                 // Останавливаемся если встретили новую сноску или заголовок
-                if (nextLine.match(/^\[\^(\d+)\]:/) || nextLine.match(/^#{1,3}\s/)) {
+                if (nextLine.match(/^\[\^(\d+)\]:/) || nextLine.match(/^#{1,6}\s/)) {
                     break;
                 }
                 // Если пустая строка, останавливаемся
