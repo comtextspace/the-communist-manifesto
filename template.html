@@ -1298,10 +1298,10 @@
             }
             
             if (targetElement) {
-                // Прокручиваем к абзацу
+                // Прокручиваем к абзацу (начало всегда видно)
                 targetElement.scrollIntoView({
                     behavior: 'smooth',
-                    block: 'center'
+                    block: 'start'
                 });
                 
                 // Добавляем подсветку
@@ -1388,16 +1388,37 @@
 
         // Плавная прокрутка к абзацам при клике
         document.querySelectorAll('.paragraph').forEach(paragraph => {
-            paragraph.addEventListener('click', function() {
+            paragraph.addEventListener('click', function(event) {
                 const paragraphNumber = this.getAttribute('data-paragraph');
-                const allParagraphs = document.querySelectorAll(`[data-paragraph="${paragraphNumber}"]:not(.hidden)`);
                 
-                allParagraphs.forEach(p => {
-                    p.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center'
+                // Проверяем, мобильная версия или десктоп
+                if (window.innerWidth <= 768) {
+                    // На мобильной версии прокручиваем только к кликнутому абзацу
+                    // Находим родительский элемент mobile-paragraph-item
+                    const mobileItem = this.closest('.mobile-paragraph-item');
+                    if (mobileItem) {
+                        mobileItem.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    } else {
+                        // Если не нашли, прокручиваем к самому абзацу
+                        this.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                } else {
+                    // На десктопной версии синхронизируем прокрутку всех абзацев с тем же номером
+                    const allParagraphs = document.querySelectorAll(`[data-paragraph="${paragraphNumber}"]:not(.hidden)`);
+                    
+                    allParagraphs.forEach(p => {
+                        p.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     });
-                });
+                }
             });
         });
 
