@@ -321,7 +321,7 @@ When, in the course of development, class distinctions have **disappeared**, and
 
 In place of the old bourgeois society, with its classes and class antagonisms, we shall have an **association**, in which the free development of each is the condition for the free development of all.
 
- ## III. Socialist and Communist Literature
+## III. Socialist and Communist Literature
 
 ### 1. Reactionary Socialism
 
