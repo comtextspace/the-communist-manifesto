@@ -231,7 +231,7 @@ Die Bildung, deren **Verlust** er bedauert, ist für die enorme Mehrzahl die Her
 
 Aber streitet nicht mit uns, indem ihr an euren bürgerlichen Vorstellungen von Freiheit, Bildung, Recht usw. die **Abschaffung** des bürgerlichen Eigentums meßt. Eure Ideen selbst sind Erzeugnisse der bürgerlichen Produktions- und Eigentumsverhältnisse, wie euer Recht nur der zum Gesetz erhobene Wille eurer Klasse ist, ein Wille, dessen Inhalt gegeben ist in den materiellen Lebensbedingungen eurer Klasse.
 
-Die interessierte Vorstellung, worin ihr eure Produktions- und Eigentumsverhältnisse aus geschichtlichen, in dem Lauf der Produktion vorübergehenden Verhältnissen in ewige Natur- und Vernunftgesetze verwandelt, teilt ihr mit allen **untergegangenen** herrschenden Klassen. Was ihr für das antike Eigentum begreift, was ihr für das feudale Eigentum begreift, dürft ihr nicht mehr begreifen für das bürgerliche Eigentum.-
+Die interessierte Vorstellung, worin ihr eure Produktions- und Eigentumsverhältnisse aus geschichtlichen, in dem Lauf der Produktion vorübergehenden Verhältnissen in ewige Natur- und Vernunftgesetze verwandelt, teilt ihr mit allen **untergegangenen** herrschenden Klassen. Was ihr für das antike Eigentum begreift, was ihr für das feudale Eigentum begreift, dürft ihr nicht mehr begreifen für das bürgerliche Eigentum.
 
 **Aufhebung** der Familie! Selbst die Radikalsten ereifern sich über diese schändliche Absicht der Kommunisten.
 
