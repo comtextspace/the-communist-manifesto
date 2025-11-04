@@ -570,6 +570,23 @@
             .paragraph-flag {
                 display: inline-block !important;
             }
+
+            /* Кнопка прокрутки вверх на мобильной версии */
+            .controls {
+                position: fixed !important;
+                bottom: 20px !important;
+                right: 20px !important;
+                z-index: 300 !important;
+                display: flex !important;
+            }
+
+            .control-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                border-radius: 50%;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            }
             
             /* Сноски на мобильном не должны выходить за экран */
             .footnote-popup {
