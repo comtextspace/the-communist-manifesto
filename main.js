@@ -187,6 +187,9 @@ function parseMarkdown(markdown) {
     // Ссылки [текст](url) - обычные внешние ссылки
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
 
+    // Горизонтальная линия (---)
+    html = html.replace(/^---\s*$/gm, '<hr>');
+
     // Списки - обрабатываем перед разбиением на абзацы
     html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
     html = html.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
@@ -200,8 +203,8 @@ function parseMarkdown(markdown) {
         paragraph = paragraph.trim();
         if (!paragraph) return '';
         
-        // Если абзац уже содержит HTML теги (заголовки, списки), оставляем как есть
-        if (paragraph.match(/^<[h1-6]|^<ul/)) {
+        // Если абзац уже содержит HTML теги (заголовки, списки, горизонтальная линия), оставляем как есть
+        if (paragraph.match(/^<[h1-6]|^<ul|^<hr/)) {
             return paragraph;
         }
         
