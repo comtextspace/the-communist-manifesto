@@ -480,3 +480,7 @@ The Communists disdain to conceal their views and aims. They openly declare that
 Working Men of All Countries, Unite![^10]
 
 [^10]: The famous final phrase of the Manifesto, “Working Men of All Countries, Unite!”, in the original German is: “Proletarier aller Länder, vereinigt euch!” Thus, a more correct translation would be “Proletarians of all countries, Unite!”. “Workers of the World, Unite. You have nothing to lose but your chains!” is a popularisation of the last three sentences, and is not found in any official translation. Since this English translation was approved by Engels, we have kept the original intact.
+
+https://www.marxists.org/archive/marx/works/1848/communist-manifesto/
+
+Written: Late 1847; First Published: February 1848; Source: Marx/Engels Selected Works, Vol. One, Progress Publishers, Moscow, 1969, pp. 98-137; Translated: Samuel Moore in cooperation with Frederick Engels, 1888; Transcribed: by Zodiac and Brian Baggins; Proofed: and corrected against 1888 English Edition by Andy Blunden 2004; Copyleft: Marxists Internet Archive (marxists.org) 1987, 2000, 2010. Permission is granted to distribute this document under the terms of the Creative Commons Attribution- Share-Alike License.
