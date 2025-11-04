@@ -363,6 +363,20 @@
             margin-bottom: 5px;
             text-align: right;
             font-family: monospace;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+
+        .paragraph-flag {
+            font-size: 12px;
+            opacity: 0.6;
+            display: none; /* По умолчанию скрыт, показывается только на мобильной версии */
+        }
+
+        .paragraph-num {
+            font-family: monospace;
         }
 
         .controls {
@@ -414,90 +428,24 @@
             }
         }
 
-        /* Мобильная версия с переключением языков для каждого абзаца */
+        /* Мобильная версия - все языки друг за другом */
         .mobile-paragraph-group {
             display: none;
             flex-direction: column;
+            margin-bottom: 30px;
+        }
+
+        .mobile-paragraph-item {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
             background-color: var(--column-bg);
             border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 12px;
-            position: relative;
-            overflow: visible;
-            min-height: fit-content;
-            height: auto;
+            padding: 15px;
         }
 
-        .mobile-paragraph-content {
-            display: none;
-            flex-shrink: 0;
-            height: auto;
-            min-height: 0;
-        }
 
-        .mobile-paragraph-content.active {
-            display: block;
-            height: auto;
-        }
-
-        /* Фиксированная панель языков внизу экрана на мобильном */
-        .mobile-lang-bar {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: var(--header-bg);
-            border-top: 2px solid var(--border-color);
-            padding: 10px;
-            z-index: 200;
-            box-shadow: 0 -2px 10px var(--shadow);
-        }
-
-        .mobile-lang-bar-inner {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            flex-wrap: wrap;
-            max-width: 100%;
-        }
-
-        .mobile-lang-btn {
-            padding: 10px 16px;
-            border: 2px solid var(--border-color);
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            min-width: 60px;
-            min-height: 50px;
-            height: auto;
-            white-space: nowrap;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-            user-select: none;
-            font-weight: 500;
-        }
-
-        .mobile-lang-btn.active {
-            background-color: var(--button-bg);
-            color: white;
-            border-color: var(--button-bg);
-            box-shadow: 0 3px 8px var(--shadow);
-            transform: translateY(-2px);
-        }
-
-        .mobile-lang-btn:active {
-            transform: scale(0.96);
-        }
-
-        .mobile-paragraph-content .paragraph {
+        .mobile-paragraph-item .paragraph {
             background-color: transparent !important;
             padding: 0 !important;
             margin: 0 !important;
@@ -507,18 +455,18 @@
             height: auto !important;
         }
 
-        .mobile-paragraph-content .paragraph:hover {
+        .mobile-paragraph-item .paragraph:hover {
             transform: none !important;
             box-shadow: none !important;
         }
         
-        .mobile-paragraph-content .paragraph-text {
+        .mobile-paragraph-item .paragraph-text {
             padding: 0 !important;
             margin: 0 !important;
             flex: none !important;
         }
         
-        .mobile-paragraph-content .paragraph-number {
+        .mobile-paragraph-item .paragraph-number {
             margin-bottom: 8px !important;
             opacity: 0.4;
         }
@@ -534,14 +482,13 @@
                 display: flex !important;
             }
             
-            /* Показываем панель языков внизу */
+            /* Скрываем панель языков внизу */
             .mobile-lang-bar {
-                display: block !important;
+                display: none !important;
             }
             
             .container {
                 padding: 15px;
-                padding-bottom: 90px; /* Отступ снизу для панели языков */
             }
             
             .book-info {
@@ -576,9 +523,13 @@
                 font-size: 18px;
             }
 
-            /* Скрываем панель выбора языков на мобильном */
+            /* Показываем панель выбора языков на мобильном */
             .language-panel {
-                display: none !important;
+                display: block !important;
+            }
+
+            .column-controls {
+                max-width: 100%;
             }
             
             .header-controls {
@@ -611,21 +562,13 @@
                 overflow: visible !important;
             }
             
-            .mobile-paragraph-group .paragraph {
-                background-color: transparent !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                min-height: 0 !important;
-                height: auto !important;
+            .mobile-paragraph-item {
+                margin-bottom: 15px;
             }
-            
-            .mobile-paragraph-group .paragraph-text {
-                min-height: 0 !important;
-            }
-            
-            .mobile-paragraph-content {
-                height: auto !important;
-                overflow: visible !important;
+
+            /* Показываем флаг в номере абзаца на мобильной версии */
+            .paragraph-flag {
+                display: inline-block !important;
             }
             
             /* Сноски на мобильном не должны выходить за экран */
@@ -639,12 +582,6 @@
                 min-width: 0 !important;
                 max-width: none !important;
                 transform: none !important;
-            }
-            
-            /* Кнопка прокрутки вверх должна быть над панелью языков */
-            .controls {
-                bottom: 90px !important;
-                z-index: 300 !important;
             }
         }
 
@@ -941,12 +878,6 @@
         <button class="control-btn" onclick="scrollToTop()" title="Наверх">↑</button>
     </div>
 
-    <!-- Фиксированная панель языков для мобильной версии -->
-    <div class="mobile-lang-bar" id="mobile-lang-bar">
-        <div class="mobile-lang-bar-inner" id="mobile-lang-bar-inner">
-            {{MOBILE_LANG_BUTTONS}}
-        </div>
-    </div>
 
     <div class="sync-indicator" id="sync-indicator"></div>
 
@@ -1174,10 +1105,12 @@
             // Проверяем, мобильная или десктопная версия
             let targetElement = null;
             
-            // Сначала ищем мобильную версию
-            const mobileGroup = document.querySelector(`.mobile-paragraph-group[data-paragraph="${paragraphNum}"]`);
-            if (mobileGroup && window.getComputedStyle(mobileGroup).display !== 'none') {
-                targetElement = mobileGroup;
+            if (window.innerWidth <= 768) {
+                // На мобильной версии ищем группу абзацев
+                const mobileGroup = document.querySelector(`.mobile-paragraph-group[data-paragraph="${paragraphNum}"]`);
+                if (mobileGroup) {
+                    targetElement = mobileGroup;
+                }
             } else {
                 // Если мобильная версия не найдена или скрыта, ищем десктопную
                 // Находим все параграфы с нужным номером
@@ -1373,74 +1306,40 @@
             const visibleCount = visibleColumns.length;
             parallelText.className = `parallel-text columns-${visibleCount}`;
             
+            // Обновляем видимость мобильных абзацев
+            updateMobileParagraphs();
+            
             // Синхронизируем высоты абзацев после обновления видимости
             setTimeout(syncParagraphHeights, 100);
         }
 
-        // Глобальное переключение языка для всех абзацев на мобильном
-        let currentMobileLang = null;
-        
-        function switchAllMobileLang(lang) {
-            // Сохраняем текущую позицию прокрутки
-            const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Находим ближайший видимый абзац
-            const groups = document.querySelectorAll('.mobile-paragraph-group');
-            let closestGroup = null;
-            let minDistance = Infinity;
-            
-            groups.forEach(group => {
-                const rect = group.getBoundingClientRect();
-                const distance = Math.abs(rect.top);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestGroup = group;
-                }
-            });
-            
-            // Переключаем язык для всех абзацев
-            groups.forEach(group => {
-                const contents = group.querySelectorAll('.mobile-paragraph-content');
-                contents.forEach(content => content.classList.remove('active'));
+        // Функция для обновления видимости и порядка мобильных абзацев
+        function updateMobileParagraphs() {
+            const mobileGroups = document.querySelectorAll('.mobile-paragraph-group');
+            mobileGroups.forEach(group => {
+                const items = Array.from(group.querySelectorAll('.mobile-paragraph-item'));
                 
-                const selectedContent = group.querySelector(`.mobile-paragraph-content[data-lang="${lang}"]`);
-                if (selectedContent) {
-                    selectedContent.classList.add('active');
-                }
+                // Фильтруем и сортируем элементы согласно languageOrder и visibleColumns
+                const visibleItems = languageOrder
+                    .filter(lang => visibleColumns.includes(lang))
+                    .map(lang => items.find(item => item.getAttribute('data-lang') === lang))
+                    .filter(item => item !== undefined);
+                
+                // Показываем/скрываем элементы
+                items.forEach(item => {
+                    const lang = item.getAttribute('data-lang');
+                    if (visibleColumns.includes(lang)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // Переставляем элементы в правильном порядке
+                visibleItems.forEach(item => {
+                    group.appendChild(item);
+                });
             });
-            
-            // Обновляем активную кнопку в панели
-            const buttons = document.querySelectorAll('.mobile-lang-bar .mobile-lang-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            
-            const activeBtn = document.querySelector(`.mobile-lang-bar .mobile-lang-btn[data-lang="${lang}"]`);
-            if (activeBtn) activeBtn.classList.add('active');
-            
-            // Сохраняем выбранный язык
-            currentMobileLang = lang;
-            localStorage.setItem('currentMobileLang', lang);
-            
-            // Прокручиваем к ближайшему абзацу после переключения
-            requestAnimationFrame(() => {
-                if (closestGroup) {
-                    closestGroup.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        }
-
-        // Инициализация мобильного вида
-        function initMobileView() {
-            const allLanguages = {{ALL_LANGUAGES}};
-            const savedLang = localStorage.getItem('currentMobileLang');
-            const defaultLang = savedLang || allLanguages[0];
-            
-            // Активируем сохраненный или первый язык для всех абзацев
-            if (defaultLang) {
-                switchAllMobileLang(defaultLang);
-            }
         }
 
         // Инициализация при загрузке страницы
@@ -1448,7 +1347,6 @@
             loadTheme(); // Загружаем сохраненную тему
             loadColumnState();
             updateColumnVisibility();
-            initMobileView(); // Инициализируем мобильный вид
             
             // Синхронизируем высоты при изменении размера окна
             window.addEventListener('resize', syncParagraphHeights);

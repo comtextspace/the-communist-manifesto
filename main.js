@@ -499,28 +499,33 @@ function generateLanguageColumns(languages) {
 }
 
 /**
- * Генерирует HTML для мобильной версии без кнопок в абзацах
+ * Генерирует HTML для мобильной версии - все выбранные языки друг за другом
  */
 function generateMobileParagraphs(languages) {
-    const langCodes = Object.keys(languages);
+    const langCodes = Object.keys(languages).sort(); // Сортируем для единообразия
     const maxParagraphs = Math.max(...Object.values(languages).map(lang => lang.paragraphs.length));
     
     let html = '';
     
-    // Для каждого абзаца создаем группу контента (без кнопок)
+    // Для каждого абзаца показываем все языки друг за другом
     for (let i = 0; i < maxParagraphs; i++) {
         const paragraphNum = i + 1;
         
-        // Генерируем контент для каждого языка
+        // Генерируем контент для каждого языка (все показываются, порядок будет изменен через CSS/JS)
         const languageContents = langCodes.map(langCode => {
             const language = languages[langCode];
+            const baseLang = language.baseLang || langCode;
+            const flag = LANGUAGE_FLAGS[baseLang] || '🌐';
             
             // Проверяем, есть ли этот абзац в данном языке
             if (i < language.paragraphs.length) {
                 return `
-                    <div class="mobile-paragraph-content" data-lang="${langCode}">
-                        <div class="paragraph" data-paragraph="${paragraphNum}">
-                            <div class="paragraph-number">${paragraphNum}</div>
+                    <div class="mobile-paragraph-item" data-lang="${langCode}">
+                        <div class="paragraph" data-paragraph="${paragraphNum}" data-lang="${langCode}" id="paragraph-${langCode}-${paragraphNum}">
+                            <div class="paragraph-number">
+                                <span class="paragraph-flag">${flag}</span>
+                                <span class="paragraph-num">${paragraphNum}</span>
+                            </div>
                             <div class="paragraph-text">
                                 ${language.paragraphs[i]}
                             </div>
@@ -540,21 +545,11 @@ function generateMobileParagraphs(languages) {
 }
 
 /**
- * Генерирует кнопки для фиксированной панели языков на мобильном
+ * Генерирует кнопки для фиксированной панели языков на мобильном (не используется)
  */
 function generateMobileLangButtons(languages) {
-    const langCodes = Object.keys(languages);
-    
-    return langCodes.map(langCode => {
-        const language = languages[langCode];
-        const baseLang = language.baseLang || langCode;
-        const flag = LANGUAGE_FLAGS[baseLang] || '🌐';
-        
-        // Используем buttonName из файла (после символа #)
-        const buttonText = language.buttonName ? `${flag} ${language.buttonName}` : flag;
-        
-        return `<button class="mobile-lang-btn" data-lang="${langCode}" onclick="switchAllMobileLang('${langCode}')">${buttonText}</button>`;
-    }).join('\n            ');
+    // Эта функция больше не используется, но оставляем для совместимости
+    return '';
 }
 
 /**
