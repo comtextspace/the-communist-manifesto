@@ -480,9 +480,14 @@ function generateLanguageColumns(languages) {
         const flag = LANGUAGE_FLAGS[baseLang] || '🌐';
         
         const paragraphsHtml = language.paragraphs.map((paragraph, index) => {
+            // Добавляем флаг и название языка (buttonName) если есть
+            const buttonName = language.buttonName ? ` <span class="paragraph-lang-name">${language.buttonName}</span>` : '';
             return `
                 <div class="paragraph" data-paragraph="${index + 1}" data-lang="${langCode}" id="paragraph-${langCode}-${index + 1}">
-                    <div class="paragraph-number">${index + 1}</div>
+                    <div class="paragraph-number">
+                        <span class="paragraph-flag-desktop">${flag}</span>${buttonName}
+                        <span class="paragraph-num">${index + 1}</span>
+                    </div>
                     <div class="paragraph-text">
                         ${paragraph}
                     </div>
@@ -522,11 +527,13 @@ function generateMobileParagraphs(languages) {
             
             // Проверяем, есть ли этот абзац в данном языке
             if (i < language.paragraphs.length) {
+                // Добавляем название языка (buttonName) если есть
+                const buttonName = language.buttonName ? ` <span class="paragraph-lang-name">${language.buttonName}</span>` : '';
                 return `
                     <div class="mobile-paragraph-item" data-lang="${langCode}">
                         <div class="paragraph" data-paragraph="${paragraphNum}" data-lang="${langCode}" id="paragraph-${langCode}-${paragraphNum}">
                             <div class="paragraph-number">
-                                <span class="paragraph-flag">${flag}</span>
+                                <span class="paragraph-flag">${flag}</span>${buttonName}
                                 <span class="paragraph-num">${paragraphNum}</span>
                             </div>
                             <div class="paragraph-text">

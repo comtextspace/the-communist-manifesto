@@ -387,8 +387,21 @@
             display: none; /* По умолчанию скрыт, показывается только на мобильной версии */
         }
 
+        .paragraph-flag-desktop {
+            font-size: 12px;
+            opacity: 0.6;
+            display: inline-block;
+        }
+
         .paragraph-num {
             font-family: monospace;
+        }
+
+        .paragraph-lang-name {
+            font-family: sans-serif;
+            font-size: 10px;
+            opacity: 0.5;
+            margin-left: 3px;
         }
 
         .controls {
@@ -1278,9 +1291,9 @@
             
             if (window.innerWidth <= 768) {
                 // На мобильной версии ищем группу абзацев
-                const mobileGroup = document.querySelector(`.mobile-paragraph-group[data-paragraph="${paragraphNum}"]`);
+            const mobileGroup = document.querySelector(`.mobile-paragraph-group[data-paragraph="${paragraphNum}"]`);
                 if (mobileGroup) {
-                    targetElement = mobileGroup;
+                targetElement = mobileGroup;
                 }
             } else {
                 // Если мобильная версия не найдена или скрыта, ищем десктопную
@@ -1410,14 +1423,14 @@
                     }
                 } else {
                     // На десктопной версии синхронизируем прокрутку всех абзацев с тем же номером
-                    const allParagraphs = document.querySelectorAll(`[data-paragraph="${paragraphNumber}"]:not(.hidden)`);
-                    
-                    allParagraphs.forEach(p => {
-                        p.scrollIntoView({
-                            behavior: 'smooth',
+                const allParagraphs = document.querySelectorAll(`[data-paragraph="${paragraphNumber}"]:not(.hidden)`);
+                
+                allParagraphs.forEach(p => {
+                    p.scrollIntoView({
+                        behavior: 'smooth',
                             block: 'start'
-                        });
                     });
+                });
                 }
             });
         });
